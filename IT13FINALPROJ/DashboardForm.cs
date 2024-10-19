@@ -29,6 +29,12 @@ namespace IT13FINALPROJ
             CountTotalProfessor();//COUNT TOTAL PROFESSORS
 
             LoadEnrollmentData();
+
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.ControlBox = false;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void CountTotalStudents()

@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DashboardForm));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             tabPage1 = new TabPage();
             panel5 = new Panel();
@@ -58,7 +58,7 @@
             pictureBox4 = new PictureBox();
             label2 = new Label();
             tabPage2 = new TabPage();
-            Fullnamelabel = new Label();
+            Listlabel = new Label();
             button6 = new Button();
             button5 = new Button();
             button4 = new Button();
@@ -588,7 +588,7 @@
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(Fullnamelabel);
+            tabPage2.Controls.Add(Listlabel);
             tabPage2.Controls.Add(button6);
             tabPage2.Controls.Add(button5);
             tabPage2.Controls.Add(button4);
@@ -604,17 +604,17 @@
             tabPage2.Text = "List";
             tabPage2.UseVisualStyleBackColor = true;
             // 
-            // Fullnamelabel
+            // Listlabel
             // 
-            Fullnamelabel.AutoSize = true;
-            Fullnamelabel.BackColor = Color.Transparent;
-            Fullnamelabel.Font = new Font("Segoe UI Black", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            Fullnamelabel.ForeColor = Color.Black;
-            Fullnamelabel.Location = new Point(332, 108);
-            Fullnamelabel.Name = "Fullnamelabel";
-            Fullnamelabel.Size = new Size(415, 50);
-            Fullnamelabel.TabIndex = 35;
-            Fullnamelabel.Text = "List Enrolled Students";
+            Listlabel.AutoSize = true;
+            Listlabel.BackColor = Color.Transparent;
+            Listlabel.Font = new Font("Segoe UI Black", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Listlabel.ForeColor = Color.Black;
+            Listlabel.Location = new Point(332, 108);
+            Listlabel.Name = "Listlabel";
+            Listlabel.Size = new Size(415, 50);
+            Listlabel.TabIndex = 35;
+            Listlabel.Text = "List Enrolled Students";
             // 
             // button6
             // 
@@ -669,14 +669,14 @@
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.BackgroundColor = Color.White;
             dataGridView1.BorderStyle = BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.ButtonFace;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.ButtonFace;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.GridColor = Color.Silver;
             dataGridView1.Location = new Point(342, 161);
@@ -2384,6 +2384,6 @@
         private Button button5;
         private Button button4;
         private Button button3;
-        private Label Fullnamelabel;
+        private Label Listlabel;
     }
 }

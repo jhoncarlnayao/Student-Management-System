@@ -50,7 +50,7 @@
             checkBox1.BackColor = Color.White;
             checkBox1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkBox1.ForeColor = Color.Gray;
-            checkBox1.Location = new Point(994, 470);
+            checkBox1.Location = new Point(977, 504);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(296, 24);
             checkBox1.TabIndex = 31;
@@ -61,7 +61,7 @@
             // 
             button1.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.Black;
-            button1.Location = new Point(974, 396);
+            button1.Location = new Point(957, 430);
             button1.Name = "button1";
             button1.Size = new Size(332, 47);
             button1.TabIndex = 30;
@@ -75,7 +75,7 @@
             label4.BackColor = Color.White;
             label4.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.Black;
-            label4.Location = new Point(974, 311);
+            label4.Location = new Point(957, 345);
             label4.Name = "label4";
             label4.Size = new Size(66, 17);
             label4.TabIndex = 26;
@@ -84,12 +84,12 @@
             // PasswordText
             // 
             PasswordText.BorderStyle = BorderStyle.FixedSingle;
-            PasswordText.Location = new Point(957, 320);
+            PasswordText.Location = new Point(940, 354);
             PasswordText.Multiline = true;
             PasswordText.Name = "PasswordText";
             PasswordText.Size = new Size(364, 44);
             PasswordText.TabIndex = 25;
-            PasswordText.TextChanged += this.PasswordText_TextChanged;
+            PasswordText.TextChanged += PasswordText_TextChanged;
             // 
             // label73
             // 
@@ -97,7 +97,7 @@
             label73.BackColor = Color.White;
             label73.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label73.ForeColor = Color.Black;
-            label73.Location = new Point(974, 225);
+            label73.Location = new Point(957, 259);
             label73.Name = "label73";
             label73.Size = new Size(40, 17);
             label73.TabIndex = 24;
@@ -107,7 +107,7 @@
             // UsernameText
             // 
             UsernameText.BorderStyle = BorderStyle.FixedSingle;
-            UsernameText.Location = new Point(957, 234);
+            UsernameText.Location = new Point(940, 268);
             UsernameText.Multiline = true;
             UsernameText.Name = "UsernameText";
             UsernameText.Size = new Size(364, 44);
@@ -119,7 +119,7 @@
             label3.BackColor = SystemColors.Window;
             label3.Font = new Font("Segoe UI", 11.25F);
             label3.ForeColor = SystemColors.GrayText;
-            label3.Location = new Point(1081, 509);
+            label3.Location = new Point(1064, 543);
             label3.Name = "label3";
             label3.Size = new Size(122, 20);
             label3.TabIndex = 18;
@@ -130,7 +130,7 @@
             label2.AutoSize = true;
             label2.BackColor = Color.White;
             label2.Font = new Font("Segoe UI Semilight", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(1011, 159);
+            label2.Location = new Point(989, 166);
             label2.Name = "label2";
             label2.Size = new Size(261, 25);
             label2.TabIndex = 6;
@@ -141,7 +141,7 @@
             label1.AutoSize = true;
             label1.BackColor = Color.White;
             label1.Font = new Font("Segoe UI Black", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(994, 109);
+            label1.Location = new Point(972, 116);
             label1.Name = "label1";
             label1.Size = new Size(301, 50);
             label1.TabIndex = 5;
@@ -150,7 +150,7 @@
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(84, 3);
+            pictureBox2.Location = new Point(100, 19);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(733, 641);
             pictureBox2.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -181,7 +181,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Gainsboro;
+            BackColor = Color.White;
             ClientSize = new Size(1564, 776);
             Controls.Add(panel1);
             Name = "Form1";

@@ -30,6 +30,12 @@ namespace IT13FINALPROJ
             MajorPanel.Visible = false; //PANEL FOR PROGRAM
             MinorPanel.Visible = false; //PANEL FOR PROGRAM
 
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.ControlBox = false;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
         }
 
 
