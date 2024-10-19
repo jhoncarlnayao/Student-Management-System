@@ -58,6 +58,11 @@
             pictureBox4 = new PictureBox();
             label2 = new Label();
             tabPage2 = new TabPage();
+            label10 = new Label();
+            label5 = new Label();
+            textBox2 = new TextBox();
+            button7 = new Button();
+            panel6 = new Panel();
             Listlabel = new Label();
             button6 = new Button();
             button5 = new Button();
@@ -65,6 +70,9 @@
             button3 = new Button();
             dataGridView1 = new DataGridView();
             tabPage3 = new TabPage();
+            panel7 = new Panel();
+            MinorButton = new Button();
+            MajorButton = new Button();
             MajorPanel = new Panel();
             panel11 = new Panel();
             label31 = new Label();
@@ -139,8 +147,6 @@
             label54 = new Label();
             label55 = new Label();
             pictureBox31 = new PictureBox();
-            MinorButton = new MaterialSkin.Controls.MaterialButton();
-            MajorButton = new MaterialSkin.Controls.MaterialButton();
             label15 = new Label();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
@@ -588,6 +594,11 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(label10);
+            tabPage2.Controls.Add(label5);
+            tabPage2.Controls.Add(textBox2);
+            tabPage2.Controls.Add(button7);
+            tabPage2.Controls.Add(panel6);
             tabPage2.Controls.Add(Listlabel);
             tabPage2.Controls.Add(button6);
             tabPage2.Controls.Add(button5);
@@ -603,37 +614,93 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "List";
             tabPage2.UseVisualStyleBackColor = true;
+            tabPage2.Click += tabPage2_Click;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI Semibold", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label10.Location = new Point(79, 145);
+            label10.Name = "label10";
+            label10.Size = new Size(202, 32);
+            label10.TabIndex = 40;
+            label10.Text = "50 Total Students";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.BackColor = Color.White;
+            label5.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.Black;
+            label5.Location = new Point(995, 78);
+            label5.Name = "label5";
+            label5.Size = new Size(72, 17);
+            label5.TabIndex = 39;
+            label5.Text = "Search bar";
+            // 
+            // textBox2
+            // 
+            textBox2.BorderStyle = BorderStyle.FixedSingle;
+            textBox2.Location = new Point(983, 85);
+            textBox2.Multiline = true;
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(364, 33);
+            textBox2.TabIndex = 2;
+            textBox2.TextChanged += textBox2_TextChanged;
+            // 
+            // button7
+            // 
+            button7.FlatStyle = FlatStyle.Flat;
+            button7.Image = (Image)resources.GetObject("button7.Image");
+            button7.Location = new Point(1353, 85);
+            button7.Name = "button7";
+            button7.Size = new Size(61, 33);
+            button7.TabIndex = 38;
+            button7.UseVisualStyleBackColor = true;
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.LightGray;
+            panel6.Location = new Point(79, 124);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(1335, 4);
+            panel6.TabIndex = 36;
             // 
             // Listlabel
             // 
             Listlabel.AutoSize = true;
             Listlabel.BackColor = Color.Transparent;
-            Listlabel.Font = new Font("Segoe UI Black", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Listlabel.Font = new Font("Segoe UI Semibold", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Listlabel.ForeColor = Color.Black;
-            Listlabel.Location = new Point(332, 108);
+            Listlabel.Location = new Point(67, 18);
             Listlabel.Name = "Listlabel";
-            Listlabel.Size = new Size(415, 50);
+            Listlabel.Size = new Size(385, 50);
             Listlabel.TabIndex = 35;
             Listlabel.Text = "List Enrolled Students";
             // 
             // button6
             // 
-            button6.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button6.FlatAppearance.BorderSize = 0;
+            button6.FlatStyle = FlatStyle.Flat;
+            button6.Font = new Font("Segoe UI", 11.25F);
             button6.ForeColor = Color.Black;
-            button6.Location = new Point(40, 395);
+            button6.Location = new Point(509, 81);
             button6.Name = "button6";
-            button6.Size = new Size(254, 47);
+            button6.Size = new Size(254, 37);
             button6.TabIndex = 34;
             button6.Text = "View Available Programs";
             button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
             // 
             // button5
             // 
-            button5.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button5.FlatAppearance.BorderSize = 0;
+            button5.FlatStyle = FlatStyle.Flat;
+            button5.Font = new Font("Segoe UI", 11.25F);
             button5.ForeColor = Color.Black;
-            button5.Location = new Point(40, 318);
+            button5.Location = new Point(355, 81);
             button5.Name = "button5";
-            button5.Size = new Size(254, 47);
+            button5.Size = new Size(159, 37);
             button5.TabIndex = 33;
             button5.Text = "View Total Enrolled";
             button5.UseVisualStyleBackColor = true;
@@ -641,11 +708,13 @@
             // 
             // button4
             // 
-            button4.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button4.FlatAppearance.BorderSize = 0;
+            button4.FlatStyle = FlatStyle.Flat;
+            button4.Font = new Font("Segoe UI", 11.25F);
             button4.ForeColor = Color.Black;
-            button4.Location = new Point(40, 239);
+            button4.Location = new Point(207, 81);
             button4.Name = "button4";
-            button4.Size = new Size(254, 47);
+            button4.Size = new Size(131, 37);
             button4.TabIndex = 32;
             button4.Text = "View Professors";
             button4.UseVisualStyleBackColor = true;
@@ -653,11 +722,13 @@
             // 
             // button3
             // 
-            button3.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             button3.ForeColor = Color.Black;
-            button3.Location = new Point(40, 161);
+            button3.Location = new Point(61, 81);
             button3.Name = "button3";
-            button3.Size = new Size(254, 47);
+            button3.Size = new Size(131, 37);
             button3.TabIndex = 31;
             button3.Text = "View Students";
             button3.UseVisualStyleBackColor = true;
@@ -679,20 +750,21 @@
             dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.GridColor = Color.Silver;
-            dataGridView1.Location = new Point(342, 161);
+            dataGridView1.Location = new Point(79, 207);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            dataGridView1.Size = new Size(1124, 402);
+            dataGridView1.Size = new Size(1335, 402);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // tabPage3
             // 
-            tabPage3.Controls.Add(MajorPanel);
-            tabPage3.Controls.Add(MinorPanel);
+            tabPage3.Controls.Add(panel7);
             tabPage3.Controls.Add(MinorButton);
             tabPage3.Controls.Add(MajorButton);
+            tabPage3.Controls.Add(MajorPanel);
+            tabPage3.Controls.Add(MinorPanel);
             tabPage3.Controls.Add(label15);
             tabPage3.ImageKey = "lesson (1).png";
             tabPage3.Location = new Point(4, 24);
@@ -702,6 +774,42 @@
             tabPage3.Text = "Courses";
             tabPage3.UseVisualStyleBackColor = true;
             tabPage3.Click += tabPage3_Click;
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.LightGray;
+            panel7.Location = new Point(47, 113);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(1335, 4);
+            panel7.TabIndex = 37;
+            // 
+            // MinorButton
+            // 
+            MinorButton.FlatAppearance.BorderSize = 0;
+            MinorButton.FlatStyle = FlatStyle.Flat;
+            MinorButton.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            MinorButton.ForeColor = Color.Black;
+            MinorButton.Location = new Point(229, 70);
+            MinorButton.Name = "MinorButton";
+            MinorButton.Size = new Size(164, 37);
+            MinorButton.TabIndex = 33;
+            MinorButton.Text = "Creative Program";
+            MinorButton.UseVisualStyleBackColor = true;
+            MinorButton.Click += MinorButton_Click_1;
+            // 
+            // MajorButton
+            // 
+            MajorButton.FlatAppearance.BorderSize = 0;
+            MajorButton.FlatStyle = FlatStyle.Flat;
+            MajorButton.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            MajorButton.ForeColor = Color.Black;
+            MajorButton.Location = new Point(32, 70);
+            MajorButton.Name = "MajorButton";
+            MajorButton.Size = new Size(172, 37);
+            MajorButton.TabIndex = 32;
+            MajorButton.Text = "Technology Program";
+            MajorButton.UseVisualStyleBackColor = true;
+            MajorButton.Click += MajorButton_Click_1;
             // 
             // MajorPanel
             // 
@@ -1562,54 +1670,14 @@
             pictureBox31.TabIndex = 0;
             pictureBox31.TabStop = false;
             // 
-            // MinorButton
-            // 
-            MinorButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            MinorButton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            MinorButton.Depth = 0;
-            MinorButton.HighEmphasis = true;
-            MinorButton.Icon = null;
-            MinorButton.Location = new Point(729, 107);
-            MinorButton.Margin = new Padding(4, 6, 4, 6);
-            MinorButton.MouseState = MaterialSkin.MouseState.HOVER;
-            MinorButton.Name = "MinorButton";
-            MinorButton.NoAccentTextColor = Color.Empty;
-            MinorButton.Size = new Size(204, 36);
-            MinorButton.TabIndex = 2;
-            MinorButton.Text = "Creative Arts Program";
-            MinorButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            MinorButton.UseAccentColor = false;
-            MinorButton.UseVisualStyleBackColor = true;
-            MinorButton.Click += MinorButton_Click;
-            // 
-            // MajorButton
-            // 
-            MajorButton.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            MajorButton.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            MajorButton.Depth = 0;
-            MajorButton.HighEmphasis = true;
-            MajorButton.Icon = null;
-            MajorButton.Location = new Point(476, 107);
-            MajorButton.Margin = new Padding(4, 6, 4, 6);
-            MajorButton.MouseState = MaterialSkin.MouseState.HOVER;
-            MajorButton.Name = "MajorButton";
-            MajorButton.NoAccentTextColor = Color.Empty;
-            MajorButton.Size = new Size(200, 36);
-            MajorButton.TabIndex = 1;
-            MajorButton.Text = "Technology Programs";
-            MajorButton.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            MajorButton.UseAccentColor = false;
-            MajorButton.UseVisualStyleBackColor = true;
-            MajorButton.Click += MajorButton_Click;
-            // 
             // label15
             // 
             label15.AutoSize = true;
-            label15.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label15.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label15.ForeColor = Color.Black;
-            label15.Location = new Point(498, 23);
+            label15.Location = new Point(35, 17);
             label15.Name = "label15";
-            label15.Size = new Size(389, 65);
+            label15.Size = new Size(301, 50);
             label15.TabIndex = 0;
             label15.Text = "Offered Courses";
             // 
@@ -2255,8 +2323,6 @@
         private PictureBox pictureBox1;
         private Label label8;
         private Label label15;
-        private MaterialSkin.Controls.MaterialButton MinorButton;
-        private MaterialSkin.Controls.MaterialButton MajorButton;
         private Panel MinorPanel;
         private Panel panel12;
         private Label label36;
@@ -2385,5 +2451,13 @@
         private Button button4;
         private Button button3;
         private Label Listlabel;
+        private Panel panel6;
+        private Button button7;
+        private TextBox textBox2;
+        private Label label5;
+        private Label label10;
+        private Button MinorButton;
+        private Button MajorButton;
+        private Panel panel7;
     }
 }
