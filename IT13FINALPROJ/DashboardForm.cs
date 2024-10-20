@@ -178,26 +178,30 @@ namespace IT13FINALPROJ
         private void LoadProfessorsData()
         {
             string connectionString = "server=localhost;database=it13finalproj;user=root;password=;";
-            string query = "SELECT * FROM professors_accounts"; // Adjust the query based on the columns you want to retrieve
+            string query = "SELECT * FROM professors_accounts";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 try
                 {
                     conn.Open();
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
                     DataTable dataTable = new DataTable();
+                    new MySqlDataAdapter(query, conn).Fill(dataTable);
 
-                    adapter.Fill(dataTable); // Fill the DataTable with the data from the query
-
-                    // Check if data is retrieved
                     if (dataTable.Rows.Count > 0)
                     {
-                        // Bind the DataTable to the DataGridView
                         dataGridView1.DataSource = dataTable;
-
-                        // Optional: Set auto-size for the columns based on the content
                         dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                        // THIS IS BUTTON INSIDE OF TABLE
+                        var btnColumn = new DataGridViewButtonColumn
+                        {
+                            HeaderText = "Action",
+                            Name = "Action",
+                            Text = "Click Me",
+                            UseColumnTextForButtonValue = true
+                        };
+                        dataGridView1.Columns.Add(btnColumn);
                     }
                     else
                     {
@@ -206,10 +210,22 @@ namespace IT13FINALPROJ
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("An error occurred while loading professors: " + ex.Message);
+                    MessageBox.Show("Error loading professors: " + ex.Message);
                 }
             }
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridView1.Columns["Action"].Index && e.RowIndex >= 0)
+            {
+                // OPEN NEW FILE THIS IS FOR UPDATE , EDIT , DELETE FUNCTION
+               OperaitionAdmin operationadmin = new OperaitionAdmin();  
+                operationadmin.Show(); 
+                operationadmin.StartPosition = FormStartPosition.CenterParent;
+            }
+        }
+
 
         private void LoadAllProgramsData()
         {
@@ -514,10 +530,10 @@ namespace IT13FINALPROJ
             CountTotalEnrolledStudents();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
+        //private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        //{
 
-        }
+//        }
 
         private void tabPage3_Click(object sender, EventArgs e)
         {
@@ -569,13 +585,13 @@ namespace IT13FINALPROJ
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            // Get the search text from the TextBox
+        
             string searchText = textBox2.Text.Trim();
 
-            // Check if the DataGridView is bound to a DataTable
+          
             if (dataGridView1.DataSource is DataTable dataTable)
             {
-                // Use DataView to filter the data
+           
                 DataView dataView = new DataView(dataTable);
 
                 // Apply filter based on the Fullname column
