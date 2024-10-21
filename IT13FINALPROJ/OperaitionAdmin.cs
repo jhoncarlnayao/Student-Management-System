@@ -1,14 +1,19 @@
 ﻿using MaterialSkin.Controls;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace IT13FINALPROJ
 {
     public partial class OperaitionAdmin : MaterialForm
     {
-        private string professorId; // Store the selected professor ID
-
-        public OperaitionAdmin(string id)
+        public OperaitionAdmin()
         {
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -17,26 +22,27 @@ namespace IT13FINALPROJ
             this.ControlBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
 
-            professorId = id; // Assign the passed professor ID
         }
 
-        private void buttonUpdate_Click(object sender, EventArgs e)
+        private void OperaitionAdmin_Load(object sender, EventArgs e)
         {
-            // Open the UpdateProfessor form and pass the professor ID
-            UpdateProfessor updateForm = new UpdateProfessor(professorId);
-            updateForm.ShowDialog(); // Show the update form as a dialog
-            this.Hide(); // Hide the ChooseOperationForm
+
         }
 
-        private void buttonDelete_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            // Add your delete logic here
-            // For example, move the record to the backup table
+
+
         }
 
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
-            this.Hide(); // Hide the form when cancel is clicked
+            this.Hide();
+        }
+
+        private void materialButton1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

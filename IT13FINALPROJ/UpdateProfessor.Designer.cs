@@ -55,6 +55,7 @@
             // 
             // Update
             // 
+            Update.BackColor = Color.MediumSpringGreen;
             Update.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Update.ForeColor = Color.Black;
             Update.Location = new Point(47, 503);
@@ -62,7 +63,7 @@
             Update.Size = new Size(364, 47);
             Update.TabIndex = 49;
             Update.Text = "Update";
-            Update.UseVisualStyleBackColor = true;
+            Update.UseVisualStyleBackColor = false;
             Update.Click += Update_Click;
             // 
             // label70
@@ -161,6 +162,7 @@
             // 
             // Cancel
             // 
+            Cancel.BackColor = Color.Red;
             Cancel.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Cancel.ForeColor = Color.Black;
             Cancel.Location = new Point(47, 565);
@@ -168,7 +170,7 @@
             Cancel.Size = new Size(364, 47);
             Cancel.TabIndex = 52;
             Cancel.Text = "Cancel";
-            Cancel.UseVisualStyleBackColor = true;
+            Cancel.UseVisualStyleBackColor = false;
             Cancel.Click += Cancel_Click;
             // 
             // UpdateProfessor

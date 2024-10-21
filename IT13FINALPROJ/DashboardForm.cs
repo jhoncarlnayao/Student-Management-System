@@ -31,7 +31,7 @@ namespace IT13FINALPROJ
 
             LoadEnrollmentData();
 
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.ControlBox = false;
@@ -40,7 +40,7 @@ namespace IT13FINALPROJ
 
         private void CountTotalStudents()
         {
-            string connectionString = "server=localhost;database=it13finalproj;user=root;password=;";
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
             string query = "SELECT COUNT(*) FROM students_accounts";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -67,7 +67,7 @@ namespace IT13FINALPROJ
 
         private void CountTotalProfessor()
         {
-            string connectionString = "server=localhost;database=it13finalproj;user=root;password=;";
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
             string query = "SELECT COUNT(*) FROM professors_accounts";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -94,7 +94,7 @@ namespace IT13FINALPROJ
 
         private void CountTotalEnrolledStudents()
         {
-            string connectionString = "server=localhost;database=it13finalproj;user=root;password=;";
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
             string query = "SELECT COUNT(*) FROM enrollments";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -121,8 +121,8 @@ namespace IT13FINALPROJ
 
         private void LoadEnrollmentData()
         {
-            string connectionString = "server=localhost;database=it13finalproj;user=root;password=;";
-            string query = "SELECT * FROM enrollments"; // Adjust the query based on the columns you want to retrieve
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
+            string query = "SELECT * FROM enrollments";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -134,10 +134,10 @@ namespace IT13FINALPROJ
 
                     adapter.Fill(dataTable); // Fill the DataTable with the data from the query
 
-                    // Bind the DataTable to the DataGridView
+
                     dataGridView1.DataSource = dataTable;
 
-                    // Optional: Set auto-size for the columns based on the content
+
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 }
                 catch (Exception ex)
@@ -149,8 +149,8 @@ namespace IT13FINALPROJ
 
         private void LoadTotalStudentsData()
         {
-            string connectionString = "server=localhost;database=it13finalproj;user=root;password=;";
-            string query = "SELECT * FROM students_accounts"; // Adjust the query based on the columns you want to retrieve
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
+            string query = "SELECT * FROM students_accounts";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -162,10 +162,9 @@ namespace IT13FINALPROJ
 
                     adapter.Fill(dataTable); // Fill the DataTable with the data from the query
 
-                    // Bind the DataTable to the DataGridView
                     dataGridView1.DataSource = dataTable;
 
-                    // Optional: Set auto-size for the columns based on the content
+
                     dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 }
                 catch (Exception ex)
@@ -177,7 +176,7 @@ namespace IT13FINALPROJ
 
         private void LoadProfessorsData()
         {
-            string connectionString = "server=localhost;database=it13finalproj;user=root;password=;";
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
             string query = "SELECT * FROM professors_accounts";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -220,8 +219,8 @@ namespace IT13FINALPROJ
             if (e.ColumnIndex == dataGridView1.Columns["Action"].Index && e.RowIndex >= 0)
             {
                 // OPEN NEW FILE THIS IS FOR UPDATE , EDIT , DELETE FUNCTION
-               OperaitionAdmin operationadmin = new OperaitionAdmin();  
-                operationadmin.Show(); 
+                OperaitionAdmin operationadmin = new OperaitionAdmin();
+                operationadmin.Show();
                 operationadmin.StartPosition = FormStartPosition.CenterParent;
             }
         }
@@ -229,7 +228,7 @@ namespace IT13FINALPROJ
 
         private void LoadAllProgramsData()
         {
-            string connectionString = "server=localhost;database=it13finalproj;user=root;password=;";
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
             string query = "SELECT * FROM programs"; // Adjust the query based on the columns you want to retrieve
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -245,10 +244,10 @@ namespace IT13FINALPROJ
                     // Check if data is retrieved
                     if (dataTable.Rows.Count > 0)
                     {
-                        // Bind the DataTable to the DataGridView
+
                         dataGridView1.DataSource = dataTable;
 
-                        // Optional: Set auto-size for the columns based on the content
+
                         dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                     }
                     else
@@ -416,24 +415,30 @@ namespace IT13FINALPROJ
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string connectionString = "server=localhost;database=it13finalproj;user=root;password=;";
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
 
-            string fullname = Studentfullname.Text;
+            string firstname = Studentfirstname.Text;
+            string middlename = Studentmiddlename.Text;
+            string lastname = Studentlastname.Text;
             string email = Studentemail.Text;
             string phonenumber = Studentphonenumber.Text;
+            string address = Studentaddress.Text;
             string password = Studentpassword.Text;
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
                 try
                 {
                     conn.Open();
-                    string query = "INSERT INTO `students_accounts` (Fullname, Email, PhoneNumber, Password) VALUES (@Fullname, @Email, @PhoneNumber, @Password)";
+                    string query = "INSERT INTO `student_accounts` (Firstname, Middlename, Lastname, Phonenumber, Email, Address, Password) VALUES (@Firstname, @Middlename, @Lastname, @Phonenumber, @Email, @Address, @Password)";
 
                     using (MySqlCommand cmd = new MySqlCommand(query, conn))
                     {
-                        cmd.Parameters.AddWithValue("@Fullname", fullname);
-                        cmd.Parameters.AddWithValue("@Email", email);
+                        cmd.Parameters.AddWithValue("@Firstname", firstname);
+                        cmd.Parameters.AddWithValue("@Middlename", middlename);
+                        cmd.Parameters.AddWithValue("@Lastname", lastname);
                         cmd.Parameters.AddWithValue("@PhoneNumber", phonenumber);
+                        cmd.Parameters.AddWithValue("@Email", email);
+                        cmd.Parameters.AddWithValue("@Address", address);
                         cmd.Parameters.AddWithValue("@Password", password);
 
                         int rows = cmd.ExecuteNonQuery();
@@ -469,7 +474,7 @@ namespace IT13FINALPROJ
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string connectionString = "server=localhost;database=it13finalproj;user=root;password=;";
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
 
             string fullname = Professorfullname.Text;
             string email = Professoremail.Text;
@@ -533,7 +538,7 @@ namespace IT13FINALPROJ
         //private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         //{
 
-//        }
+        //        }
 
         private void tabPage3_Click(object sender, EventArgs e)
         {
@@ -585,13 +590,13 @@ namespace IT13FINALPROJ
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-        
+
             string searchText = textBox2.Text.Trim();
 
-          
+
             if (dataGridView1.DataSource is DataTable dataTable)
             {
-           
+
                 DataView dataView = new DataView(dataTable);
 
                 // Apply filter based on the Fullname column
@@ -617,6 +622,21 @@ namespace IT13FINALPROJ
         {
             MajorPanel.Visible = false;
             MinorPanel.Visible = true;
+        }
+
+        private void tabPage5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2PictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2HtmlLabel3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

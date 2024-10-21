@@ -37,3 +37,6 @@ C:\Users\Gerry Untalan\source\repos\IT13FINALPROJ\IT13FINALPROJ\obj\Debug\net8.0
 C:\Users\Gerry Untalan\source\repos\IT13FINALPROJ\IT13FINALPROJ\obj\Debug\net8.0-windows\IT13FINALPROJ.sourcelink.json
 C:\Users\Gerry Untalan\source\repos\IT13FINALPROJ\IT13FINALPROJ\obj\Debug\net8.0-windows\IT13FINALPROJ.OperaitionAdmin.resources
 C:\Users\Gerry Untalan\source\repos\IT13FINALPROJ\IT13FINALPROJ\obj\Debug\net8.0-windows\IT13FINALPROJ.UpdateProfessor.resources
+C:\Users\Gerry Untalan\source\repos\IT13FINALPROJ\IT13FINALPROJ\bin\Debug\net8.0-windows\Guna.UI2.dll
+C:\Users\Gerry Untalan\source\repos\IT13FINALPROJ\IT13FINALPROJ\bin\Debug\net8.0-windows\System.Management.dll
+C:\Users\Gerry Untalan\source\repos\IT13FINALPROJ\IT13FINALPROJ\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll

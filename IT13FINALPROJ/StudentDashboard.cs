@@ -15,6 +15,9 @@ namespace IT13FINALPROJ
     public partial class StudentDashboard : MaterialForm
     {
         private string studentFullName;
+        // private string studentFirstname;
+        //private string studentLastname;
+        //private string studentMiddlename;
         private string fullname;
         private string email;
         private string phonenumber;
@@ -55,6 +58,8 @@ namespace IT13FINALPROJ
             Studentemailtext.Enabled = false;
             Studentphonenumbertext.Enabled = false;
 
+            nextinfo.Visible = false;
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -75,7 +80,7 @@ namespace IT13FINALPROJ
         private void label1_Click_1(object sender, EventArgs e)
         {
             // this is for the fullname
-            Fullnamelabel.Text = studentFullName;
+            //   Fullnamelabel.Text = studentFullName;
         }
 
         private void Home_Click(object sender, EventArgs e)
@@ -184,6 +189,36 @@ namespace IT13FINALPROJ
         {
             MajorPanel.Visible = false;
             MinorPanel.Visible = true;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void genderbox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            genderbox.Text = "Gender";
+        }
+
+        private void guna2TextBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void nextbutton_Click(object sender, EventArgs e)
+        {
+            nextinfo.Visible = true;
+        }
+
+        private void enroll2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void createlabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

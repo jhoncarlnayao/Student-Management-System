@@ -28,20 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             checkBox1 = new CheckBox();
-            button1 = new Button();
-            label4 = new Label();
-            PasswordText = new TextBox();
-            label73 = new Label();
-            UsernameText = new TextBox();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            pictureBox2 = new PictureBox();
             panel1 = new Panel();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            label4 = new Label();
+            button1 = new Guna.UI2.WinForms.Guna2Button();
+            PasswordText = new Guna.UI2.WinForms.Guna2TextBox();
+            UsernameText = new Guna.UI2.WinForms.Guna2TextBox();
+            guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).BeginInit();
             SuspendLayout();
             // 
             // checkBox1
@@ -50,68 +57,12 @@
             checkBox1.BackColor = Color.White;
             checkBox1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkBox1.ForeColor = Color.Gray;
-            checkBox1.Location = new Point(977, 504);
+            checkBox1.Location = new Point(532, 483);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(296, 24);
             checkBox1.TabIndex = 31;
             checkBox1.Text = "i agree to our Terms of Service and Term";
             checkBox1.UseVisualStyleBackColor = false;
-            // 
-            // button1
-            // 
-            button1.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.Black;
-            button1.Location = new Point(957, 430);
-            button1.Name = "button1";
-            button1.Size = new Size(332, 47);
-            button1.TabIndex = 30;
-            button1.Text = "Sign in";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click_2;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.White;
-            label4.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.ForeColor = Color.Black;
-            label4.Location = new Point(957, 345);
-            label4.Name = "label4";
-            label4.Size = new Size(66, 17);
-            label4.TabIndex = 26;
-            label4.Text = "Password";
-            // 
-            // PasswordText
-            // 
-            PasswordText.BorderStyle = BorderStyle.FixedSingle;
-            PasswordText.Location = new Point(940, 354);
-            PasswordText.Multiline = true;
-            PasswordText.Name = "PasswordText";
-            PasswordText.Size = new Size(364, 44);
-            PasswordText.TabIndex = 25;
-            PasswordText.TextChanged += PasswordText_TextChanged;
-            // 
-            // label73
-            // 
-            label73.AutoSize = true;
-            label73.BackColor = Color.White;
-            label73.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label73.ForeColor = Color.Black;
-            label73.Location = new Point(957, 259);
-            label73.Name = "label73";
-            label73.Size = new Size(40, 17);
-            label73.TabIndex = 24;
-            label73.Text = "Email";
-            label73.Click += label73_Click;
-            // 
-            // UsernameText
-            // 
-            UsernameText.BorderStyle = BorderStyle.FixedSingle;
-            UsernameText.Location = new Point(940, 268);
-            UsernameText.Multiline = true;
-            UsernameText.Name = "UsernameText";
-            UsernameText.Size = new Size(364, 44);
-            UsernameText.TabIndex = 23;
             // 
             // label3
             // 
@@ -119,77 +70,163 @@
             label3.BackColor = SystemColors.Window;
             label3.Font = new Font("Segoe UI", 11.25F);
             label3.ForeColor = SystemColors.GrayText;
-            label3.Location = new Point(1064, 543);
+            label3.Location = new Point(538, 595);
             label3.Name = "label3";
-            label3.Size = new Size(122, 20);
+            label3.Size = new Size(159, 20);
             label3.TabIndex = 18;
-            label3.Text = "Forgot Account ?";
+            label3.Text = "Can't access account ? ";
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.White;
-            label2.Font = new Font("Segoe UI Semilight", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(989, 166);
+            label2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.DarkGray;
+            label2.Location = new Point(561, 146);
             label2.Name = "label2";
-            label2.Size = new Size(261, 25);
+            label2.Size = new Size(212, 20);
             label2.TabIndex = 6;
             label2.Text = "Log in to yout existing account";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.BackColor = Color.White;
+            label1.BackColor = Color.Transparent;
             label1.Font = new Font("Segoe UI Black", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(972, 116);
+            label1.Location = new Point(527, 87);
             label1.Name = "label1";
             label1.Size = new Size(301, 50);
             label1.TabIndex = 5;
             label1.Text = "Welcome Back!";
             // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(100, 19);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(733, 641);
-            pictureBox2.SizeMode = PictureBoxSizeMode.AutoSize;
-            pictureBox2.TabIndex = 32;
-            pictureBox2.TabStop = false;
-            // 
             // panel1
             // 
             panel1.BackColor = Color.White;
+            panel1.Controls.Add(label4);
+            panel1.Controls.Add(button1);
+            panel1.Controls.Add(PasswordText);
+            panel1.Controls.Add(UsernameText);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(checkBox1);
-            panel1.Controls.Add(label73);
-            panel1.Controls.Add(button1);
-            panel1.Controls.Add(pictureBox2);
-            panel1.Controls.Add(label4);
             panel1.Controls.Add(label1);
-            panel1.Controls.Add(PasswordText);
             panel1.Controls.Add(label2);
-            panel1.Controls.Add(UsernameText);
+            panel1.Controls.Add(guna2PictureBox1);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(3, 64);
+            panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1558, 709);
+            panel1.Size = new Size(919, 662);
             panel1.TabIndex = 33;
             panel1.Paint += panel1_Paint_2;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = SystemColors.Window;
+            label4.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = Color.Black;
+            label4.Location = new Point(692, 595);
+            label4.Name = "label4";
+            label4.Size = new Size(114, 20);
+            label4.TabIndex = 38;
+            label4.Text = "Contact Admin";
+            // 
+            // button1
+            // 
+            button1.BorderRadius = 20;
+            button1.CustomizableEdges = customizableEdges1;
+            button1.DisabledState.BorderColor = Color.DarkGray;
+            button1.DisabledState.CustomBorderColor = Color.DarkGray;
+            button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            button1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            button1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(538, 409);
+            button1.Name = "button1";
+            button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
+            button1.Size = new Size(282, 48);
+            button1.TabIndex = 35;
+            button1.Text = "Sign in";
+            button1.Click += button1_Click_1;
+            // 
+            // PasswordText
+            // 
+            PasswordText.BorderColor = Color.DimGray;
+            PasswordText.BorderRadius = 24;
+            PasswordText.CustomizableEdges = customizableEdges3;
+            PasswordText.DefaultText = "";
+            PasswordText.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            PasswordText.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            PasswordText.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            PasswordText.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            PasswordText.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            PasswordText.Font = new Font("Segoe UI", 9F);
+            PasswordText.ForeColor = Color.Black;
+            PasswordText.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
+            PasswordText.IconRight = (Image)resources.GetObject("PasswordText.IconRight");
+            PasswordText.IconRightOffset = new Point(15, 0);
+            PasswordText.Location = new Point(538, 321);
+            PasswordText.Name = "PasswordText";
+            PasswordText.PasswordChar = '\0';
+            PasswordText.PlaceholderForeColor = Color.Gray;
+            PasswordText.PlaceholderText = "Password";
+            PasswordText.SelectedText = "";
+            PasswordText.ShadowDecoration.CustomizableEdges = customizableEdges4;
+            PasswordText.Size = new Size(282, 50);
+            PasswordText.TabIndex = 34;
+            // 
+            // UsernameText
+            // 
+            UsernameText.BorderColor = Color.DimGray;
+            UsernameText.BorderRadius = 24;
+            UsernameText.CustomizableEdges = customizableEdges5;
+            UsernameText.DefaultText = "";
+            UsernameText.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            UsernameText.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            UsernameText.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            UsernameText.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            UsernameText.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            UsernameText.Font = new Font("Segoe UI", 9F);
+            UsernameText.ForeColor = Color.Black;
+            UsernameText.HoverState.BorderColor = Color.LightGray;
+            UsernameText.IconRight = (Image)resources.GetObject("UsernameText.IconRight");
+            UsernameText.IconRightOffset = new Point(15, 0);
+            UsernameText.Location = new Point(538, 248);
+            UsernameText.Name = "UsernameText";
+            UsernameText.PasswordChar = '\0';
+            UsernameText.PlaceholderForeColor = Color.Gray;
+            UsernameText.PlaceholderText = "Email";
+            UsernameText.SelectedText = "";
+            UsernameText.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            UsernameText.Size = new Size(282, 50);
+            UsernameText.TabIndex = 33;
+            UsernameText.TextChanged += UsernameText_TextChanged;
+            // 
+            // guna2PictureBox1
+            // 
+            guna2PictureBox1.BorderRadius = 10;
+            guna2PictureBox1.CustomizableEdges = customizableEdges7;
+            guna2PictureBox1.Image = (Image)resources.GetObject("guna2PictureBox1.Image");
+            guna2PictureBox1.ImageRotate = 0F;
+            guna2PictureBox1.Location = new Point(12, 12);
+            guna2PictureBox1.Name = "guna2PictureBox1";
+            guna2PictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            guna2PictureBox1.Size = new Size(431, 638);
+            guna2PictureBox1.TabIndex = 37;
+            guna2PictureBox1.TabStop = false;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1564, 776);
+            ClientSize = new Size(919, 662);
             Controls.Add(panel1);
             Name = "Form1";
             Text = "Login Account";
             Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -197,13 +234,12 @@
         private Label label2;
         private Label label1;
         private Label label3;
-        private Label label4;
-        private TextBox PasswordText;
-        private Label label73;
-        private TextBox UsernameText;
-        private Button button1;
         private CheckBox checkBox1;
-        private PictureBox pictureBox2;
         private Panel panel1;
+        private Guna.UI2.WinForms.Guna2TextBox UsernameText;
+        private Guna.UI2.WinForms.Guna2TextBox PasswordText;
+        private Guna.UI2.WinForms.Guna2Button button1;
+        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
+        private Label label4;
     }
 }

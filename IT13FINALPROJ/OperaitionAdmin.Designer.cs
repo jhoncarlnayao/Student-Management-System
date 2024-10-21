@@ -154,9 +154,9 @@
             label5.Font = new Font("Segoe UI Black", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.Location = new Point(17, 16);
             label5.Name = "label5";
-            label5.Size = new Size(80, 30);
+            label5.Size = new Size(64, 30);
             label5.TabIndex = 3;
-            label5.Text = "Delete";
+            label5.Text = "Drop";
             // 
             // panel3
             // 

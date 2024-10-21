@@ -29,34 +29,65 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DashboardForm));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges39 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges40 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges37 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges38 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges41 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges42 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges43 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges44 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges45 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges46 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges47 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges48 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             tabPage1 = new TabPage();
-            panel5 = new Panel();
-            materialButton3 = new MaterialSkin.Controls.MaterialButton();
-            totalenrolledstudentslabel = new Label();
-            pictureBox5 = new PictureBox();
-            label9 = new Label();
-            panel2 = new Panel();
-            label8 = new Label();
-            label7 = new Label();
-            pictureBox1 = new PictureBox();
-            panel4 = new Panel();
-            materialButton2 = new MaterialSkin.Controls.MaterialButton();
-            label6 = new Label();
-            pictureBox3 = new PictureBox();
-            label4 = new Label();
-            panel3 = new Panel();
-            materialButton1 = new MaterialSkin.Controls.MaterialButton();
-            Totalprofessorlabel = new Label();
-            pictureBox2 = new PictureBox();
-            label3 = new Label();
-            panel1 = new Panel();
-            ViewStudentBTN = new MaterialSkin.Controls.MaterialButton();
-            Totalstudentlabel = new Label();
+            guna2CustomGradientPanel4 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            guna2Button6 = new Guna.UI2.WinForms.Guna2Button();
             pictureBox4 = new PictureBox();
             label2 = new Label();
+            label9 = new Label();
+            guna2HtmlLabel6 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            guna2CustomGradientPanel3 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
+            pictureBox2 = new PictureBox();
+            totalenrolledstudentslabel = new Label();
+            label3 = new Label();
+            guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            guna2CustomGradientPanel2 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
+            pictureBox6 = new PictureBox();
+            Totalprofessorlabel = new Label();
+            label14 = new Label();
+            guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            guna2CustomGradientPanel1 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            guna2Button3 = new Guna.UI2.WinForms.Guna2Button();
+            pictureBox1 = new PictureBox();
+            label8 = new Label();
+            Totalstudentlabel = new Label();
+            guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
+            guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
+            label7 = new Label();
+            guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            guna2PictureBox1 = new Guna.UI2.WinForms.Guna2PictureBox();
             tabPage2 = new TabPage();
             label10 = new Label();
             label5 = new Label();
@@ -150,6 +181,12 @@
             label15 = new Label();
             tabPage4 = new TabPage();
             tabPage5 = new TabPage();
+            label13 = new Label();
+            Studentaddress = new TextBox();
+            label12 = new Label();
+            Studentlastname = new TextBox();
+            label11 = new Label();
+            Studentmiddlename = new TextBox();
             label65 = new Label();
             pictureBox35 = new PictureBox();
             label64 = new Label();
@@ -168,7 +205,7 @@
             label58 = new Label();
             Studentemail = new TextBox();
             label57 = new Label();
-            Studentfullname = new TextBox();
+            Studentfirstname = new TextBox();
             label56 = new Label();
             tabPage6 = new TabPage();
             Professorprogram = new ComboBox();
@@ -195,16 +232,16 @@
             imageList1 = new ImageList(components);
             materialTabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            panel1.SuspendLayout();
+            guna2CustomGradientPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            guna2CustomGradientPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            guna2CustomGradientPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            guna2CustomGradientPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)guna2PictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).BeginInit();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             tabPage3.SuspendLayout();
@@ -275,11 +312,18 @@
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(panel5);
-            tabPage1.Controls.Add(panel2);
-            tabPage1.Controls.Add(panel4);
-            tabPage1.Controls.Add(panel3);
-            tabPage1.Controls.Add(panel1);
+            tabPage1.BackColor = Color.FromArgb(224, 224, 224);
+            tabPage1.Controls.Add(guna2CustomGradientPanel4);
+            tabPage1.Controls.Add(guna2CustomGradientPanel3);
+            tabPage1.Controls.Add(guna2CustomGradientPanel2);
+            tabPage1.Controls.Add(guna2CustomGradientPanel1);
+            tabPage1.Controls.Add(guna2HtmlLabel2);
+            tabPage1.Controls.Add(guna2Button2);
+            tabPage1.Controls.Add(guna2Button1);
+            tabPage1.Controls.Add(guna2PictureBox2);
+            tabPage1.Controls.Add(label7);
+            tabPage1.Controls.Add(guna2HtmlLabel1);
+            tabPage1.Controls.Add(guna2PictureBox1);
             tabPage1.ImageKey = "dashboard-monitor.png";
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
@@ -287,310 +331,421 @@
             tabPage1.Size = new Size(1550, 681);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Dashboard";
-            tabPage1.UseVisualStyleBackColor = true;
             // 
-            // panel5
+            // guna2CustomGradientPanel4
             // 
-            panel5.BackColor = Color.LightSkyBlue;
-            panel5.Controls.Add(materialButton3);
-            panel5.Controls.Add(totalenrolledstudentslabel);
-            panel5.Controls.Add(pictureBox5);
-            panel5.Controls.Add(label9);
-            panel5.Location = new Point(1063, 464);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(356, 184);
-            panel5.TabIndex = 12;
+            guna2CustomGradientPanel4.BorderRadius = 20;
+            guna2CustomGradientPanel4.Controls.Add(guna2Button6);
+            guna2CustomGradientPanel4.Controls.Add(pictureBox4);
+            guna2CustomGradientPanel4.Controls.Add(label2);
+            guna2CustomGradientPanel4.Controls.Add(label9);
+            guna2CustomGradientPanel4.Controls.Add(guna2HtmlLabel6);
+            guna2CustomGradientPanel4.CustomizableEdges = customizableEdges27;
+            guna2CustomGradientPanel4.Location = new Point(1108, 296);
+            guna2CustomGradientPanel4.Name = "guna2CustomGradientPanel4";
+            guna2CustomGradientPanel4.ShadowDecoration.CustomizableEdges = customizableEdges28;
+            guna2CustomGradientPanel4.Size = new Size(325, 168);
+            guna2CustomGradientPanel4.TabIndex = 25;
             // 
-            // materialButton3
+            // guna2Button6
             // 
-            materialButton3.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            materialButton3.Cursor = Cursors.Hand;
-            materialButton3.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            materialButton3.Depth = 0;
-            materialButton3.HighEmphasis = true;
-            materialButton3.Icon = null;
-            materialButton3.Location = new Point(180, 136);
-            materialButton3.Margin = new Padding(4, 6, 4, 6);
-            materialButton3.MouseState = MaterialSkin.MouseState.HOVER;
-            materialButton3.Name = "materialButton3";
-            materialButton3.NoAccentTextColor = Color.Empty;
-            materialButton3.Size = new Size(167, 36);
-            materialButton3.TabIndex = 3;
-            materialButton3.Text = "View list Students";
-            materialButton3.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            materialButton3.UseAccentColor = false;
-            materialButton3.UseVisualStyleBackColor = true;
-            // 
-            // totalenrolledstudentslabel
-            // 
-            totalenrolledstudentslabel.AutoSize = true;
-            totalenrolledstudentslabel.Font = new Font("Franklin Gothic Heavy", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            totalenrolledstudentslabel.ForeColor = Color.White;
-            totalenrolledstudentslabel.Location = new Point(188, 49);
-            totalenrolledstudentslabel.Name = "totalenrolledstudentslabel";
-            totalenrolledstudentslabel.Size = new Size(73, 81);
-            totalenrolledstudentslabel.TabIndex = 2;
-            totalenrolledstudentslabel.Text = "0";
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
-            pictureBox5.Location = new Point(42, 58);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(65, 63);
-            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox5.TabIndex = 1;
-            pictureBox5.TabStop = false;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Franklin Gothic Heavy", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label9.ForeColor = Color.White;
-            label9.Location = new Point(33, 15);
-            label9.Name = "label9";
-            label9.Size = new Size(312, 34);
-            label9.TabIndex = 0;
-            label9.Text = "Total Enrolled Students";
-            // 
-            // panel2
-            // 
-            panel2.BackColor = Color.Gainsboro;
-            panel2.Controls.Add(label8);
-            panel2.Controls.Add(label7);
-            panel2.Controls.Add(pictureBox1);
-            panel2.Location = new Point(122, 20);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1297, 226);
-            panel2.TabIndex = 14;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.BackColor = Color.Transparent;
-            label8.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label8.ForeColor = Color.White;
-            label8.Location = new Point(286, 129);
-            label8.Name = "label8";
-            label8.Size = new Size(536, 22);
-            label8.TabIndex = 16;
-            label8.Text = "3H8W+7HQ, New, Matina Pangi Rd, Davao City, Davao del Sur";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Franklin Gothic Heavy", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.ForeColor = Color.White;
-            label7.Location = new Point(272, 68);
-            label7.Name = "label7";
-            label7.Size = new Size(547, 61);
-            label7.TabIndex = 15;
-            label7.Text = "University of Mindanao";
-            label7.Click += label7_Click;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(29, 15);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(228, 195);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            // 
-            // panel4
-            // 
-            panel4.BackColor = Color.LightPink;
-            panel4.Controls.Add(materialButton2);
-            panel4.Controls.Add(label6);
-            panel4.Controls.Add(pictureBox3);
-            panel4.Controls.Add(label4);
-            panel4.Location = new Point(1063, 263);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(356, 184);
-            panel4.TabIndex = 13;
-            // 
-            // materialButton2
-            // 
-            materialButton2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            materialButton2.Cursor = Cursors.Hand;
-            materialButton2.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            materialButton2.Depth = 0;
-            materialButton2.HighEmphasis = true;
-            materialButton2.Icon = null;
-            materialButton2.Location = new Point(169, 142);
-            materialButton2.Margin = new Padding(4, 6, 4, 6);
-            materialButton2.MouseState = MaterialSkin.MouseState.HOVER;
-            materialButton2.Name = "materialButton2";
-            materialButton2.NoAccentTextColor = Color.Empty;
-            materialButton2.Size = new Size(173, 36);
-            materialButton2.TabIndex = 9;
-            materialButton2.Text = "View List programs";
-            materialButton2.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            materialButton2.UseAccentColor = false;
-            materialButton2.UseVisualStyleBackColor = true;
-            materialButton2.Click += materialButton2_Click;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Franklin Gothic Heavy", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.ForeColor = Color.White;
-            label6.Location = new Point(193, 49);
-            label6.Name = "label6";
-            label6.Size = new Size(73, 81);
-            label6.TabIndex = 9;
-            label6.Text = "8";
-            label6.Click += label6_Click;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(46, 58);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(65, 63);
-            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.TabIndex = 8;
-            pictureBox3.TabStop = false;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Franklin Gothic Heavy", 20.25F);
-            label4.ForeColor = Color.White;
-            label4.Location = new Point(46, 15);
-            label4.Name = "label4";
-            label4.Size = new Size(242, 34);
-            label4.TabIndex = 8;
-            label4.Text = "Programs Offered";
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.PaleGreen;
-            panel3.Controls.Add(materialButton1);
-            panel3.Controls.Add(Totalprofessorlabel);
-            panel3.Controls.Add(pictureBox2);
-            panel3.Controls.Add(label3);
-            panel3.Location = new Point(677, 263);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(356, 184);
-            panel3.TabIndex = 12;
-            // 
-            // materialButton1
-            // 
-            materialButton1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            materialButton1.Cursor = Cursors.Hand;
-            materialButton1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            materialButton1.Depth = 0;
-            materialButton1.HighEmphasis = true;
-            materialButton1.Icon = null;
-            materialButton1.Location = new Point(160, 136);
-            materialButton1.Margin = new Padding(4, 6, 4, 6);
-            materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
-            materialButton1.Name = "materialButton1";
-            materialButton1.NoAccentTextColor = Color.Empty;
-            materialButton1.Size = new Size(185, 36);
-            materialButton1.TabIndex = 4;
-            materialButton1.Text = "View List Professors";
-            materialButton1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            materialButton1.UseAccentColor = false;
-            materialButton1.UseVisualStyleBackColor = true;
-            // 
-            // Totalprofessorlabel
-            // 
-            Totalprofessorlabel.AutoSize = true;
-            Totalprofessorlabel.Font = new Font("Franklin Gothic Heavy", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Totalprofessorlabel.ForeColor = Color.White;
-            Totalprofessorlabel.Location = new Point(190, 49);
-            Totalprofessorlabel.Name = "Totalprofessorlabel";
-            Totalprofessorlabel.Size = new Size(73, 81);
-            Totalprofessorlabel.TabIndex = 3;
-            Totalprofessorlabel.Text = "0";
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(38, 58);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(63, 63);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 2;
-            pictureBox2.TabStop = false;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Franklin Gothic Heavy", 20.25F);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(38, 15);
-            label3.Name = "label3";
-            label3.Size = new Size(223, 34);
-            label3.TabIndex = 8;
-            label3.Text = "Total Professors";
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.LightSkyBlue;
-            panel1.Controls.Add(ViewStudentBTN);
-            panel1.Controls.Add(Totalstudentlabel);
-            panel1.Controls.Add(pictureBox4);
-            panel1.Controls.Add(label2);
-            panel1.Location = new Point(295, 263);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(356, 184);
-            panel1.TabIndex = 11;
-            // 
-            // ViewStudentBTN
-            // 
-            ViewStudentBTN.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            ViewStudentBTN.Cursor = Cursors.Hand;
-            ViewStudentBTN.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            ViewStudentBTN.Depth = 0;
-            ViewStudentBTN.HighEmphasis = true;
-            ViewStudentBTN.Icon = null;
-            ViewStudentBTN.Location = new Point(180, 136);
-            ViewStudentBTN.Margin = new Padding(4, 6, 4, 6);
-            ViewStudentBTN.MouseState = MaterialSkin.MouseState.HOVER;
-            ViewStudentBTN.Name = "ViewStudentBTN";
-            ViewStudentBTN.NoAccentTextColor = Color.Empty;
-            ViewStudentBTN.Size = new Size(167, 36);
-            ViewStudentBTN.TabIndex = 3;
-            ViewStudentBTN.Text = "View list Students";
-            ViewStudentBTN.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            ViewStudentBTN.UseAccentColor = false;
-            ViewStudentBTN.UseVisualStyleBackColor = true;
-            // 
-            // Totalstudentlabel
-            // 
-            Totalstudentlabel.AutoSize = true;
-            Totalstudentlabel.Font = new Font("Franklin Gothic Heavy", 48F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            Totalstudentlabel.ForeColor = Color.White;
-            Totalstudentlabel.Location = new Point(188, 49);
-            Totalstudentlabel.Name = "Totalstudentlabel";
-            Totalstudentlabel.Size = new Size(73, 81);
-            Totalstudentlabel.TabIndex = 2;
-            Totalstudentlabel.Text = "0";
+            guna2Button6.BackColor = Color.White;
+            guna2Button6.BorderRadius = 20;
+            guna2Button6.CustomizableEdges = customizableEdges25;
+            guna2Button6.DisabledState.BorderColor = Color.DarkGray;
+            guna2Button6.DisabledState.CustomBorderColor = Color.DarkGray;
+            guna2Button6.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            guna2Button6.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            guna2Button6.Font = new Font("Segoe UI", 9F);
+            guna2Button6.ForeColor = Color.White;
+            guna2Button6.Location = new Point(133, 111);
+            guna2Button6.Name = "guna2Button6";
+            guna2Button6.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            guna2Button6.Size = new Size(180, 45);
+            guna2Button6.TabIndex = 29;
+            guna2Button6.Text = "View";
             // 
             // pictureBox4
             // 
+            pictureBox4.BackColor = Color.White;
             pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(42, 58);
+            pictureBox4.Location = new Point(253, 15);
             pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(65, 63);
+            pictureBox4.Size = new Size(60, 60);
             pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox4.TabIndex = 1;
+            pictureBox4.TabIndex = 22;
             pictureBox4.TabStop = false;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Franklin Gothic Heavy", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(33, 15);
+            label2.BackColor = Color.White;
+            label2.Font = new Font("Segoe UI Black", 18F, FontStyle.Bold);
+            label2.ForeColor = Color.Black;
+            label2.Location = new Point(16, 38);
             label2.Name = "label2";
-            label2.Size = new Size(199, 34);
-            label2.TabIndex = 0;
-            label2.Text = "Total Students";
+            label2.Size = new Size(224, 32);
+            label2.TabIndex = 21;
+            label2.Text = "Programs Offered";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.BackColor = Color.White;
+            label9.Font = new Font("Segoe UI Black", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label9.ForeColor = Color.Black;
+            label9.Location = new Point(37, 93);
+            label9.Name = "label9";
+            label9.Size = new Size(44, 50);
+            label9.TabIndex = 2;
+            label9.Text = "8";
+            // 
+            // guna2HtmlLabel6
+            // 
+            guna2HtmlLabel6.BackColor = Color.White;
+            guna2HtmlLabel6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel6.ForeColor = Color.Gray;
+            guna2HtmlLabel6.Location = new Point(27, 15);
+            guna2HtmlLabel6.Name = "guna2HtmlLabel6";
+            guna2HtmlLabel6.Size = new Size(42, 23);
+            guna2HtmlLabel6.TabIndex = 21;
+            guna2HtmlLabel6.Text = "Total";
+            // 
+            // guna2CustomGradientPanel3
+            // 
+            guna2CustomGradientPanel3.BorderRadius = 20;
+            guna2CustomGradientPanel3.Controls.Add(guna2Button5);
+            guna2CustomGradientPanel3.Controls.Add(pictureBox2);
+            guna2CustomGradientPanel3.Controls.Add(totalenrolledstudentslabel);
+            guna2CustomGradientPanel3.Controls.Add(label3);
+            guna2CustomGradientPanel3.Controls.Add(guna2HtmlLabel5);
+            guna2CustomGradientPanel3.CustomizableEdges = customizableEdges31;
+            guna2CustomGradientPanel3.Location = new Point(749, 296);
+            guna2CustomGradientPanel3.Name = "guna2CustomGradientPanel3";
+            guna2CustomGradientPanel3.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            guna2CustomGradientPanel3.Size = new Size(325, 168);
+            guna2CustomGradientPanel3.TabIndex = 24;
+            // 
+            // guna2Button5
+            // 
+            guna2Button5.BackColor = Color.White;
+            guna2Button5.BorderRadius = 20;
+            guna2Button5.CustomizableEdges = customizableEdges29;
+            guna2Button5.DisabledState.BorderColor = Color.DarkGray;
+            guna2Button5.DisabledState.CustomBorderColor = Color.DarkGray;
+            guna2Button5.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            guna2Button5.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            guna2Button5.Font = new Font("Segoe UI", 9F);
+            guna2Button5.ForeColor = Color.White;
+            guna2Button5.Location = new Point(124, 111);
+            guna2Button5.Name = "guna2Button5";
+            guna2Button5.ShadowDecoration.CustomizableEdges = customizableEdges30;
+            guna2Button5.Size = new Size(180, 45);
+            guna2Button5.TabIndex = 28;
+            guna2Button5.Text = "View";
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor = Color.White;
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(244, 15);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(60, 60);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 22;
+            pictureBox2.TabStop = false;
+            // 
+            // totalenrolledstudentslabel
+            // 
+            totalenrolledstudentslabel.AutoSize = true;
+            totalenrolledstudentslabel.BackColor = Color.White;
+            totalenrolledstudentslabel.Font = new Font("Segoe UI Black", 27.75F, FontStyle.Bold);
+            totalenrolledstudentslabel.ForeColor = Color.Black;
+            totalenrolledstudentslabel.Location = new Point(37, 96);
+            totalenrolledstudentslabel.Name = "totalenrolledstudentslabel";
+            totalenrolledstudentslabel.Size = new Size(44, 50);
+            totalenrolledstudentslabel.TabIndex = 2;
+            totalenrolledstudentslabel.Text = "0";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.White;
+            label3.Font = new Font("Segoe UI Black", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(16, 38);
+            label3.Name = "label3";
+            label3.Size = new Size(220, 32);
+            label3.TabIndex = 21;
+            label3.Text = "Enrolled Students";
+            // 
+            // guna2HtmlLabel5
+            // 
+            guna2HtmlLabel5.BackColor = Color.White;
+            guna2HtmlLabel5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel5.ForeColor = Color.Gray;
+            guna2HtmlLabel5.Location = new Point(23, 15);
+            guna2HtmlLabel5.Name = "guna2HtmlLabel5";
+            guna2HtmlLabel5.Size = new Size(42, 23);
+            guna2HtmlLabel5.TabIndex = 21;
+            guna2HtmlLabel5.Text = "Total";
+            // 
+            // guna2CustomGradientPanel2
+            // 
+            guna2CustomGradientPanel2.BorderRadius = 20;
+            guna2CustomGradientPanel2.Controls.Add(guna2Button4);
+            guna2CustomGradientPanel2.Controls.Add(pictureBox6);
+            guna2CustomGradientPanel2.Controls.Add(Totalprofessorlabel);
+            guna2CustomGradientPanel2.Controls.Add(label14);
+            guna2CustomGradientPanel2.Controls.Add(guna2HtmlLabel4);
+            guna2CustomGradientPanel2.CustomizableEdges = customizableEdges35;
+            guna2CustomGradientPanel2.Location = new Point(391, 296);
+            guna2CustomGradientPanel2.Name = "guna2CustomGradientPanel2";
+            guna2CustomGradientPanel2.ShadowDecoration.CustomizableEdges = customizableEdges36;
+            guna2CustomGradientPanel2.Size = new Size(325, 168);
+            guna2CustomGradientPanel2.TabIndex = 23;
+            // 
+            // guna2Button4
+            // 
+            guna2Button4.BackColor = Color.White;
+            guna2Button4.BorderRadius = 20;
+            guna2Button4.CustomizableEdges = customizableEdges33;
+            guna2Button4.DisabledState.BorderColor = Color.DarkGray;
+            guna2Button4.DisabledState.CustomBorderColor = Color.DarkGray;
+            guna2Button4.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            guna2Button4.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            guna2Button4.Font = new Font("Segoe UI", 9F);
+            guna2Button4.ForeColor = Color.White;
+            guna2Button4.Location = new Point(131, 111);
+            guna2Button4.Name = "guna2Button4";
+            guna2Button4.ShadowDecoration.CustomizableEdges = customizableEdges34;
+            guna2Button4.Size = new Size(180, 45);
+            guna2Button4.TabIndex = 27;
+            guna2Button4.Text = "View";
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.BackColor = Color.White;
+            pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
+            pictureBox6.Location = new Point(251, 15);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new Size(60, 60);
+            pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox6.TabIndex = 22;
+            pictureBox6.TabStop = false;
+            // 
+            // Totalprofessorlabel
+            // 
+            Totalprofessorlabel.AutoSize = true;
+            Totalprofessorlabel.BackColor = Color.White;
+            Totalprofessorlabel.Font = new Font("Segoe UI Black", 27.75F, FontStyle.Bold);
+            Totalprofessorlabel.ForeColor = Color.Black;
+            Totalprofessorlabel.Location = new Point(37, 95);
+            Totalprofessorlabel.Name = "Totalprofessorlabel";
+            Totalprofessorlabel.Size = new Size(44, 50);
+            Totalprofessorlabel.TabIndex = 3;
+            Totalprofessorlabel.Text = "0";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.BackColor = Color.White;
+            label14.Font = new Font("Segoe UI Black", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.ForeColor = Color.Black;
+            label14.Location = new Point(16, 38);
+            label14.Name = "label14";
+            label14.Size = new Size(159, 37);
+            label14.TabIndex = 21;
+            label14.Text = "Professors";
+            // 
+            // guna2HtmlLabel4
+            // 
+            guna2HtmlLabel4.BackColor = Color.White;
+            guna2HtmlLabel4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel4.ForeColor = Color.Gray;
+            guna2HtmlLabel4.Location = new Point(27, 15);
+            guna2HtmlLabel4.Name = "guna2HtmlLabel4";
+            guna2HtmlLabel4.Size = new Size(42, 23);
+            guna2HtmlLabel4.TabIndex = 21;
+            guna2HtmlLabel4.Text = "Total";
+            // 
+            // guna2CustomGradientPanel1
+            // 
+            guna2CustomGradientPanel1.BorderRadius = 20;
+            guna2CustomGradientPanel1.Controls.Add(guna2Button3);
+            guna2CustomGradientPanel1.Controls.Add(pictureBox1);
+            guna2CustomGradientPanel1.Controls.Add(label8);
+            guna2CustomGradientPanel1.Controls.Add(Totalstudentlabel);
+            guna2CustomGradientPanel1.Controls.Add(guna2HtmlLabel3);
+            guna2CustomGradientPanel1.CustomizableEdges = customizableEdges39;
+            guna2CustomGradientPanel1.Location = new Point(39, 296);
+            guna2CustomGradientPanel1.Name = "guna2CustomGradientPanel1";
+            guna2CustomGradientPanel1.ShadowDecoration.CustomizableEdges = customizableEdges40;
+            guna2CustomGradientPanel1.Size = new Size(325, 168);
+            guna2CustomGradientPanel1.TabIndex = 20;
+            // 
+            // guna2Button3
+            // 
+            guna2Button3.BackColor = Color.White;
+            guna2Button3.BorderRadius = 20;
+            guna2Button3.CustomizableEdges = customizableEdges37;
+            guna2Button3.DisabledState.BorderColor = Color.DarkGray;
+            guna2Button3.DisabledState.CustomBorderColor = Color.DarkGray;
+            guna2Button3.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            guna2Button3.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            guna2Button3.Font = new Font("Segoe UI", 9F);
+            guna2Button3.ForeColor = Color.White;
+            guna2Button3.Location = new Point(129, 111);
+            guna2Button3.Name = "guna2Button3";
+            guna2Button3.ShadowDecoration.CustomizableEdges = customizableEdges38;
+            guna2Button3.Size = new Size(180, 45);
+            guna2Button3.TabIndex = 26;
+            guna2Button3.Text = "View";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.White;
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(249, 15);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(60, 60);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 22;
+            pictureBox1.TabStop = false;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.BackColor = Color.White;
+            label8.Font = new Font("Segoe UI Black", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.ForeColor = Color.Black;
+            label8.Location = new Point(16, 38);
+            label8.Name = "label8";
+            label8.Size = new Size(133, 37);
+            label8.TabIndex = 21;
+            label8.Text = "Students";
+            // 
+            // Totalstudentlabel
+            // 
+            Totalstudentlabel.AutoSize = true;
+            Totalstudentlabel.BackColor = Color.White;
+            Totalstudentlabel.Font = new Font("Segoe UI Black", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            Totalstudentlabel.ForeColor = Color.Black;
+            Totalstudentlabel.Location = new Point(37, 96);
+            Totalstudentlabel.Name = "Totalstudentlabel";
+            Totalstudentlabel.Size = new Size(44, 50);
+            Totalstudentlabel.TabIndex = 2;
+            Totalstudentlabel.Text = "0";
+            // 
+            // guna2HtmlLabel3
+            // 
+            guna2HtmlLabel3.BackColor = Color.White;
+            guna2HtmlLabel3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel3.ForeColor = Color.Gray;
+            guna2HtmlLabel3.Location = new Point(27, 15);
+            guna2HtmlLabel3.Name = "guna2HtmlLabel3";
+            guna2HtmlLabel3.Size = new Size(42, 23);
+            guna2HtmlLabel3.TabIndex = 21;
+            guna2HtmlLabel3.Text = "Total";
+            guna2HtmlLabel3.Click += guna2HtmlLabel3_Click;
+            // 
+            // guna2HtmlLabel2
+            // 
+            guna2HtmlLabel2.BackColor = Color.White;
+            guna2HtmlLabel2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            guna2HtmlLabel2.ForeColor = Color.Black;
+            guna2HtmlLabel2.Location = new Point(72, 117);
+            guna2HtmlLabel2.Name = "guna2HtmlLabel2";
+            guna2HtmlLabel2.Size = new Size(252, 34);
+            guna2HtmlLabel2.TabIndex = 19;
+            guna2HtmlLabel2.Text = "University of Mindanao";
+            // 
+            // guna2Button2
+            // 
+            guna2Button2.BackColor = Color.White;
+            guna2Button2.BorderRadius = 14;
+            guna2Button2.CustomizableEdges = customizableEdges41;
+            guna2Button2.DisabledState.BorderColor = Color.DarkGray;
+            guna2Button2.DisabledState.CustomBorderColor = Color.DarkGray;
+            guna2Button2.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            guna2Button2.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            guna2Button2.Font = new Font("Segoe UI", 9F);
+            guna2Button2.ForeColor = Color.White;
+            guna2Button2.Location = new Point(273, 183);
+            guna2Button2.Name = "guna2Button2";
+            guna2Button2.ShadowDecoration.CustomizableEdges = customizableEdges42;
+            guna2Button2.Size = new Size(180, 55);
+            guna2Button2.TabIndex = 18;
+            guna2Button2.Text = "Button";
+            // 
+            // guna2Button1
+            // 
+            guna2Button1.BackColor = Color.White;
+            guna2Button1.BorderRadius = 14;
+            guna2Button1.CustomizableEdges = customizableEdges43;
+            guna2Button1.DisabledState.BorderColor = Color.DarkGray;
+            guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
+            guna2Button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            guna2Button1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            guna2Button1.Font = new Font("Segoe UI", 9F);
+            guna2Button1.ForeColor = Color.White;
+            guna2Button1.Location = new Point(72, 183);
+            guna2Button1.Name = "guna2Button1";
+            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges44;
+            guna2Button1.Size = new Size(180, 55);
+            guna2Button1.TabIndex = 17;
+            guna2Button1.Text = "Button";
+            // 
+            // guna2PictureBox2
+            // 
+            guna2PictureBox2.BorderRadius = 15;
+            guna2PictureBox2.CustomizableEdges = customizableEdges45;
+            guna2PictureBox2.FillColor = Color.ForestGreen;
+            guna2PictureBox2.Image = (Image)resources.GetObject("guna2PictureBox2.Image");
+            guna2PictureBox2.ImageRotate = 0F;
+            guna2PictureBox2.Location = new Point(856, 27);
+            guna2PictureBox2.Name = "guna2PictureBox2";
+            guna2PictureBox2.ShadowDecoration.CustomizableEdges = customizableEdges46;
+            guna2PictureBox2.ShadowDecoration.Shadow = new Padding(5, 5, 10, 10);
+            guna2PictureBox2.Size = new Size(565, 254);
+            guna2PictureBox2.TabIndex = 16;
+            guna2PictureBox2.TabStop = false;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.BackColor = Color.White;
+            label7.Font = new Font("Segoe UI Black", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.Black;
+            label7.Location = new Point(62, 77);
+            label7.Name = "label7";
+            label7.Size = new Size(407, 37);
+            label7.TabIndex = 4;
+            label7.Text = "Student Management System";
+            // 
+            // guna2HtmlLabel1
+            // 
+            guna2HtmlLabel1.BackColor = Color.White;
+            guna2HtmlLabel1.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel1.ForeColor = Color.Gray;
+            guna2HtmlLabel1.Location = new Point(72, 52);
+            guna2HtmlLabel1.Name = "guna2HtmlLabel1";
+            guna2HtmlLabel1.Size = new Size(112, 22);
+            guna2HtmlLabel1.TabIndex = 15;
+            guna2HtmlLabel1.Text = "Admin Account";
+            // 
+            // guna2PictureBox1
+            // 
+            guna2PictureBox1.BorderRadius = 15;
+            guna2PictureBox1.CustomizableEdges = customizableEdges47;
+            guna2PictureBox1.ImageRotate = 0F;
+            guna2PictureBox1.Location = new Point(35, 27);
+            guna2PictureBox1.Name = "guna2PictureBox1";
+            guna2PictureBox1.ShadowDecoration.CustomizableEdges = customizableEdges48;
+            guna2PictureBox1.ShadowDecoration.Shadow = new Padding(5, 5, 10, 10);
+            guna2PictureBox1.Size = new Size(795, 254);
+            guna2PictureBox1.TabIndex = 14;
+            guna2PictureBox1.TabStop = false;
             // 
             // tabPage2
             // 
@@ -1693,6 +1848,12 @@
             // 
             // tabPage5
             // 
+            tabPage5.Controls.Add(label13);
+            tabPage5.Controls.Add(Studentaddress);
+            tabPage5.Controls.Add(label12);
+            tabPage5.Controls.Add(Studentlastname);
+            tabPage5.Controls.Add(label11);
+            tabPage5.Controls.Add(Studentmiddlename);
             tabPage5.Controls.Add(label65);
             tabPage5.Controls.Add(pictureBox35);
             tabPage5.Controls.Add(label64);
@@ -1711,7 +1872,7 @@
             tabPage5.Controls.Add(label58);
             tabPage5.Controls.Add(Studentemail);
             tabPage5.Controls.Add(label57);
-            tabPage5.Controls.Add(Studentfullname);
+            tabPage5.Controls.Add(Studentfirstname);
             tabPage5.Controls.Add(label56);
             tabPage5.ImageKey = "subscription-user.png";
             tabPage5.Location = new Point(4, 24);
@@ -1720,13 +1881,74 @@
             tabPage5.TabIndex = 4;
             tabPage5.Text = "Create Student Account";
             tabPage5.UseVisualStyleBackColor = true;
+            tabPage5.Click += tabPage5_Click;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label13.ForeColor = Color.Black;
+            label13.Location = new Point(618, 232);
+            label13.Name = "label13";
+            label13.Size = new Size(57, 17);
+            label13.TabIndex = 25;
+            label13.Text = "Address";
+            // 
+            // Studentaddress
+            // 
+            Studentaddress.BorderStyle = BorderStyle.FixedSingle;
+            Studentaddress.Location = new Point(601, 241);
+            Studentaddress.Multiline = true;
+            Studentaddress.Name = "Studentaddress";
+            Studentaddress.Size = new Size(364, 44);
+            Studentaddress.TabIndex = 24;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.ForeColor = Color.Black;
+            label12.Location = new Point(1064, 157);
+            label12.Name = "label12";
+            label12.Size = new Size(66, 17);
+            label12.TabIndex = 23;
+            label12.Text = "Lastname";
+            // 
+            // Studentlastname
+            // 
+            Studentlastname.BorderStyle = BorderStyle.FixedSingle;
+            Studentlastname.Location = new Point(1047, 166);
+            Studentlastname.Multiline = true;
+            Studentlastname.Name = "Studentlastname";
+            Studentlastname.Size = new Size(298, 44);
+            Studentlastname.TabIndex = 22;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label11.ForeColor = Color.Black;
+            label11.Location = new Point(853, 157);
+            label11.Name = "label11";
+            label11.Size = new Size(83, 17);
+            label11.TabIndex = 21;
+            label11.Text = "Middlename";
+            // 
+            // Studentmiddlename
+            // 
+            Studentmiddlename.BorderStyle = BorderStyle.FixedSingle;
+            Studentmiddlename.Location = new Point(836, 166);
+            Studentmiddlename.Multiline = true;
+            Studentmiddlename.Name = "Studentmiddlename";
+            Studentmiddlename.Size = new Size(179, 44);
+            Studentmiddlename.TabIndex = 20;
             // 
             // label65
             // 
             label65.AutoSize = true;
             label65.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label65.ForeColor = Color.Black;
-            label65.Location = new Point(338, 495);
+            label65.Location = new Point(216, 483);
             label65.Name = "label65";
             label65.Size = new Size(115, 17);
             label65.TabIndex = 19;
@@ -1735,7 +1957,7 @@
             // pictureBox35
             // 
             pictureBox35.Image = (Image)resources.GetObject("pictureBox35.Image");
-            pictureBox35.Location = new Point(290, 485);
+            pictureBox35.Location = new Point(168, 473);
             pictureBox35.Name = "pictureBox35";
             pictureBox35.Size = new Size(42, 41);
             pictureBox35.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -1747,7 +1969,7 @@
             label64.AutoSize = true;
             label64.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label64.ForeColor = Color.Black;
-            label64.Location = new Point(338, 428);
+            label64.Location = new Point(216, 416);
             label64.Name = "label64";
             label64.Size = new Size(117, 17);
             label64.TabIndex = 17;
@@ -1756,7 +1978,7 @@
             // pictureBox34
             // 
             pictureBox34.Image = (Image)resources.GetObject("pictureBox34.Image");
-            pictureBox34.Location = new Point(290, 418);
+            pictureBox34.Location = new Point(168, 406);
             pictureBox34.Name = "pictureBox34";
             pictureBox34.Size = new Size(42, 41);
             pictureBox34.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -1769,7 +1991,7 @@
             label63.BackColor = Color.White;
             label63.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label63.ForeColor = Color.Black;
-            label63.Location = new Point(338, 361);
+            label63.Location = new Point(216, 349);
             label63.Name = "label63";
             label63.Size = new Size(135, 17);
             label63.TabIndex = 15;
@@ -1779,7 +2001,7 @@
             // 
             pictureBox33.BackColor = Color.SeaShell;
             pictureBox33.Image = (Image)resources.GetObject("pictureBox33.Image");
-            pictureBox33.Location = new Point(290, 351);
+            pictureBox33.Location = new Point(168, 339);
             pictureBox33.Name = "pictureBox33";
             pictureBox33.Size = new Size(42, 41);
             pictureBox33.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -1791,7 +2013,7 @@
             label62.AutoSize = true;
             label62.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label62.ForeColor = Color.Black;
-            label62.Location = new Point(338, 291);
+            label62.Location = new Point(216, 279);
             label62.Name = "label62";
             label62.Size = new Size(151, 17);
             label62.TabIndex = 13;
@@ -1800,7 +2022,7 @@
             // pictureBox32
             // 
             pictureBox32.Image = (Image)resources.GetObject("pictureBox32.Image");
-            pictureBox32.Location = new Point(290, 281);
+            pictureBox32.Location = new Point(168, 269);
             pictureBox32.Name = "pictureBox32";
             pictureBox32.Size = new Size(42, 41);
             pictureBox32.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -1812,7 +2034,7 @@
             label61.AutoSize = true;
             label61.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label61.ForeColor = Color.Black;
-            label61.Location = new Point(252, 201);
+            label61.Location = new Point(130, 189);
             label61.Name = "label61";
             label61.Size = new Size(384, 51);
             label61.TabIndex = 11;
@@ -1823,7 +2045,7 @@
             checkBox1.AutoSize = true;
             checkBox1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             checkBox1.ForeColor = Color.Gray;
-            checkBox1.Location = new Point(759, 478);
+            checkBox1.Location = new Point(636, 481);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(296, 24);
             checkBox1.TabIndex = 10;
@@ -1834,7 +2056,7 @@
             // 
             button1.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.Black;
-            button1.Location = new Point(724, 413);
+            button1.Location = new Point(601, 416);
             button1.Name = "button1";
             button1.Size = new Size(364, 47);
             button1.TabIndex = 9;
@@ -1847,7 +2069,7 @@
             label60.AutoSize = true;
             label60.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label60.ForeColor = Color.Black;
-            label60.Location = new Point(741, 328);
+            label60.Location = new Point(998, 312);
             label60.Name = "label60";
             label60.Size = new Size(66, 17);
             label60.TabIndex = 8;
@@ -1856,7 +2078,7 @@
             // Studentpassword
             // 
             Studentpassword.BorderStyle = BorderStyle.FixedSingle;
-            Studentpassword.Location = new Point(724, 337);
+            Studentpassword.Location = new Point(981, 321);
             Studentpassword.Multiline = true;
             Studentpassword.Name = "Studentpassword";
             Studentpassword.Size = new Size(364, 44);
@@ -1867,7 +2089,7 @@
             label59.AutoSize = true;
             label59.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label59.ForeColor = Color.Black;
-            label59.Location = new Point(741, 255);
+            label59.Location = new Point(618, 312);
             label59.Name = "label59";
             label59.Size = new Size(101, 17);
             label59.TabIndex = 6;
@@ -1876,7 +2098,7 @@
             // Studentphonenumber
             // 
             Studentphonenumber.BorderStyle = BorderStyle.FixedSingle;
-            Studentphonenumber.Location = new Point(724, 264);
+            Studentphonenumber.Location = new Point(601, 321);
             Studentphonenumber.Multiline = true;
             Studentphonenumber.Name = "Studentphonenumber";
             Studentphonenumber.Size = new Size(364, 44);
@@ -1887,7 +2109,7 @@
             label58.AutoSize = true;
             label58.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label58.ForeColor = Color.Black;
-            label58.Location = new Point(741, 175);
+            label58.Location = new Point(998, 232);
             label58.Name = "label58";
             label58.Size = new Size(40, 17);
             label58.TabIndex = 4;
@@ -1896,7 +2118,7 @@
             // Studentemail
             // 
             Studentemail.BorderStyle = BorderStyle.FixedSingle;
-            Studentemail.Location = new Point(724, 184);
+            Studentemail.Location = new Point(981, 241);
             Studentemail.Multiline = true;
             Studentemail.Name = "Studentemail";
             Studentemail.Size = new Size(364, 44);
@@ -1907,28 +2129,28 @@
             label57.AutoSize = true;
             label57.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label57.ForeColor = Color.Black;
-            label57.Location = new Point(741, 96);
+            label57.Location = new Point(618, 157);
             label57.Name = "label57";
-            label57.Size = new Size(63, 17);
+            label57.Size = new Size(68, 17);
             label57.TabIndex = 2;
-            label57.Text = "Fullname";
+            label57.Text = "Firstname";
             // 
-            // Studentfullname
+            // Studentfirstname
             // 
-            Studentfullname.BorderStyle = BorderStyle.FixedSingle;
-            Studentfullname.Location = new Point(724, 105);
-            Studentfullname.Multiline = true;
-            Studentfullname.Name = "Studentfullname";
-            Studentfullname.Size = new Size(364, 44);
-            Studentfullname.TabIndex = 1;
-            Studentfullname.TextChanged += textBox1_TextChanged;
+            Studentfirstname.BorderStyle = BorderStyle.FixedSingle;
+            Studentfirstname.Location = new Point(601, 166);
+            Studentfirstname.Multiline = true;
+            Studentfirstname.Name = "Studentfirstname";
+            Studentfirstname.Size = new Size(205, 44);
+            Studentfirstname.TabIndex = 1;
+            Studentfirstname.TextChanged += textBox1_TextChanged;
             // 
             // label56
             // 
             label56.AutoSize = true;
             label56.Font = new Font("Segoe UI Black", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label56.ForeColor = Color.Black;
-            label56.Location = new Point(252, 92);
+            label56.Location = new Point(130, 80);
             label56.Name = "label56";
             label56.Size = new Size(351, 100);
             label56.TabIndex = 0;
@@ -2206,7 +2428,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ControlLight;
+            BackColor = Color.FromArgb(224, 224, 224);
             ClientSize = new Size(1564, 776);
             Controls.Add(materialTabControl1);
             DrawerIsOpen = true;
@@ -2218,21 +2440,21 @@
             Load += DashboardForm_Load;
             materialTabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
-            panel5.ResumeLayout(false);
-            panel5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            tabPage1.PerformLayout();
+            guna2CustomGradientPanel4.ResumeLayout(false);
+            guna2CustomGradientPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            guna2CustomGradientPanel3.ResumeLayout(false);
+            guna2CustomGradientPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            guna2CustomGradientPanel2.ResumeLayout(false);
+            guna2CustomGradientPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            guna2CustomGradientPanel1.ResumeLayout(false);
+            guna2CustomGradientPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)guna2PictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).EndInit();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -2303,25 +2525,8 @@
         private TabPage tabPage3;
         private TabPage tabPage4;
         private ImageList imageList1;
-        private Panel panel4;
-        private MaterialSkin.Controls.MaterialButton materialButton2;
-        private Label label6;
-        private PictureBox pictureBox3;
-        private Label label4;
-        private Panel panel3;
-        private MaterialSkin.Controls.MaterialButton materialButton1;
         private Label Totalprofessorlabel;
-        private PictureBox pictureBox2;
-        private Label label3;
-        private Panel panel1;
-        private MaterialSkin.Controls.MaterialButton ViewStudentBTN;
         private Label Totalstudentlabel;
-        private PictureBox pictureBox4;
-        private Label label2;
-        private Panel panel2;
-        private Label label7;
-        private PictureBox pictureBox1;
-        private Label label8;
         private Label label15;
         private Panel MinorPanel;
         private Panel panel12;
@@ -2399,7 +2604,7 @@
         private PictureBox pictureBox8;
         private TabPage tabPage5;
         private Label label56;
-        private TextBox Studentfullname;
+        private TextBox Studentfirstname;
         private Button button1;
         private Label label60;
         private TextBox Studentpassword;
@@ -2440,11 +2645,7 @@
         private TextBox Professorfullname;
         private Label label74;
         private ComboBox Professorprogram;
-        private Panel panel5;
-        private MaterialSkin.Controls.MaterialButton materialButton3;
         private Label totalenrolledstudentslabel;
-        private PictureBox pictureBox5;
-        private Label label9;
         private DataGridView dataGridView1;
         private Button button6;
         private Button button5;
@@ -2459,5 +2660,39 @@
         private Button MinorButton;
         private Button MajorButton;
         private Panel panel7;
+        private Label label13;
+        private TextBox Studentaddress;
+        private Label label12;
+        private TextBox Studentlastname;
+        private Label label11;
+        private TextBox Studentmiddlename;
+        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
+        private Label label7;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
+        private Guna.UI2.WinForms.Guna2Button guna2Button2;
+        private Guna.UI2.WinForms.Guna2Button guna2Button1;
+        private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox2;
+        private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel1;
+        private Label label8;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
+        private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel3;
+        private PictureBox pictureBox2;
+        private Label label3;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
+        private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel2;
+        private PictureBox pictureBox6;
+        private Label label14;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
+        private PictureBox pictureBox1;
+        private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel4;
+        private Guna.UI2.WinForms.Guna2Button guna2Button6;
+        private PictureBox pictureBox4;
+        private Label label2;
+        private Label label9;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel6;
+        private Guna.UI2.WinForms.Guna2Button guna2Button5;
+        private Guna.UI2.WinForms.Guna2Button guna2Button4;
+        private Guna.UI2.WinForms.Guna2Button guna2Button3;
     }
 }

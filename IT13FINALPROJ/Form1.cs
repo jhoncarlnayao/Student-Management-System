@@ -4,15 +4,17 @@ using MySql.Data.MySqlClient;
 
 namespace IT13FINALPROJ
 {
-    public partial class Form1 : MaterialForm
+    public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.ControlBox = false;
+            this.Text = "";
+
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
@@ -84,9 +86,29 @@ namespace IT13FINALPROJ
 
         private void button1_Click_2(object sender, EventArgs e)
         {
+
+        }
+
+        private void label73_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint_2(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void UsernameText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
             string username = UsernameText.Text;
             string password = PasswordText.Text;
-            string connectionString = "server=localhost;database=it13finalproj;user=root;password=;";
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
 
             // Check if it's a login for Admin
             string adminQuery = "SELECT COUNT(1) FROM Admins WHERE Username=@username AND Password=@password";
@@ -113,7 +135,7 @@ namespace IT13FINALPROJ
                 }
 
                 // Check for Student login
-                string studentQuery = "SELECT Fullname, Email, PhoneNumber FROM students_accounts WHERE Email=@username AND Password=@password";
+                string studentQuery = "SELECT Firstname, Middlename, Lastname, Phonenumber, Email, Address FROM student_accounts WHERE Email=@username AND Password=@password";
                 MySqlCommand studentCmd = new MySqlCommand(studentQuery, con);
                 studentCmd.Parameters.AddWithValue("@username", username);
                 studentCmd.Parameters.AddWithValue("@password", password);
@@ -122,11 +144,14 @@ namespace IT13FINALPROJ
                 {
                     if (reader.Read())
                     {
-                        string fullname = reader["Fullname"]?.ToString();
+                        string firstname = reader["Firstname"]?.ToString();
+                        string middlename = reader["Middlename"]?.ToString();
+                        string lastname = reader["Lastname"]?.ToString();
+                        string phonenumber = reader["Phonenumber"]?.ToString();
                         string email = reader["Email"]?.ToString();
-                        string phonenumber = reader["PhoneNumber"]?.ToString();
+                        string address = reader["Address"]?.ToString();
 
-                        if (string.IsNullOrEmpty(fullname) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(phonenumber))
+                        if (string.IsNullOrEmpty(firstname) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(phonenumber))
                         {
                             MessageBox.Show("Some student details are missing.", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
@@ -134,7 +159,7 @@ namespace IT13FINALPROJ
 
                         MessageBox.Show("Student logged in successfully!", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        StudentDashboard studentDashboard = new StudentDashboard(fullname, email, phonenumber);
+                        StudentDashboard studentDashboard = new StudentDashboard(firstname, email, phonenumber);
                         studentDashboard.Show();
                         this.Hide();
                         return;
@@ -165,17 +190,6 @@ namespace IT13FINALPROJ
                 MessageBox.Show("Invalid Username or Password.", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-        private void label73_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint_2(object sender, PaintEventArgs e)
-        {
-
-        }
-
-
     }
 }
+
