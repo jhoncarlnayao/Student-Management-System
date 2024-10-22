@@ -21,5 +21,10 @@ namespace IT13FINALPROJ
         {
 
         }
+
+        private void Design_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

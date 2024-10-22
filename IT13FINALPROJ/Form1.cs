@@ -190,6 +190,19 @@ namespace IT13FINALPROJ
                 MessageBox.Show("Invalid Username or Password.", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void guna2PictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            EnrollForm enrollform = new EnrollForm();
+            enrollform.Show();
+            this.Hide();
+            return;
+        }
     }
 }
 

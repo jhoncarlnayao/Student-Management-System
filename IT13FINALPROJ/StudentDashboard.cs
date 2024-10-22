@@ -58,7 +58,7 @@ namespace IT13FINALPROJ
             Studentemailtext.Enabled = false;
             Studentphonenumbertext.Enabled = false;
 
-            nextinfo.Visible = false;
+           
 
         }
 
@@ -116,56 +116,7 @@ namespace IT13FINALPROJ
 
         private void EnrollButton_Click(object sender, EventArgs e)
         {
-            // ENROLL BUTTON
-            string connectionString = "server=localhost;database=it13finalproj;user=root;password=;";
-            string studentID = StudentIDtext.Text;
-            string selectedProgram = Studentprogram.Text;
-            string fullname = Studentfullnametext.Text;
-
-            if (string.IsNullOrEmpty(selectedProgram))
-            {
-                MessageBox.Show("Please select a program to enroll in.", "Enrollment Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            using (MySqlConnection con = new MySqlConnection(connectionString))
-            {
-                con.Open();
-
-                // Check if the student is already enrolled in any program
-                string checkEnrollmentQuery = "SELECT Program FROM enrollments WHERE StudentID=@studentID";
-                MySqlCommand checkCmd = new MySqlCommand(checkEnrollmentQuery, con);
-                checkCmd.Parameters.AddWithValue("@studentID", studentID);
-
-                string enrolledProgram = checkCmd.ExecuteScalar() as string;
-
-                if (enrolledProgram != null)
-                {
-                    // If the student is already enrolled in a different program, notify them
-                    if (enrolledProgram.Equals(selectedProgram, StringComparison.OrdinalIgnoreCase))
-                    {
-                        MessageBox.Show("You are already enrolled in this program.", "Enrollment Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
-                    }
-                }
-
-                // Proceed with enrollment
-                string enrollQuery = "INSERT INTO enrollments (StudentID, Fullname, Program) VALUES (@studentID, @fullname, @program)";
-                MySqlCommand enrollCmd = new MySqlCommand(enrollQuery, con);
-                enrollCmd.Parameters.AddWithValue("@studentID", studentID);
-                enrollCmd.Parameters.AddWithValue("@fullname", fullname);
-                enrollCmd.Parameters.AddWithValue("@program", selectedProgram);
-
-                try
-                {
-                    enrollCmd.ExecuteNonQuery();
-                    MessageBox.Show("Enrollment successful!", "Enrollment Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Enrollment failed: {ex.Message}", "Enrollment Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -208,7 +159,7 @@ namespace IT13FINALPROJ
 
         private void nextbutton_Click(object sender, EventArgs e)
         {
-            nextinfo.Visible = true;
+            //nextinfo.Visible = true;
         }
 
         private void enroll2_Click(object sender, EventArgs e)

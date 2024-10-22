@@ -31,10 +31,10 @@ namespace IT13FINALPROJ
 
             LoadEnrollmentData();
 
-            this.FormBorderStyle = FormBorderStyle.None;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.ControlBox = false;
+            //   this.ControlBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
@@ -68,7 +68,7 @@ namespace IT13FINALPROJ
         private void CountTotalProfessor()
         {
             string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-            string query = "SELECT COUNT(*) FROM professors_accounts";
+            string query = "SELECT COUNT(*) FROM student_enrollees";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -82,7 +82,7 @@ namespace IT13FINALPROJ
                         int totalprofessor = Convert.ToInt32(cmd.ExecuteScalar());
 
                         // Display the total number of students in the label
-                        Totalprofessorlabel.Text = totalprofessor.ToString();
+                        pendingenrollment.Text = totalprofessor.ToString();
                     }
                 }
                 catch (Exception ex)
@@ -95,7 +95,7 @@ namespace IT13FINALPROJ
         private void CountTotalEnrolledStudents()
         {
             string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-            string query = "SELECT COUNT(*) FROM enrollments";
+            string query = "SELECT COUNT(*) FROM accepted_students";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -109,7 +109,7 @@ namespace IT13FINALPROJ
                         int totalenrolledstudents = Convert.ToInt32(cmd.ExecuteScalar());
 
                         // Display the total number of students in the label
-                        totalenrolledstudentslabel.Text = totalenrolledstudents.ToString();
+                        totalenrolled.Text = totalenrolledstudents.ToString();
                     }
                 }
                 catch (Exception ex)
@@ -122,7 +122,7 @@ namespace IT13FINALPROJ
         private void LoadEnrollmentData()
         {
             string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-            string query = "SELECT * FROM enrollments";
+            string query = "SELECT * FROM student_enrollees";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -134,11 +134,28 @@ namespace IT13FINALPROJ
 
                     adapter.Fill(dataTable); // Fill the DataTable with the data from the query
 
+                    // Add a Status column with default value "Pending"
+                    dataTable.Columns.Add("Status", typeof(string));
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        row["Status"] = "Pending";
+                    }
 
-                    dataGridView1.DataSource = dataTable;
+                    guna2DataGridView1.DataSource = dataTable;
 
+                    // Customize DataGridView appearance
+                    guna2DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    guna2DataGridView1.Columns["Status"].DisplayIndex = 0; // Put Status as the first column
 
-                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    // Add Accept button column
+                    DataGridViewButtonColumn acceptButton = new DataGridViewButtonColumn();
+                    acceptButton.Name = "Accept";
+                    acceptButton.HeaderText = "Action";
+                    acceptButton.Text = "Accept";
+                    acceptButton.UseColumnTextForButtonValue = true;
+                    guna2DataGridView1.Columns.Add(acceptButton);
+
+                    guna2DataGridView1.CellClick += guna2DataGridView1_CellClick;
                 }
                 catch (Exception ex)
                 {
@@ -146,6 +163,81 @@ namespace IT13FINALPROJ
                 }
             }
         }
+
+        // Handle the Accept button click event
+        private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Ensure the click is from the button column
+            if (e.ColumnIndex == guna2DataGridView1.Columns["Accept"].Index && e.RowIndex >= 0)
+            {
+                int studentId = Convert.ToInt32(guna2DataGridView1.Rows[e.RowIndex].Cells["id"].Value);
+                AcceptEnrollment(studentId);
+
+                // Change status after acceptance
+                guna2DataGridView1.Rows[e.RowIndex].Cells["Status"].Value = "Accepted";
+                guna2DataGridView1.Rows[e.RowIndex].Cells["Status"].Style.BackColor = Color.Green;
+            }
+        }
+
+        // Move the student to accepted_students and delete from student_enrollees
+        private void AcceptEnrollment(int studentId)
+        {
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
+            string insertQuery = @"INSERT INTO accepted_students (Firstname, Middlename, Lastname, Phonenumber, Address, Email, Sex, Program, Enrollment_date)
+                           SELECT Firstname, Middlename, Lastname, Phonenumber, Address, Email, Sex, Program, Enrollment_date
+                           FROM student_enrollees WHERE id = @id;
+                           DELETE FROM student_enrollees WHERE id = @id;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", studentId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            MessageBox.Show("Student ID " + studentId + " enrollment accepted and moved to accepted_students.");
+        }
+
+        private void LoadAcceptedEnrollmentData()
+        {
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
+            string query = "SELECT * FROM accepted_students"; 
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
+                    DataTable dataTable = new DataTable();
+
+                    adapter.Fill(dataTable); 
+
+                   
+                    if (dataTable.Rows.Count > 0)
+                    {
+
+                        guna2DataGridView1.DataSource = dataTable;
+
+
+                        guna2DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No professors found in the database.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while loading professors: " + ex.Message);
+                }
+            }
+        }
+
+
 
         private void LoadTotalStudentsData()
         {
@@ -535,10 +627,6 @@ namespace IT13FINALPROJ
             CountTotalEnrolledStudents();
         }
 
-        //private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        //{
-
-        //        }
 
         private void tabPage3_Click(object sender, EventArgs e)
         {
@@ -637,6 +725,21 @@ namespace IT13FINALPROJ
         private void guna2HtmlLabel3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void guna2Button8_Click(object sender, EventArgs e)
+        {
+            LoadEnrollmentData();
+        }
+
+        private void guna2Button9_Click(object sender, EventArgs e)
+        {
+           LoadAcceptedEnrollmentData();
         }
     }
 }
