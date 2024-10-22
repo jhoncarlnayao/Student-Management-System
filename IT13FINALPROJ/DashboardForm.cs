@@ -22,8 +22,7 @@ namespace IT13FINALPROJ
             InitializeComponent();
 
 
-            MajorPanel.Visible = false; //PANEL FOR COURSES MAJOR
-            MinorPanel.Visible = false; //PANEL FOR COURSES MINOR
+         
 
             CountTotalStudents(); //COUNT TOTAL STUDENTS ADMIN PANEL
             CountTotalEnrolledStudents();//COUNT TOTAL ENROLLED STUDENTS
@@ -204,7 +203,7 @@ namespace IT13FINALPROJ
         private void LoadAcceptedEnrollmentData()
         {
             string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-            string query = "SELECT * FROM accepted_students"; 
+            string query = "SELECT * FROM accepted_students";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -214,9 +213,9 @@ namespace IT13FINALPROJ
                     MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
                     DataTable dataTable = new DataTable();
 
-                    adapter.Fill(dataTable); 
+                    adapter.Fill(dataTable);
 
-                   
+
                     if (dataTable.Rows.Count > 0)
                     {
 
@@ -463,15 +462,12 @@ namespace IT13FINALPROJ
 
         private void MajorButton_Click(object sender, EventArgs e)
         {
-            MajorPanel.Visible = true;
-            MinorPanel.Visible = false;
-
+         
         }
 
         private void MinorButton_Click(object sender, EventArgs e)
         {
-            MajorPanel.Visible = false;
-            MinorPanel.Visible = true;
+          
         }
 
         private void label16_Click(object sender, EventArgs e)
@@ -496,8 +492,7 @@ namespace IT13FINALPROJ
 
         private void Button_Click(object sender, EventArgs e)
         {
-            MajorPanel.Visible = true;
-            MinorPanel.Visible = false;
+           
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -702,14 +697,13 @@ namespace IT13FINALPROJ
 
         private void MajorButton_Click_1(object sender, EventArgs e)
         {
-            MajorPanel.Visible = true;
-            MinorPanel.Visible = false;
+         
+         
         }
 
         private void MinorButton_Click_1(object sender, EventArgs e)
         {
-            MajorPanel.Visible = false;
-            MinorPanel.Visible = true;
+         
         }
 
         private void tabPage5_Click(object sender, EventArgs e)
@@ -739,7 +733,12 @@ namespace IT13FINALPROJ
 
         private void guna2Button9_Click(object sender, EventArgs e)
         {
-           LoadAcceptedEnrollmentData();
+            LoadAcceptedEnrollmentData();
+        }
+
+        private void totalenrolled_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
