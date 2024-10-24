@@ -49,6 +49,10 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "dependencies": {
+            "Avalonia.Skia": {
+              "target": "Package",
+              "version": "[11.1.4, )"
+            },
             "Guna.UI2.WinForms": {
               "target": "Package",
               "version": "[2.0.4.6, )"
@@ -60,6 +64,10 @@
             "MySql.Data": {
               "target": "Package",
               "version": "[9.1.0, )"
+            },
+            "Syncfusion.Licensing": {
+              "target": "Package",
+              "version": "[27.1.56, )"
             }
           },
           "imports": [

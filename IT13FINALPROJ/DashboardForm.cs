@@ -236,164 +236,10 @@ namespace IT13FINALPROJ
             }
         }
 
-
-
-        private void LoadTotalStudentsData()
-        {
-            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-            string query = "SELECT * FROM students_accounts";
-
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
-                    DataTable dataTable = new DataTable();
-
-                    adapter.Fill(dataTable); // Fill the DataTable with the data from the query
-
-                    dataGridView1.DataSource = dataTable;
-
-
-                    dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred while loading enrollments: " + ex.Message);
-                }
-            }
-        }
-
-        private void LoadProfessorsData()
-        {
-            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-            string query = "SELECT * FROM professors_accounts";
-
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    DataTable dataTable = new DataTable();
-                    new MySqlDataAdapter(query, conn).Fill(dataTable);
-
-                    if (dataTable.Rows.Count > 0)
-                    {
-                        dataGridView1.DataSource = dataTable;
-                        dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-                        // THIS IS BUTTON INSIDE OF TABLE
-                        var btnColumn = new DataGridViewButtonColumn
-                        {
-                            HeaderText = "Action",
-                            Name = "Action",
-                            Text = "Click Me",
-                            UseColumnTextForButtonValue = true
-                        };
-                        dataGridView1.Columns.Add(btnColumn);
-                    }
-                    else
-                    {
-                        MessageBox.Show("No professors found in the database.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error loading professors: " + ex.Message);
-                }
-            }
-        }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dataGridView1.Columns["Action"].Index && e.RowIndex >= 0)
-            {
-                // OPEN NEW FILE THIS IS FOR UPDATE , EDIT , DELETE FUNCTION
-                OperaitionAdmin operationadmin = new OperaitionAdmin();
-                operationadmin.Show();
-                operationadmin.StartPosition = FormStartPosition.CenterParent;
-            }
+          
         }
-
-
-        private void LoadAllProgramsData()
-        {
-            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-            string query = "SELECT * FROM programs"; // Adjust the query based on the columns you want to retrieve
-
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
-                    DataTable dataTable = new DataTable();
-
-                    adapter.Fill(dataTable); // Fill the DataTable with the data from the query
-
-                    // Check if data is retrieved
-                    if (dataTable.Rows.Count > 0)
-                    {
-
-                        dataGridView1.DataSource = dataTable;
-
-
-                        dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                    }
-                    else
-                    {
-                        MessageBox.Show("No professors found in the database.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred while loading professors: " + ex.Message);
-                }
-            }
-        }
-
-        private void SearchInDataGridView(string SearchValue)
-        {
-            DataTable dataTable = new DataTable();
-
-            if (dataTable != null)
-            {
-                dataTable.DefaultView.RowFilter = string.Format("Fullname LIKE '%{0}%' OR Email LIKE '%{0}%' OR PhoneNumber LIKE '%{0}%'", SearchValue);
-
-                // Optional: Display a message if no results are found
-                if (dataGridView1.Rows.Count == 0)
-                {
-                    MessageBox.Show("No matching records found.");
-                }
-            }
-        }
-
-
-        private void HideEnrollmentData()
-        {
-            dataGridView1.DataSource = null;
-            dataGridView1.Rows.Clear();
-        }
-
-        private void HideTotalStudentsData()
-        {
-            dataGridView1.DataSource = null;
-            dataGridView1.Rows.Clear();
-        }
-
-        private void HideProfessorsData()
-        {
-            dataGridView1.DataSource = null;
-            dataGridView1.Rows.Clear();
-        }
-
-        private void HideAvailableProgramsData()
-        {
-            dataGridView1.DataSource = null;
-            dataGridView1.Rows.Clear();
-        }
-
 
         private void DashboardForm_Load(object sender, EventArgs e)
         {
@@ -630,40 +476,23 @@ namespace IT13FINALPROJ
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //DESIGN
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.FlatAppearance.BorderSize = 0;
-
-            LoadTotalStudentsData();
-            //HideEnrollmentData();
-            //HideAvailableProgramsData();
-
-
-            Listlabel.Text = "List of Total Students";
+         
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             LoadEnrollmentData();
-            //  HideTotalStudentsData();
-            //HideProfessorsData();
-            //HideAvailableProgramsData();
-            Listlabel.Text = "List of Student Enrolled";
+
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            LoadProfessorsData();
-            // HideEnrollmentData();
-            //HideTotalStudentsData();
-            //HideAvailableProgramsData();
-            Listlabel.Text = "List of Professors";
+           
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            LoadAllProgramsData();
-            Listlabel.Text = "List of Available Programs";
+
         }
 
         private void tabPage2_Click(object sender, EventArgs e)
@@ -674,25 +503,6 @@ namespace IT13FINALPROJ
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
-            string searchText = textBox2.Text.Trim();
-
-
-            if (dataGridView1.DataSource is DataTable dataTable)
-            {
-
-                DataView dataView = new DataView(dataTable);
-
-                // Apply filter based on the Fullname column
-                // Modify the column name as necessary
-                dataView.RowFilter = $"Fullname LIKE '%{searchText}%'";
-
-                // Bind the filtered view back to the DataGridView
-                dataGridView1.DataSource = dataView;
-            }
-            else
-            {
-                MessageBox.Show("No data available to search.");
-            }
         }
 
         private void MajorButton_Click_1(object sender, EventArgs e)

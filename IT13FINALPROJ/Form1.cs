@@ -134,36 +134,23 @@ namespace IT13FINALPROJ
                     return;
                 }
 
-                // Check for Student login
-                string studentQuery = "SELECT Firstname, Middlename, Lastname, Phonenumber, Email, Address FROM student_accounts WHERE Email=@username AND Password=@password";
-                MySqlCommand studentCmd = new MySqlCommand(studentQuery, con);
-                studentCmd.Parameters.AddWithValue("@username", username);
-                studentCmd.Parameters.AddWithValue("@password", password);
+                // Check for GuidanceStaff login
+                string guidancequery = "SELECT COUNT(1) FROM guidance_staff WHERE username=@username AND password_hash=@password";
+                MySqlCommand guidanceCmd = new MySqlCommand(guidancequery, con);
+                guidanceCmd.Parameters.AddWithValue("@username", username);
+                guidanceCmd.Parameters.AddWithValue("@password", password);
 
-                using (MySqlDataReader reader = studentCmd.ExecuteReader())
+                int guidanceResult = Convert.ToInt32(guidanceCmd.ExecuteScalar());
+
+                if (guidanceResult == 1)
                 {
-                    if (reader.Read())
-                    {
-                        string firstname = reader["Firstname"]?.ToString();
-                        string middlename = reader["Middlename"]?.ToString();
-                        string lastname = reader["Lastname"]?.ToString();
-                        string phonenumber = reader["Phonenumber"]?.ToString();
-                        string email = reader["Email"]?.ToString();
-                        string address = reader["Address"]?.ToString();
+                    MessageBox.Show("Guidance Staff logged in successfully!", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        if (string.IsNullOrEmpty(firstname) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(phonenumber))
-                        {
-                            MessageBox.Show("Some student details are missing.", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
 
-                        MessageBox.Show("Student logged in successfully!", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        StudentDashboard studentDashboard = new StudentDashboard(firstname, email, phonenumber);
-                        studentDashboard.Show();
-                        this.Hide();
-                        return;
-                    }
+                    GuidanceDashboard guidancedashboard = new GuidanceDashboard();
+                    guidancedashboard.Show();
+                    this.Hide();
+                    return;
                 }
 
 
@@ -198,7 +185,7 @@ namespace IT13FINALPROJ
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            EnrollForm enrollform = new EnrollForm();
+            StudentForm enrollform = new StudentForm();
             enrollform.Show();
             this.Hide();
             return;
