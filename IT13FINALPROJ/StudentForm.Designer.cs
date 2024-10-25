@@ -55,18 +55,18 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges22 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges37 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges38 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges27 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges31 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges32 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges33 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges34 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2CustomGradientPanel1 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             STaddress = new Guna.UI2.WinForms.Guna2TextBox();
             guna2HtmlLabel13 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -92,18 +92,18 @@
             guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2CustomGradientPanel2 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            guna2HtmlLabel8 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            PRmiddlename = new Guna.UI2.WinForms.Guna2TextBox();
-            guna2HtmlLabel16 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            PRfirstname = new Guna.UI2.WinForms.Guna2TextBox();
-            guna2HtmlLabel17 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            guna2HtmlLabel14 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            PRlastname = new Guna.UI2.WinForms.Guna2TextBox();
-            guna2HtmlLabel15 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            PRphonenumber = new Guna.UI2.WinForms.Guna2TextBox();
+            guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             guna2HtmlLabel18 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             PRemail = new Guna.UI2.WinForms.Guna2TextBox();
-            guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            guna2HtmlLabel15 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            PRphonenumber = new Guna.UI2.WinForms.Guna2TextBox();
+            guna2HtmlLabel14 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            PRlastname = new Guna.UI2.WinForms.Guna2TextBox();
+            guna2HtmlLabel17 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            PRfirstname = new Guna.UI2.WinForms.Guna2TextBox();
+            guna2HtmlLabel16 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            PRmiddlename = new Guna.UI2.WinForms.Guna2TextBox();
+            guna2HtmlLabel8 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             panel1 = new Panel();
             guna2CustomGradientPanel1.SuspendLayout();
             guna2CustomGradientPanel2.SuspendLayout();
@@ -341,7 +341,7 @@
             stgrade.ForeColor = Color.FromArgb(68, 88, 112);
             stgrade.ItemHeight = 30;
             stgrade.Items.AddRange(new object[] { "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6" });
-            stgrade.Location = new Point(33, 522);
+            stgrade.Location = new Point(33, 515);
             stgrade.Name = "stgrade";
             stgrade.ShadowDecoration.CustomizableEdges = customizableEdges12;
             stgrade.Size = new Size(382, 36);
@@ -422,11 +422,11 @@
             guna2HtmlLabel5.BackColor = Color.Transparent;
             guna2HtmlLabel5.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2HtmlLabel5.ForeColor = Color.Gray;
-            guna2HtmlLabel5.Location = new Point(33, 491);
+            guna2HtmlLabel5.Location = new Point(33, 490);
             guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            guna2HtmlLabel5.Size = new Size(199, 19);
+            guna2HtmlLabel5.Size = new Size(72, 19);
             guna2HtmlLabel5.TabIndex = 97;
-            guna2HtmlLabel5.Text = "Choose what grade this student";
+            guna2HtmlLabel5.Text = "Grade level";
             // 
             // STlastname
             // 
@@ -573,167 +573,23 @@
             guna2CustomGradientPanel2.Size = new Size(444, 576);
             guna2CustomGradientPanel2.TabIndex = 117;
             // 
-            // guna2HtmlLabel8
+            // guna2Button1
             // 
-            guna2HtmlLabel8.BackColor = Color.Transparent;
-            guna2HtmlLabel8.Font = new Font("Segoe UI Black", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2HtmlLabel8.Location = new Point(867, 47);
-            guna2HtmlLabel8.Name = "guna2HtmlLabel8";
-            guna2HtmlLabel8.Size = new Size(278, 42);
-            guna2HtmlLabel8.TabIndex = 118;
-            guna2HtmlLabel8.Text = "Parent Information";
-            // 
-            // PRmiddlename
-            // 
-            PRmiddlename.BackColor = Color.White;
-            PRmiddlename.BorderColor = Color.DimGray;
-            PRmiddlename.BorderRadius = 24;
-            PRmiddlename.CustomizableEdges = customizableEdges35;
-            PRmiddlename.DefaultText = "";
-            PRmiddlename.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            PRmiddlename.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            PRmiddlename.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            PRmiddlename.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            PRmiddlename.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            PRmiddlename.Font = new Font("Segoe UI", 9F);
-            PRmiddlename.ForeColor = Color.Black;
-            PRmiddlename.HoverState.BorderColor = Color.LightGray;
-            PRmiddlename.IconRight = (Image)resources.GetObject("PRmiddlename.IconRight");
-            PRmiddlename.IconRightOffset = new Point(15, 0);
-            PRmiddlename.Location = new Point(22, 139);
-            PRmiddlename.Name = "PRmiddlename";
-            PRmiddlename.PasswordChar = '\0';
-            PRmiddlename.PlaceholderForeColor = Color.Gray;
-            PRmiddlename.PlaceholderText = "Middlename";
-            PRmiddlename.SelectedText = "";
-            PRmiddlename.ShadowDecoration.CustomizableEdges = customizableEdges36;
-            PRmiddlename.Size = new Size(398, 53);
-            PRmiddlename.TabIndex = 120;
-            // 
-            // guna2HtmlLabel16
-            // 
-            guna2HtmlLabel16.BackColor = Color.Transparent;
-            guna2HtmlLabel16.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2HtmlLabel16.ForeColor = Color.Gray;
-            guna2HtmlLabel16.Location = new Point(22, 114);
-            guna2HtmlLabel16.Name = "guna2HtmlLabel16";
-            guna2HtmlLabel16.Size = new Size(80, 19);
-            guna2HtmlLabel16.TabIndex = 119;
-            guna2HtmlLabel16.Text = "Middlename";
-            // 
-            // PRfirstname
-            // 
-            PRfirstname.BackColor = Color.White;
-            PRfirstname.BorderColor = Color.DimGray;
-            PRfirstname.BorderRadius = 24;
-            PRfirstname.CustomizableEdges = customizableEdges33;
-            PRfirstname.DefaultText = "";
-            PRfirstname.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            PRfirstname.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            PRfirstname.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            PRfirstname.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            PRfirstname.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            PRfirstname.Font = new Font("Segoe UI", 9F);
-            PRfirstname.ForeColor = Color.Black;
-            PRfirstname.HoverState.BorderColor = Color.LightGray;
-            PRfirstname.IconRight = (Image)resources.GetObject("PRfirstname.IconRight");
-            PRfirstname.IconRightOffset = new Point(15, 0);
-            PRfirstname.Location = new Point(22, 48);
-            PRfirstname.Name = "PRfirstname";
-            PRfirstname.PasswordChar = '\0';
-            PRfirstname.PlaceholderForeColor = Color.Gray;
-            PRfirstname.PlaceholderText = "Firstname";
-            PRfirstname.SelectedText = "";
-            PRfirstname.ShadowDecoration.CustomizableEdges = customizableEdges34;
-            PRfirstname.Size = new Size(398, 53);
-            PRfirstname.TabIndex = 118;
-            // 
-            // guna2HtmlLabel17
-            // 
-            guna2HtmlLabel17.BackColor = Color.Transparent;
-            guna2HtmlLabel17.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2HtmlLabel17.ForeColor = Color.Gray;
-            guna2HtmlLabel17.Location = new Point(22, 23);
-            guna2HtmlLabel17.Name = "guna2HtmlLabel17";
-            guna2HtmlLabel17.Size = new Size(64, 19);
-            guna2HtmlLabel17.TabIndex = 117;
-            guna2HtmlLabel17.Text = "Firstname";
-            // 
-            // guna2HtmlLabel14
-            // 
-            guna2HtmlLabel14.BackColor = Color.Transparent;
-            guna2HtmlLabel14.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2HtmlLabel14.ForeColor = Color.Gray;
-            guna2HtmlLabel14.Location = new Point(22, 204);
-            guna2HtmlLabel14.Name = "guna2HtmlLabel14";
-            guna2HtmlLabel14.Size = new Size(62, 19);
-            guna2HtmlLabel14.TabIndex = 121;
-            guna2HtmlLabel14.Text = "Lastname";
-            // 
-            // PRlastname
-            // 
-            PRlastname.BackColor = Color.White;
-            PRlastname.BorderColor = Color.DimGray;
-            PRlastname.BorderRadius = 24;
-            PRlastname.CustomizableEdges = customizableEdges31;
-            PRlastname.DefaultText = "";
-            PRlastname.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            PRlastname.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            PRlastname.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            PRlastname.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            PRlastname.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            PRlastname.Font = new Font("Segoe UI", 9F);
-            PRlastname.ForeColor = Color.Black;
-            PRlastname.HoverState.BorderColor = Color.LightGray;
-            PRlastname.IconRight = (Image)resources.GetObject("PRlastname.IconRight");
-            PRlastname.IconRightOffset = new Point(15, 0);
-            PRlastname.Location = new Point(22, 229);
-            PRlastname.Name = "PRlastname";
-            PRlastname.PasswordChar = '\0';
-            PRlastname.PlaceholderForeColor = Color.Gray;
-            PRlastname.PlaceholderText = "Lastname";
-            PRlastname.SelectedText = "";
-            PRlastname.ShadowDecoration.CustomizableEdges = customizableEdges32;
-            PRlastname.Size = new Size(398, 53);
-            PRlastname.TabIndex = 122;
-            // 
-            // guna2HtmlLabel15
-            // 
-            guna2HtmlLabel15.BackColor = Color.Transparent;
-            guna2HtmlLabel15.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            guna2HtmlLabel15.ForeColor = Color.Gray;
-            guna2HtmlLabel15.Location = new Point(22, 295);
-            guna2HtmlLabel15.Name = "guna2HtmlLabel15";
-            guna2HtmlLabel15.Size = new Size(90, 19);
-            guna2HtmlLabel15.TabIndex = 123;
-            guna2HtmlLabel15.Text = "Phonenumber";
-            // 
-            // PRphonenumber
-            // 
-            PRphonenumber.BackColor = Color.White;
-            PRphonenumber.BorderColor = Color.DimGray;
-            PRphonenumber.BorderRadius = 24;
-            PRphonenumber.CustomizableEdges = customizableEdges29;
-            PRphonenumber.DefaultText = "";
-            PRphonenumber.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
-            PRphonenumber.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
-            PRphonenumber.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
-            PRphonenumber.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
-            PRphonenumber.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
-            PRphonenumber.Font = new Font("Segoe UI", 9F);
-            PRphonenumber.ForeColor = Color.Black;
-            PRphonenumber.HoverState.BorderColor = Color.LightGray;
-            PRphonenumber.IconRight = (Image)resources.GetObject("PRphonenumber.IconRight");
-            PRphonenumber.IconRightOffset = new Point(15, 0);
-            PRphonenumber.Location = new Point(22, 320);
-            PRphonenumber.Name = "PRphonenumber";
-            PRphonenumber.PasswordChar = '\0';
-            PRphonenumber.PlaceholderForeColor = Color.Gray;
-            PRphonenumber.PlaceholderText = "Phonenumber";
-            PRphonenumber.SelectedText = "";
-            PRphonenumber.ShadowDecoration.CustomizableEdges = customizableEdges30;
-            PRphonenumber.Size = new Size(398, 53);
-            PRphonenumber.TabIndex = 124;
+            guna2Button1.BorderRadius = 20;
+            guna2Button1.CustomizableEdges = customizableEdges25;
+            guna2Button1.DisabledState.BorderColor = Color.DarkGray;
+            guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
+            guna2Button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
+            guna2Button1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
+            guna2Button1.Font = new Font("Segoe UI", 9F);
+            guna2Button1.ForeColor = Color.White;
+            guna2Button1.Location = new Point(22, 503);
+            guna2Button1.Name = "guna2Button1";
+            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges26;
+            guna2Button1.Size = new Size(398, 45);
+            guna2Button1.TabIndex = 127;
+            guna2Button1.Text = "Enroll now!";
+            guna2Button1.Click += guna2Button1_Click;
             // 
             // guna2HtmlLabel18
             // 
@@ -773,23 +629,167 @@
             PRemail.Size = new Size(398, 53);
             PRemail.TabIndex = 126;
             // 
-            // guna2Button1
+            // guna2HtmlLabel15
             // 
-            guna2Button1.BorderRadius = 20;
-            guna2Button1.CustomizableEdges = customizableEdges25;
-            guna2Button1.DisabledState.BorderColor = Color.DarkGray;
-            guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;
-            guna2Button1.DisabledState.FillColor = Color.FromArgb(169, 169, 169);
-            guna2Button1.DisabledState.ForeColor = Color.FromArgb(141, 141, 141);
-            guna2Button1.Font = new Font("Segoe UI", 9F);
-            guna2Button1.ForeColor = Color.White;
-            guna2Button1.Location = new Point(22, 503);
-            guna2Button1.Name = "guna2Button1";
-            guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges26;
-            guna2Button1.Size = new Size(398, 45);
-            guna2Button1.TabIndex = 127;
-            guna2Button1.Text = "Enroll now!";
-            guna2Button1.Click += guna2Button1_Click;
+            guna2HtmlLabel15.BackColor = Color.Transparent;
+            guna2HtmlLabel15.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel15.ForeColor = Color.Gray;
+            guna2HtmlLabel15.Location = new Point(22, 295);
+            guna2HtmlLabel15.Name = "guna2HtmlLabel15";
+            guna2HtmlLabel15.Size = new Size(90, 19);
+            guna2HtmlLabel15.TabIndex = 123;
+            guna2HtmlLabel15.Text = "Phonenumber";
+            // 
+            // PRphonenumber
+            // 
+            PRphonenumber.BackColor = Color.White;
+            PRphonenumber.BorderColor = Color.DimGray;
+            PRphonenumber.BorderRadius = 24;
+            PRphonenumber.CustomizableEdges = customizableEdges29;
+            PRphonenumber.DefaultText = "";
+            PRphonenumber.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            PRphonenumber.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            PRphonenumber.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            PRphonenumber.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            PRphonenumber.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            PRphonenumber.Font = new Font("Segoe UI", 9F);
+            PRphonenumber.ForeColor = Color.Black;
+            PRphonenumber.HoverState.BorderColor = Color.LightGray;
+            PRphonenumber.IconRight = (Image)resources.GetObject("PRphonenumber.IconRight");
+            PRphonenumber.IconRightOffset = new Point(15, 0);
+            PRphonenumber.Location = new Point(22, 320);
+            PRphonenumber.Name = "PRphonenumber";
+            PRphonenumber.PasswordChar = '\0';
+            PRphonenumber.PlaceholderForeColor = Color.Gray;
+            PRphonenumber.PlaceholderText = "Phonenumber";
+            PRphonenumber.SelectedText = "";
+            PRphonenumber.ShadowDecoration.CustomizableEdges = customizableEdges30;
+            PRphonenumber.Size = new Size(398, 53);
+            PRphonenumber.TabIndex = 124;
+            // 
+            // guna2HtmlLabel14
+            // 
+            guna2HtmlLabel14.BackColor = Color.Transparent;
+            guna2HtmlLabel14.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel14.ForeColor = Color.Gray;
+            guna2HtmlLabel14.Location = new Point(22, 204);
+            guna2HtmlLabel14.Name = "guna2HtmlLabel14";
+            guna2HtmlLabel14.Size = new Size(62, 19);
+            guna2HtmlLabel14.TabIndex = 121;
+            guna2HtmlLabel14.Text = "Lastname";
+            // 
+            // PRlastname
+            // 
+            PRlastname.BackColor = Color.White;
+            PRlastname.BorderColor = Color.DimGray;
+            PRlastname.BorderRadius = 24;
+            PRlastname.CustomizableEdges = customizableEdges31;
+            PRlastname.DefaultText = "";
+            PRlastname.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            PRlastname.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            PRlastname.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            PRlastname.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            PRlastname.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            PRlastname.Font = new Font("Segoe UI", 9F);
+            PRlastname.ForeColor = Color.Black;
+            PRlastname.HoverState.BorderColor = Color.LightGray;
+            PRlastname.IconRight = (Image)resources.GetObject("PRlastname.IconRight");
+            PRlastname.IconRightOffset = new Point(15, 0);
+            PRlastname.Location = new Point(22, 229);
+            PRlastname.Name = "PRlastname";
+            PRlastname.PasswordChar = '\0';
+            PRlastname.PlaceholderForeColor = Color.Gray;
+            PRlastname.PlaceholderText = "Lastname";
+            PRlastname.SelectedText = "";
+            PRlastname.ShadowDecoration.CustomizableEdges = customizableEdges32;
+            PRlastname.Size = new Size(398, 53);
+            PRlastname.TabIndex = 122;
+            // 
+            // guna2HtmlLabel17
+            // 
+            guna2HtmlLabel17.BackColor = Color.Transparent;
+            guna2HtmlLabel17.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel17.ForeColor = Color.Gray;
+            guna2HtmlLabel17.Location = new Point(22, 23);
+            guna2HtmlLabel17.Name = "guna2HtmlLabel17";
+            guna2HtmlLabel17.Size = new Size(64, 19);
+            guna2HtmlLabel17.TabIndex = 117;
+            guna2HtmlLabel17.Text = "Firstname";
+            // 
+            // PRfirstname
+            // 
+            PRfirstname.BackColor = Color.White;
+            PRfirstname.BorderColor = Color.DimGray;
+            PRfirstname.BorderRadius = 24;
+            PRfirstname.CustomizableEdges = customizableEdges33;
+            PRfirstname.DefaultText = "";
+            PRfirstname.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            PRfirstname.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            PRfirstname.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            PRfirstname.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            PRfirstname.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            PRfirstname.Font = new Font("Segoe UI", 9F);
+            PRfirstname.ForeColor = Color.Black;
+            PRfirstname.HoverState.BorderColor = Color.LightGray;
+            PRfirstname.IconRight = (Image)resources.GetObject("PRfirstname.IconRight");
+            PRfirstname.IconRightOffset = new Point(15, 0);
+            PRfirstname.Location = new Point(22, 48);
+            PRfirstname.Name = "PRfirstname";
+            PRfirstname.PasswordChar = '\0';
+            PRfirstname.PlaceholderForeColor = Color.Gray;
+            PRfirstname.PlaceholderText = "Firstname";
+            PRfirstname.SelectedText = "";
+            PRfirstname.ShadowDecoration.CustomizableEdges = customizableEdges34;
+            PRfirstname.Size = new Size(398, 53);
+            PRfirstname.TabIndex = 118;
+            // 
+            // guna2HtmlLabel16
+            // 
+            guna2HtmlLabel16.BackColor = Color.Transparent;
+            guna2HtmlLabel16.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel16.ForeColor = Color.Gray;
+            guna2HtmlLabel16.Location = new Point(22, 114);
+            guna2HtmlLabel16.Name = "guna2HtmlLabel16";
+            guna2HtmlLabel16.Size = new Size(80, 19);
+            guna2HtmlLabel16.TabIndex = 119;
+            guna2HtmlLabel16.Text = "Middlename";
+            // 
+            // PRmiddlename
+            // 
+            PRmiddlename.BackColor = Color.White;
+            PRmiddlename.BorderColor = Color.DimGray;
+            PRmiddlename.BorderRadius = 24;
+            PRmiddlename.CustomizableEdges = customizableEdges35;
+            PRmiddlename.DefaultText = "";
+            PRmiddlename.DisabledState.BorderColor = Color.FromArgb(208, 208, 208);
+            PRmiddlename.DisabledState.FillColor = Color.FromArgb(226, 226, 226);
+            PRmiddlename.DisabledState.ForeColor = Color.FromArgb(138, 138, 138);
+            PRmiddlename.DisabledState.PlaceholderForeColor = Color.FromArgb(138, 138, 138);
+            PRmiddlename.FocusedState.BorderColor = Color.FromArgb(94, 148, 255);
+            PRmiddlename.Font = new Font("Segoe UI", 9F);
+            PRmiddlename.ForeColor = Color.Black;
+            PRmiddlename.HoverState.BorderColor = Color.LightGray;
+            PRmiddlename.IconRight = (Image)resources.GetObject("PRmiddlename.IconRight");
+            PRmiddlename.IconRightOffset = new Point(15, 0);
+            PRmiddlename.Location = new Point(22, 139);
+            PRmiddlename.Name = "PRmiddlename";
+            PRmiddlename.PasswordChar = '\0';
+            PRmiddlename.PlaceholderForeColor = Color.Gray;
+            PRmiddlename.PlaceholderText = "Middlename";
+            PRmiddlename.SelectedText = "";
+            PRmiddlename.ShadowDecoration.CustomizableEdges = customizableEdges36;
+            PRmiddlename.Size = new Size(398, 53);
+            PRmiddlename.TabIndex = 120;
+            // 
+            // guna2HtmlLabel8
+            // 
+            guna2HtmlLabel8.BackColor = Color.Transparent;
+            guna2HtmlLabel8.Font = new Font("Segoe UI Black", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel8.Location = new Point(867, 47);
+            guna2HtmlLabel8.Name = "guna2HtmlLabel8";
+            guna2HtmlLabel8.Size = new Size(278, 42);
+            guna2HtmlLabel8.TabIndex = 118;
+            guna2HtmlLabel8.Text = "Parent Information";
             // 
             // panel1
             // 

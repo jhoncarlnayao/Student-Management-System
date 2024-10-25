@@ -22,7 +22,7 @@ namespace IT13FINALPROJ
             InitializeComponent();
 
 
-         
+
 
             CountTotalStudents(); //COUNT TOTAL STUDENTS ADMIN PANEL
             CountTotalEnrolledStudents();//COUNT TOTAL ENROLLED STUDENTS
@@ -238,7 +238,7 @@ namespace IT13FINALPROJ
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-          
+
         }
 
         private void DashboardForm_Load(object sender, EventArgs e)
@@ -308,12 +308,12 @@ namespace IT13FINALPROJ
 
         private void MajorButton_Click(object sender, EventArgs e)
         {
-         
+
         }
 
         private void MinorButton_Click(object sender, EventArgs e)
         {
-          
+
         }
 
         private void label16_Click(object sender, EventArgs e)
@@ -338,7 +338,7 @@ namespace IT13FINALPROJ
 
         private void Button_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -405,52 +405,6 @@ namespace IT13FINALPROJ
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-
-            string fullname = Professorfullname.Text;
-            string email = Professoremail.Text;
-            string phonenumber = Professorphonenumber.Text;
-            string password = Professorpassword.Text;
-            string program = Professorprogram.Text;
-
-
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    string query = "INSERT INTO `professors_accounts` (Fullname, Email, PhoneNumber, Password, Program) VALUES (@Fullname, @Email, @PhoneNumber, @Password, @Program)";
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@Fullname", fullname);
-                        cmd.Parameters.AddWithValue("@Email", email);
-                        cmd.Parameters.AddWithValue("@PhoneNumber", phonenumber);
-                        cmd.Parameters.AddWithValue("@Password", password);
-                        cmd.Parameters.AddWithValue("@Program", program);
-
-                        int rows = cmd.ExecuteNonQuery();
-
-                        if (rows > 0)
-                        {
-                            MessageBox.Show("Professor account created successfully!");
-
-                            CountTotalProfessor(); // TO AUTOMATIC RELOAD ARON DINA MAG RESTART SA SYSTEM PAG UPDATE SA TOTAL STUDENTS
-                        }
-                        else
-                        {
-                            MessageBox.Show("Failed to create Professor account.");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
-            }
-        }
 
         private void Professorfullname_TextChanged(object sender, EventArgs e)
         {
@@ -476,7 +430,7 @@ namespace IT13FINALPROJ
 
         private void button3_Click(object sender, EventArgs e)
         {
-         
+
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -487,7 +441,7 @@ namespace IT13FINALPROJ
 
         private void button4_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -507,13 +461,13 @@ namespace IT13FINALPROJ
 
         private void MajorButton_Click_1(object sender, EventArgs e)
         {
-         
-         
+
+
         }
 
         private void MinorButton_Click_1(object sender, EventArgs e)
         {
-         
+
         }
 
         private void tabPage5_Click(object sender, EventArgs e)
@@ -550,5 +504,118 @@ namespace IT13FINALPROJ
         {
 
         }
+
+        private void CreateaccountBTN_Click(object sender, EventArgs e)
+        {
+            //CREATE GUIDANCE STAFF'S ACCOUNT
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
+            string firstname = GTfirstname.Text;
+            string middlename = GTmiddlename.Text;
+            string lastname = GTlastname.Text;
+            string email = GTemail.Text;
+            string phonenumber = GTphonenumber.Text;
+            string schoolemail = GTschoolemail.Text;
+            string password = GTpassword.Text;
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "INSERT INTO `guidance_staff` (username, password_hash, firstname, middlename, lastname, email, phone_number) VALUES (@username, @password_hash, @firstname, @middlename, @lastname, @email, @phone_number)";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", schoolemail);
+                        cmd.Parameters.AddWithValue("@password_hash", password);
+                        cmd.Parameters.AddWithValue("@firstname", firstname);
+                        cmd.Parameters.AddWithValue("@middlename", middlename); // corrected parameter name
+                        cmd.Parameters.AddWithValue("@lastname", lastname);
+                        cmd.Parameters.AddWithValue("@email", email);
+                        cmd.Parameters.AddWithValue("@phone_number", phonenumber);
+
+                        int rows = cmd.ExecuteNonQuery();
+
+                        if (rows > 0)
+                        {
+                            MessageBox.Show("Guidance staff account created successfully!");
+                            // CountTotalProfessor(); 
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to create Professor account.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+
+        private void guna2HtmlLabel19_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TeacherAccountBTN_Click(object sender, EventArgs e)
+        {
+            //CREATE TEACHER ACCOUNT
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
+
+            string firstname = Tfirstname.Text;
+            string middlename = Tmiddlaname.Text;
+            string lastname = Tlastname.Text;
+            string email = Temail.Text;
+            string phonenumber = Tphonenumber.Text;
+            string schoolemail = Tschoolemail.Text;
+            string address = Taddress.Text;
+            string password = Tpassword.Text; // Make sure to hash the password in a real implementation
+            string sex = Tsex.SelectedItem?.ToString() ?? string.Empty;
+            string gradelevel = Tgradelevel.SelectedItem?.ToString() ?? string.Empty;
+            string subjectID = "1";  // Assuming a value, this should be from the input
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "INSERT INTO `teacher_account` (Firstname, Lastname, Middlename, Phonenumber, Address, Email, Username, Password_Hash, Sex, PreferredGradeLevel, SubjectID) " +
+                                   "VALUES (@firstname, @lastname, @middlename, @phonenumber, @address, @email, @username, @password_hash, @sex, @gradelevel, @subjectID)";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@firstname", firstname);
+                        cmd.Parameters.AddWithValue("@lastname", lastname);
+                        cmd.Parameters.AddWithValue("@middlename", middlename); // Corrected
+                        cmd.Parameters.AddWithValue("@phonenumber", phonenumber); // Corrected
+                        cmd.Parameters.AddWithValue("@address", address);
+                        cmd.Parameters.AddWithValue("@email", email); // Added email field to match the table
+                        cmd.Parameters.AddWithValue("@username", schoolemail);
+                        cmd.Parameters.AddWithValue("@password_hash", password); // Ensure this is hashed
+                        cmd.Parameters.AddWithValue("@sex", sex);
+                        cmd.Parameters.AddWithValue("@gradelevel", gradelevel);
+                        cmd.Parameters.AddWithValue("@subjectID", subjectID); // Added SubjectID
+
+                        int rows = cmd.ExecuteNonQuery();
+
+                        if (rows > 0)
+                        {
+                            MessageBox.Show("Teacher account created successfully!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to create teacher account.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+
     }
 }
