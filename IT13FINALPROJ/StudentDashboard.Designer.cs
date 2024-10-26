@@ -256,34 +256,34 @@
             guna2HtmlLabel4.BackColor = Color.White;
             guna2HtmlLabel4.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             guna2HtmlLabel4.ForeColor = Color.Black;
-            guna2HtmlLabel4.Location = new Point(1058, 115);
+            guna2HtmlLabel4.Location = new Point(1014, 167);
             guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            guna2HtmlLabel4.Size = new Size(77, 32);
+            guna2HtmlLabel4.Size = new Size(114, 32);
             guna2HtmlLabel4.TabIndex = 30;
-            guna2HtmlLabel4.Text = "1st Year ";
+            guna2HtmlLabel4.Text = "Lakambuchi";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.White;
-            label1.Font = new Font("Segoe UI Black", 20.25F, FontStyle.Bold);
+            label1.Font = new Font("Segoe UI Black", 36F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(735, 75);
+            label1.Location = new Point(934, 91);
             label1.Name = "label1";
-            label1.Size = new Size(415, 37);
+            label1.Size = new Size(205, 65);
             label1.TabIndex = 29;
-            label1.Text = "BS in Information Technology";
+            label1.Text = "Grade 1";
             // 
             // guna2HtmlLabel3
             // 
             guna2HtmlLabel3.BackColor = Color.White;
             guna2HtmlLabel3.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             guna2HtmlLabel3.ForeColor = Color.Gray;
-            guna2HtmlLabel3.Location = new Point(1012, 50);
+            guna2HtmlLabel3.Location = new Point(984, 66);
             guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            guna2HtmlLabel3.Size = new Size(123, 22);
+            guna2HtmlLabel3.Size = new Size(144, 22);
             guna2HtmlLabel3.TabIndex = 28;
-            guna2HtmlLabel3.Text = "Student Program";
+            guna2HtmlLabel3.Text = "Student Grade Level";
             // 
             // label9
             // 
@@ -355,7 +355,7 @@
             // guna2Button1
             // 
             guna2Button1.BackColor = Color.White;
-            guna2Button1.BorderRadius = 20;
+            guna2Button1.BorderRadius = 30;
             guna2Button1.CustomizableEdges = customizableEdges5;
             guna2Button1.DisabledState.BorderColor = Color.DarkGray;
             guna2Button1.DisabledState.CustomBorderColor = Color.DarkGray;

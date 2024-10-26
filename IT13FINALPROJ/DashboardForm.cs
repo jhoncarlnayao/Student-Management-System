@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using System.Buffers;
+using Guna.UI2.WinForms;
 
 namespace IT13FINALPROJ
 {
@@ -28,13 +29,17 @@ namespace IT13FINALPROJ
             CountTotalEnrolledStudents();//COUNT TOTAL ENROLLED STUDENTS
             CountTotalProfessor();//COUNT TOTAL PROFESSORS
 
-            LoadEnrollmentData();
+       
 
+            LoadStudentData();
+        
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             //   this.ControlBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
+
+            createStudentAccountButton.Click += (s, e) => CreateStudentAccount();
         }
 
         private void CountTotalStudents()
@@ -118,50 +123,97 @@ namespace IT13FINALPROJ
             }
         }
 
-        private void LoadEnrollmentData()
+        private void LoadStudentData()
         {
+            string query = "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname FROM accepted_students_enroll";
             string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-            string query = "SELECT * FROM student_enrollees";
 
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
-                    conn.Open();
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
+                    connection.Open();
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
                     DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
 
-                    adapter.Fill(dataTable); // Fill the DataTable with the data from the query
-
-                    // Add a Status column with default value "Pending"
-                    dataTable.Columns.Add("Status", typeof(string));
-                    foreach (DataRow row in dataTable.Rows)
-                    {
-                        row["Status"] = "Pending";
-                    }
-
-                    guna2DataGridView1.DataSource = dataTable;
-
-                    // Customize DataGridView appearance
-                    guna2DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                    guna2DataGridView1.Columns["Status"].DisplayIndex = 0; // Put Status as the first column
-
-                    // Add Accept button column
-                    DataGridViewButtonColumn acceptButton = new DataGridViewButtonColumn();
-                    acceptButton.Name = "Accept";
-                    acceptButton.HeaderText = "Action";
-                    acceptButton.Text = "Accept";
-                    acceptButton.UseColumnTextForButtonValue = true;
-                    guna2DataGridView1.Columns.Add(acceptButton);
-
-                    guna2DataGridView1.CellClick += guna2DataGridView1_CellClick;
+                    // Bind data to the DataGridView
+                    studenttable.DataSource = dataTable;
+                    studenttable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                    studenttable.MultiSelect = false; // Only one row can be selected
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("An error occurred while loading enrollments: " + ex.Message);
+                    MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
         }
+
+        private void CreateStudentAccount()
+        {
+            if (studenttable.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = studenttable.SelectedRows[0];
+
+                string firstname = selectedRow.Cells["firstname"].Value.ToString();
+                string middlename = selectedRow.Cells["middlename"].Value?.ToString();
+                string lastname = selectedRow.Cells["lastname"].Value.ToString();
+                string sex = selectedRow.Cells["sex"].Value.ToString();
+
+                string adminSchoolEmail = studentemail.Text;
+                string adminPassword = studentpassword.Text;
+
+                if (string.IsNullOrEmpty(adminSchoolEmail) || string.IsNullOrEmpty(adminPassword))
+                {
+                    MessageBox.Show("Please enter admin school email and password.");
+                    return;
+                }
+
+                string connectionString = "server=localhost;database=it13proj;user=root;password=;";
+                string insertQuery = "INSERT INTO student_accounts (firstname, middlename, lastname, sex, schoolemail, password) VALUES (@firstname, @middlename, @lastname, @sex, @schoolemail, @password)";
+
+
+                using (MySqlConnection conn = new MySqlConnection(connectionString))
+                {
+                    try
+                    {
+                        conn.Open();
+
+                        using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@firstname", firstname);
+                            cmd.Parameters.AddWithValue("@middlename", middlename ?? (object)DBNull.Value); // Handle null value
+                            cmd.Parameters.AddWithValue("@lastname", lastname);
+                            cmd.Parameters.AddWithValue("@sex", sex);
+                            cmd.Parameters.AddWithValue("@schoolemail", adminSchoolEmail);
+                            cmd.Parameters.AddWithValue("@password", adminPassword); // Ensure hashing in production
+
+                            int rows = cmd.ExecuteNonQuery();
+                            if (rows > 0)
+                            {
+                                MessageBox.Show("Student account created successfully!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to create student account.");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("An error occurred: " + ex.Message);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a student.");
+            }
+        }
+
+
+
+
 
         // Handle the Accept button click event
         private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -346,54 +398,6 @@ namespace IT13FINALPROJ
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-
-            string firstname = Studentfirstname.Text;
-            string middlename = Studentmiddlename.Text;
-            string lastname = Studentlastname.Text;
-            string email = Studentemail.Text;
-            string phonenumber = Studentphonenumber.Text;
-            string address = Studentaddress.Text;
-            string password = Studentpassword.Text;
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    string query = "INSERT INTO `student_accounts` (Firstname, Middlename, Lastname, Phonenumber, Email, Address, Password) VALUES (@Firstname, @Middlename, @Lastname, @Phonenumber, @Email, @Address, @Password)";
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                    {
-                        cmd.Parameters.AddWithValue("@Firstname", firstname);
-                        cmd.Parameters.AddWithValue("@Middlename", middlename);
-                        cmd.Parameters.AddWithValue("@Lastname", lastname);
-                        cmd.Parameters.AddWithValue("@PhoneNumber", phonenumber);
-                        cmd.Parameters.AddWithValue("@Email", email);
-                        cmd.Parameters.AddWithValue("@Address", address);
-                        cmd.Parameters.AddWithValue("@Password", password);
-
-                        int rows = cmd.ExecuteNonQuery();
-
-                        if (rows > 0)
-                        {
-                            MessageBox.Show("Student account created successfully!");
-
-                            CountTotalStudents(); // TO AUTOMATIC RELOAD ARON DINA MAG RESTART SA SYSTEM PAG UPDATE SA TOTAL STUDENTS
-                        }
-                        else
-                        {
-                            MessageBox.Show("Failed to create student account.");
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
-            }
-        }
 
         private void label74_Click(object sender, EventArgs e)
         {
@@ -435,7 +439,7 @@ namespace IT13FINALPROJ
 
         private void button5_Click(object sender, EventArgs e)
         {
-            LoadEnrollmentData();
+         
 
         }
 
@@ -492,7 +496,7 @@ namespace IT13FINALPROJ
 
         private void guna2Button8_Click(object sender, EventArgs e)
         {
-            LoadEnrollmentData();
+      
         }
 
         private void guna2Button9_Click(object sender, EventArgs e)
@@ -617,5 +621,17 @@ namespace IT13FINALPROJ
             }
         }
 
+      
+
+        private void guna2Button14_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void studenttable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+           
+        }
     }
 }

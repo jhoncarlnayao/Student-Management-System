@@ -110,7 +110,7 @@ namespace IT13FINALPROJ
             string password = PasswordText.Text;
             string connectionString = "server=localhost;database=it13proj;user=root;password=;";
 
-            // Check if it's a login for Admin
+          
             string adminQuery = "SELECT COUNT(1) FROM Admins WHERE Username=@username AND Password=@password";
 
             using (MySqlConnection con = new MySqlConnection(connectionString))
@@ -135,7 +135,7 @@ namespace IT13FINALPROJ
                 }
 
                 // Check for GuidanceStaff login
-                string guidancequery = "SELECT COUNT(1) FROM guidance_staff WHERE username=@username AND password_hash=@password";
+                string guidancequery = "SELECT COUNT(1) FROM guidance_staff WHERE email=@username AND password_hash=@password";
                 MySqlCommand guidanceCmd = new MySqlCommand(guidancequery, con);
                 guidanceCmd.Parameters.AddWithValue("@username", username);
                 guidanceCmd.Parameters.AddWithValue("@password", password);
@@ -153,24 +153,43 @@ namespace IT13FINALPROJ
                     return;
                 }
 
+                // Check for Student  login
+                string studentquery = "SELECT COUNT(1) FROM student_accounts WHERE schoolemail=@username AND password=@password";
+                MySqlCommand studentcmd = new MySqlCommand(studentquery, con);
+                studentcmd.Parameters.AddWithValue("@username", username);
+                studentcmd.Parameters.AddWithValue("@password", password);
 
-                // Check for Professor login
-                string professorQuery = "SELECT COUNT(1) FROM professors_accounts WHERE Email=@username AND Password=@password";
-                MySqlCommand professorCmd = new MySqlCommand(professorQuery, con);
-                professorCmd.Parameters.AddWithValue("@username", username);
-                professorCmd.Parameters.AddWithValue("@password", password);
+                int studentresult = Convert.ToInt32(studentcmd.ExecuteScalar());
 
-                int professorResult = Convert.ToInt32(professorCmd.ExecuteScalar());
-
-                if (professorResult == 1)
+                if (studentresult == 1)
                 {
-                    MessageBox.Show("Professor logged in successfully!", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Student Account logged in successfully!", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
-                    // ProfessorDashboardForm professorDashboard = new ProfessorDashboardForm();
-                    // professorDashboard.Show();
-                    this.Hide();
-                    return;
+                   // GuidanceDashboard guidancedashboard = new GuidanceDashboard();
+                  // guidancedashboard.Show();
+                   // this.Hide();
+                   // return;
+                }
+
+
+                // Check for Teacher login
+                string teacherquery = "SELECT COUNT(1) FROM teacher_account WHERE Username=@username AND Password_Hash=@password";
+                MySqlCommand teachercmd = new MySqlCommand(teacherquery, con);
+                teachercmd.Parameters.AddWithValue("@username", username);
+                teachercmd.Parameters.AddWithValue("@password", password);
+
+                int teacherresult = Convert.ToInt32(teachercmd.ExecuteScalar());
+
+                if (teacherresult == 1)
+                {
+                    MessageBox.Show("Teacher Account logged in successfully!", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                    // GuidanceDashboard guidancedashboard = new GuidanceDashboard();
+                    // guidancedashboard.Show();
+                    // this.Hide();
+                    // return;
                 }
 
 
