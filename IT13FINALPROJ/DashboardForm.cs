@@ -29,10 +29,10 @@ namespace IT13FINALPROJ
             CountTotalEnrolledStudents();//COUNT TOTAL ENROLLED STUDENTS
             CountTotalProfessor();//COUNT TOTAL PROFESSORS
 
-       
+
 
             LoadStudentData();
-        
+
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -40,6 +40,8 @@ namespace IT13FINALPROJ
             this.StartPosition = FormStartPosition.CenterScreen;
 
             createStudentAccountButton.Click += (s, e) => CreateStudentAccount();
+
+
         }
 
         private void CountTotalStudents()
@@ -439,7 +441,7 @@ namespace IT13FINALPROJ
 
         private void button5_Click(object sender, EventArgs e)
         {
-         
+
 
         }
 
@@ -496,7 +498,7 @@ namespace IT13FINALPROJ
 
         private void guna2Button8_Click(object sender, EventArgs e)
         {
-      
+
         }
 
         private void guna2Button9_Click(object sender, EventArgs e)
@@ -621,7 +623,7 @@ namespace IT13FINALPROJ
             }
         }
 
-      
+
 
         private void guna2Button14_Click(object sender, EventArgs e)
         {
@@ -631,7 +633,242 @@ namespace IT13FINALPROJ
         private void studenttable_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
-           
+
+        }
+
+        private void guna2Button14_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2Button16_Click(object sender, EventArgs e)
+        {
+            selecttabletoview.Visible = !selecttabletoview.Visible;
+
+        }
+
+        private void guna2Button17_Click(object sender, EventArgs e)
+        {
+            viewactions.Visible = !viewactions.Visible;
+        }
+
+        private void guna2Button18_Click(object sender, EventArgs e)
+        {
+            //STUDENT ACCOUNTS LIST
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+
+
+            string query = "SELECT id, firstname, middlename, lastname, sex, schoolemail FROM student_accounts";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    // Bind the data to the recordedlistingstable DataGridView
+                    recordlistingstable.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+
+        private void guna2Button19_Click(object sender, EventArgs e)
+        {
+            //TEACHER ACCOUNT
+
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+
+            // Query to retrieve guidance staff records
+            string query = "SELECT TeacherID, SubjectID, Firstname, Lastname, Middlename, Phonenumber, Address, Email, Username, Sex, PreferredGradeLevel FROM teacher_account";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    recordlistingstable.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+
+        private void guna2Button20_Click(object sender, EventArgs e)
+        {
+            //GUIDANCE ACCOUNT
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+
+            // Query to retrieve guidance staff records
+            string query = "SELECT staff_id, username, firstname, middlename, lastname, email, phone_number FROM guidance_staff";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+
+                    recordlistingstable.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+        }
+
+        private void guna2Button21_Click(object sender, EventArgs e)
+        {
+            //PARENTS
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            string query = "SELECT parent_id, student_id, firstname, middlename, lastname, phonenumber, email FROM parents";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+
+                    recordlistingstable.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+
+        private void guna2Button22_Click(object sender, EventArgs e)
+        {
+            //PENDING STUDENTS
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            string query = "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade FROM students_enroll";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+
+                    recordlistingstable.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+
+        }
+
+        private void guna2Button23_Click(object sender, EventArgs e)
+        {
+            //ACCEPTED STUDENTS
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            string query = "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname FROM accepted_students_enroll";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, connection);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+
+                    recordlistingstable.DataSource = dataTable;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+
+        private void guna2Button15_Click(object sender, EventArgs e)
+        {
+
+            DialogResult result = MessageBox.Show("Are you sure you want to log out?", "Confirm Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+
+            if (result == DialogResult.Yes)
+            {
+
+                this.Hide();
+                Form1 loginForm = new Form1();
+                loginForm.ShowDialog();
+                this.Close();
+            }
+        }
+
+        private void guna2Button13_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to log out?", "Confirm Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+
+            if (result == DialogResult.Yes)
+            {
+
+                this.Hide();
+                Form1 loginForm = new Form1();
+                loginForm.ShowDialog();
+                this.Close();
+            }
+        }
+
+        private void guna2Button11_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to log out?", "Confirm Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+
+            if (result == DialogResult.Yes)
+            {
+
+                this.Hide();
+                Form1 loginForm = new Form1();
+                loginForm.ShowDialog();
+                this.Close();
+            }
+        }
+
+        private void guna2Button12_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to log out?", "Confirm Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+
+            if (result == DialogResult.Yes)
+            {
+
+                this.Hide();
+                Form1 loginForm = new Form1();
+                loginForm.ShowDialog();
+                this.Close();
+            }
         }
     }
 }

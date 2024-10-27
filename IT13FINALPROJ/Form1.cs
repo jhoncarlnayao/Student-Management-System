@@ -110,14 +110,12 @@ namespace IT13FINALPROJ
             string password = PasswordText.Text;
             string connectionString = "server=localhost;database=it13proj;user=root;password=;";
 
-          
-            string adminQuery = "SELECT COUNT(1) FROM Admins WHERE Username=@username AND Password=@password";
-
             using (MySqlConnection con = new MySqlConnection(connectionString))
             {
                 con.Open();
 
                 // Check for Admin login
+                string adminQuery = "SELECT COUNT(1) FROM Admins WHERE Username=@username AND Password=@password";
                 MySqlCommand adminCmd = new MySqlCommand(adminQuery, con);
                 adminCmd.Parameters.AddWithValue("@username", username);
                 adminCmd.Parameters.AddWithValue("@password", password);
@@ -126,8 +124,7 @@ namespace IT13FINALPROJ
 
                 if (adminResult == 1)
                 {
-                    MessageBox.Show("Admin logged in successfully!", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                    MessageBox.Show("Admin logged in successfully!", "Login Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     DashboardForm dashboard = new DashboardForm();
                     dashboard.Show();
                     this.Hide();
@@ -135,8 +132,8 @@ namespace IT13FINALPROJ
                 }
 
                 // Check for GuidanceStaff login
-                string guidancequery = "SELECT COUNT(1) FROM guidance_staff WHERE email=@username AND password_hash=@password";
-                MySqlCommand guidanceCmd = new MySqlCommand(guidancequery, con);
+                string guidanceQuery = "SELECT COUNT(1) FROM guidance_staff WHERE email=@username AND password_hash=@password";
+                MySqlCommand guidanceCmd = new MySqlCommand(guidanceQuery, con);
                 guidanceCmd.Parameters.AddWithValue("@username", username);
                 guidanceCmd.Parameters.AddWithValue("@password", password);
 
@@ -144,58 +141,52 @@ namespace IT13FINALPROJ
 
                 if (guidanceResult == 1)
                 {
-                    MessageBox.Show("Guidance Staff logged in successfully!", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-                    GuidanceDashboard guidancedashboard = new GuidanceDashboard();
-                    guidancedashboard.Show();
+                    MessageBox.Show("Guidance Staff logged in successfully!", "Login Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    GuidanceDashboard guidanceDashboard = new GuidanceDashboard();
+                    guidanceDashboard.Show();
                     this.Hide();
                     return;
                 }
 
-                // Check for Student  login
-                string studentquery = "SELECT COUNT(1) FROM student_accounts WHERE schoolemail=@username AND password=@password";
-                MySqlCommand studentcmd = new MySqlCommand(studentquery, con);
-                studentcmd.Parameters.AddWithValue("@username", username);
-                studentcmd.Parameters.AddWithValue("@password", password);
+                // Check for Student login
+                string studentQuery = "SELECT COUNT(1) FROM student_accounts WHERE schoolemail=@username AND password=@password";
+                MySqlCommand studentCmd = new MySqlCommand(studentQuery, con);
+                studentCmd.Parameters.AddWithValue("@username", username);
+                studentCmd.Parameters.AddWithValue("@password", password);
 
-                int studentresult = Convert.ToInt32(studentcmd.ExecuteScalar());
+                int studentResult = Convert.ToInt32(studentCmd.ExecuteScalar());
 
-                if (studentresult == 1)
+                if (studentResult == 1)
                 {
-                    MessageBox.Show("Student Account logged in successfully!", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-                   // GuidanceDashboard guidancedashboard = new GuidanceDashboard();
-                  // guidancedashboard.Show();
-                   // this.Hide();
-                   // return;
+                    MessageBox.Show("Student logged in successfully!", "Login Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    StudentDashboard studentDashboard = new StudentDashboard();
+                    studentDashboard.Show();
+                    this.Hide();
+                    return;
                 }
-
 
                 // Check for Teacher login
-                string teacherquery = "SELECT COUNT(1) FROM teacher_account WHERE Username=@username AND Password_Hash=@password";
-                MySqlCommand teachercmd = new MySqlCommand(teacherquery, con);
-                teachercmd.Parameters.AddWithValue("@username", username);
-                teachercmd.Parameters.AddWithValue("@password", password);
+                string teacherQuery = "SELECT COUNT(1) FROM teacher_account WHERE Username=@username AND Password_Hash=@password";
+                MySqlCommand teacherCmd = new MySqlCommand(teacherQuery, con);
+                teacherCmd.Parameters.AddWithValue("@username", username);
+                teacherCmd.Parameters.AddWithValue("@password", password);
 
-                int teacherresult = Convert.ToInt32(teachercmd.ExecuteScalar());
+                int teacherResult = Convert.ToInt32(teacherCmd.ExecuteScalar());
 
-                if (teacherresult == 1)
+                if (teacherResult == 1)
                 {
-                    MessageBox.Show("Teacher Account logged in successfully!", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-
-                    // GuidanceDashboard guidancedashboard = new GuidanceDashboard();
-                    // guidancedashboard.Show();
-                    // this.Hide();
-                    // return;
+                    MessageBox.Show("Teacher logged in successfully!", "Login Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                 //   TeacherDashboard teacherDashboard = new TeacherDashboard();
+                  //  teacherDashboard.Show();
+                    this.Hide();
+                    return;
                 }
 
-
-                MessageBox.Show("Invalid Username or Password.", "Log in Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                // If none of the account checks passed, show error message
+                MessageBox.Show("Invalid Username or Password.", "Login Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
 
         private void guna2PictureBox1_Click(object sender, EventArgs e)
         {
