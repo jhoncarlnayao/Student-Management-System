@@ -537,7 +537,7 @@
             tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(1550, 681);
             tabPage1.TabIndex = 0;
-            tabPage1.Text = "Dashboard";
+            tabPage1.Text = "1";
             // 
             // guna2CustomGradientPanel4
             // 

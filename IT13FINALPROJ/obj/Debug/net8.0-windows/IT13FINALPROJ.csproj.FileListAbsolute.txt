@@ -75,3 +75,4 @@ C:\Users\Gerry Untalan\source\repos\IT13FINALPROJ\IT13FINALPROJ\obj\Debug\net8.0
 C:\Users\Gerry Untalan\source\repos\IT13FINALPROJ\IT13FINALPROJ\obj\Debug\net8.0-windows\IT13FINALPROJ.enrollform2.resources
 C:\Users\Gerry Untalan\source\repos\IT13FINALPROJ\IT13FINALPROJ\obj\Debug\net8.0-windows\IT13FINALPROJ.StudentForm.resources
 C:\Users\Gerry Untalan\source\repos\IT13FINALPROJ\IT13FINALPROJ\obj\Debug\net8.0-windows\IT13FINALPROJ.GuidanceDashboard.resources
+C:\Users\Gerry Untalan\source\repos\IT13FINALPROJ\IT13FINALPROJ\obj\Debug\net8.0-windows\IT13FINALPROJ.Form2.resources
