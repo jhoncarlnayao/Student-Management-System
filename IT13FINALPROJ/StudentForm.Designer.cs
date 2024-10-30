@@ -340,11 +340,11 @@
             stgrade.Font = new Font("Segoe UI", 10F);
             stgrade.ForeColor = Color.FromArgb(68, 88, 112);
             stgrade.ItemHeight = 30;
-            stgrade.Items.AddRange(new object[] { "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6" });
+            stgrade.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6" });
             stgrade.Location = new Point(33, 515);
             stgrade.Name = "stgrade";
             stgrade.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            stgrade.Size = new Size(382, 36);
+            stgrade.Size = new Size(293, 36);
             stgrade.TabIndex = 106;
             stgrade.TextTransform = Guna.UI2.WinForms.Enums.TextTransform.UpperCase;
             // 

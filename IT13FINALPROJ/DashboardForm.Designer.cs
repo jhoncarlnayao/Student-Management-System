@@ -355,6 +355,7 @@
             label56 = new Label();
             tabPage6 = new TabPage();
             guna2CustomGradientPanel17 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            guna2vSeparator1 = new Guna.UI2.WinForms.Guna2VSeparator();
             guna2HtmlLabel29 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             Tphonenumber = new Guna.UI2.WinForms.Guna2TextBox();
             guna2HtmlLabel20 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -2707,6 +2708,7 @@
             // 
             guna2CustomGradientPanel17.BackColor = Color.Transparent;
             guna2CustomGradientPanel17.BorderRadius = 25;
+            guna2CustomGradientPanel17.Controls.Add(guna2vSeparator1);
             guna2CustomGradientPanel17.Controls.Add(guna2HtmlLabel29);
             guna2CustomGradientPanel17.Controls.Add(Tphonenumber);
             guna2CustomGradientPanel17.Controls.Add(guna2HtmlLabel20);
@@ -2726,6 +2728,13 @@
             guna2CustomGradientPanel17.ShadowDecoration.CustomizableEdges = customizableEdges140;
             guna2CustomGradientPanel17.Size = new Size(435, 548);
             guna2CustomGradientPanel17.TabIndex = 116;
+            // 
+            // guna2vSeparator1
+            // 
+            guna2vSeparator1.Location = new Point(422, 9);
+            guna2vSeparator1.Name = "guna2vSeparator1";
+            guna2vSeparator1.Size = new Size(10, 434);
+            guna2vSeparator1.TabIndex = 107;
             // 
             // guna2HtmlLabel29
             // 
@@ -3116,7 +3125,7 @@
             Tgradelevel.Font = new Font("Segoe UI", 10F);
             Tgradelevel.ForeColor = Color.FromArgb(68, 88, 112);
             Tgradelevel.ItemHeight = 30;
-            Tgradelevel.Items.AddRange(new object[] { "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6" });
+            Tgradelevel.Items.AddRange(new object[] { "1", "2", "3", "4", "5", "6" });
             Tgradelevel.Location = new Point(32, 109);
             Tgradelevel.Name = "Tgradelevel";
             Tgradelevel.ShadowDecoration.CustomizableEdges = customizableEdges144;
@@ -4193,5 +4202,6 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel39;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel40;
         private Guna.UI2.WinForms.Guna2CirclePictureBox guna2CirclePictureBox3;
+        private Guna.UI2.WinForms.Guna2VSeparator guna2vSeparator1;
     }
 }

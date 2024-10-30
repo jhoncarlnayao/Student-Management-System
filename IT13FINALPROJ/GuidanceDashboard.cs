@@ -57,16 +57,16 @@ namespace IT13FINALPROJ
                     column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
 
-                // Adjust the header height
+
                 guna2DataGridView1.ColumnHeadersHeight = 30;
                 guna2DataGridView1.RowTemplate.Height = 25;
 
-                // Make sure headers are visible
+
                 guna2DataGridView1.ColumnHeadersVisible = true;
             }
         }
 
-       
+
 
 
         private void AcceptStudent(int studentId)
@@ -106,9 +106,13 @@ namespace IT13FINALPROJ
                 using (MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=it13proj"))
                 {
                     con.Open();
-                    string query = "SELECT DISTINCT teacher_name FROM grade_levels WHERE grade_level = @gradeLevel";
+                    // Updated query to match teacher's PreferredGradeLevel
+                    string query = "SELECT DISTINCT CONCAT(Firstname, ' ', IFNULL(Middlename, ''), ' ', Lastname) AS teacher_name " +
+                                   "FROM teacher_account " +
+                                   "WHERE PreferredGradeLevel = @gradeLevel";
+
                     MySqlCommand cmd = new MySqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("@gradeLevel", gradeLevel);
+                    cmd.Parameters.AddWithValue("@gradeLevel", gradeLevel.ToString()); // Ensure gradeLevel is passed as a string
 
                     MySqlDataReader reader = cmd.ExecuteReader();
                     assignteacher.Items.Clear(); // Clear previous items
@@ -122,7 +126,7 @@ namespace IT13FINALPROJ
                         // Populate the assignteacher ComboBox with teacher names
                         while (reader.Read())
                         {
-                            assignteacher.Items.Add(reader["teacher_name"].ToString());
+                            assignteacher.Items.Add(reader["teacher_name"].ToString().Trim()); // Trim whitespace
                         }
                     }
                 }
@@ -132,6 +136,70 @@ namespace IT13FINALPROJ
                 MessageBox.Show("An error occurred: " + ex.Message);
             }
         }
+
+        private void LoadStudentsByGrade(string gradeLevel)
+        {
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=it13proj"))
+                {
+                    con.Open();
+                    string query = "SELECT firstname, middlename, lastname FROM accepted_students_enroll WHERE grade = @gradeLevel";
+                    MySqlCommand cmd = new MySqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@gradeLevel", gradeLevel);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    studentname2.Items.Clear(); // Clear previous items
+
+                    while (reader.Read())
+                    {
+                        string fullName = $"{reader["firstname"]} {reader["middlename"]} {reader["lastname"]}";
+                        studentname2.Items.Add(fullName);
+                    }
+
+                    if (studentname2.Items.Count == 0)
+                    {
+                        MessageBox.Show("No students found for the selected grade level.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+        }
+
+        private void LoadSectionsByGrade(string gradeLevel)
+        {
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=it13proj"))
+                {
+                    con.Open();
+                    string query = "SELECT DISTINCT section_name FROM sections WHERE grade_level = @gradeLevel"; // Adjust your query as needed
+                    MySqlCommand cmd = new MySqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@gradeLevel", gradeLevel);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    availablesection2.Items.Clear(); // Clear previous items
+
+                    while (reader.Read())
+                    {
+                        availablesection2.Items.Add(reader["section_name"].ToString());
+                    }
+
+                    if (availablesection2.Items.Count == 0)
+                    {
+                        MessageBox.Show("No sections found for the selected grade level.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred: " + ex.Message);
+            }
+        }
+
 
 
 
@@ -257,12 +325,70 @@ namespace IT13FINALPROJ
             string descriptionn = description.Text; // Assuming you have a textbox for description
 
             CreateNewTable(tableName, gradeLevel, sectionName, assignedTeacher, academicYear, roomNumber, studentCapacity, descriptionn);
-        
-    }
+
+        }
 
         private void tabPage3_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void guna2Button16_Click(object sender, EventArgs e)
+        {
+            // selecttabletoview.Visible = !selecttabletoview.Visible;
+            gradeandsection.Visible = true;
+            studentgradesection.Visible = false;
+        }
+
+        private void guna2Button17_Click(object sender, EventArgs e)
+        {
+            studentgradesection.Visible = !studentgradesection.Visible;
+            //    gradeandsection.Visible = !gradeandsection.Visible;
+            studentgradesection.Visible = true;
+            gradeandsection.Visible = false;
+        }
+
+        private void guna2Button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gradelevel2_SelectedIndexChanged(object sender, EventArgs e)
+            {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            string selectedGrade = gradelevel2.SelectedItem.ToString(); // Get the selected grade
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open(); // Open the connection
+
+                // Prepare the SQL query to fetch students in the selected grade
+                string query = "SELECT firstname, lastname FROM accepted_students_enroll WHERE TRIM(grade) = @grade"; // Selecting only names for simplicity
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@grade", selectedGrade); // Use the selected grade as a parameter
+
+                MySqlDataReader reader = cmd.ExecuteReader(); // Execute the query
+
+                // Clear the ComboBox before adding new items
+                studentname2.Items.Clear(); // Assume you have a ComboBox named studentNamesComboBox
+
+                // Check if any students were found
+                if (!reader.HasRows)
+                {
+                    MessageBox.Show("No students found in this grade level.");
+                }
+                else
+                {
+                    // Loop through the results and add each student to the ComboBox
+                    while (reader.Read())
+                    {
+                        string studentName = $"{reader["firstname"]} {reader["lastname"]}"; // Combine first and last names
+                        studentname2.Items.Add(studentName); // Add the full name to the ComboBox
+                    }
+                }
+
+                reader.Close(); // Close the reader
+            } // The connection is automatically closed here
+        }
     }
-}
+    }
