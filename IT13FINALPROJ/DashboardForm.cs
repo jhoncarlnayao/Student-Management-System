@@ -21,16 +21,6 @@ namespace IT13FINALPROJ
         public DashboardForm()
         {
             InitializeComponent();
-
-
-
-
-            CountTotalStudents(); //COUNT TOTAL STUDENTS ADMIN PANEL
-            CountTotalEnrolledStudents();//COUNT TOTAL ENROLLED STUDENTS
-            CountTotalProfessor();//COUNT TOTAL PROFESSORS
-
-
-
             LoadStudentData();
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -38,97 +28,103 @@ namespace IT13FINALPROJ
             this.MinimizeBox = false;
             //   this.ControlBox = false;
             this.StartPosition = FormStartPosition.CenterScreen;
-
             createStudentAccountButton.Click += (s, e) => CreateStudentAccount();
 
 
         }
 
-        private void CountTotalStudents()
+
+        private void LoadPendingStudents()
         {
-            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-            string query = "SELECT COUNT(*) FROM students_accounts";
-
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            using (MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=it13proj"))
             {
-                try
+                con.Open();
+                string query = "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade FROM students_enroll";
+                MySqlDataAdapter adapter = new MySqlDataAdapter(query, con);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                // Add Status and Action columns
+                dt.Columns.Add("Status", typeof(string));
+                dt.Columns.Add("Action", typeof(string));
+
+                foreach (DataRow row in dt.Rows)
                 {
-                    conn.Open();
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                    {
-                        // Execute the query and get the result (the total count of students)
-                        int totalStudents = Convert.ToInt32(cmd.ExecuteScalar());
-
-                        // Display the total number of students in the label
-                        Totalstudentlabel.Text = totalStudents.ToString();
-                    }
+                    row["Status"] = "Pending";
+                    row["Action"] = "Accept";
                 }
-                catch (Exception ex)
+
+                guna2DataGridView1.DataSource = dt;
+
+
+                foreach (DataGridViewColumn column in guna2DataGridView1.Columns)
                 {
-                    MessageBox.Show("An error occurred: " + ex.Message);
+                    column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
+
+
+                guna2DataGridView1.ColumnHeadersHeight = 30;
+                guna2DataGridView1.RowTemplate.Height = 25;
+
+
+                guna2DataGridView1.ColumnHeadersVisible = true;
+            }
+        }
+
+        private void AcceptStudent(int studentId)
+        {
+            using (MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=it13proj"))
+            {
+                con.Open();
+
+                string moveQuery = "INSERT INTO accepted_students_enroll (student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade) " +
+                                   "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade " +
+                                   "FROM students_enroll WHERE student_id = @studentId;";
+
+                MySqlCommand cmd = new MySqlCommand(moveQuery, con);
+                cmd.Parameters.AddWithValue("@studentId", studentId);
+                cmd.ExecuteNonQuery();
+
+
+                string deleteParentsQuery = "DELETE FROM parents WHERE student_id = @studentId;";
+                MySqlCommand deleteParentsCmd = new MySqlCommand(deleteParentsQuery, con);
+                deleteParentsCmd.Parameters.AddWithValue("@studentId", studentId);
+                deleteParentsCmd.ExecuteNonQuery();
+
+
+                string deleteQuery = "DELETE FROM students_enroll WHERE student_id = @studentId;";
+                MySqlCommand deleteCmd = new MySqlCommand(deleteQuery, con);
+                deleteCmd.Parameters.AddWithValue("@studentId", studentId);
+                deleteCmd.ExecuteNonQuery();
+
+                MessageBox.Show("Student accepted successfully!");
+            }
+        }
+        private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Action")
+                {
+
+                    int studentId = Convert.ToInt32(guna2DataGridView1.Rows[e.RowIndex].Cells["student_id"].Value);
+
+
+                    AcceptStudent(studentId);
+
+
+                    LoadPendingStudents();
                 }
             }
         }
 
-        private void CountTotalProfessor()
-        {
-            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-            string query = "SELECT COUNT(*) FROM student_enrollees";
-
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                    {
-                        // Execute the query and get the result (the total count of students)
-                        int totalprofessor = Convert.ToInt32(cmd.ExecuteScalar());
-
-                        // Display the total number of students in the label
-                        pendingenrollment.Text = totalprofessor.ToString();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
-            }
-        }
-
-        private void CountTotalEnrolledStudents()
-        {
-            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-            string query = "SELECT COUNT(*) FROM accepted_students";
-
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-
-                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
-                    {
-                        // Execute the query and get the result (the total count of students)
-                        int totalenrolledstudents = Convert.ToInt32(cmd.ExecuteScalar());
-
-                        // Display the total number of students in the label
-                        totalenrolled.Text = totalenrolledstudents.ToString();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
-            }
-        }
 
         private void LoadStudentData()
         {
             string query = "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname FROM accepted_students_enroll";
             string connectionString = "server=localhost;database=it13proj;user=root;password=;";
+
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -217,78 +213,8 @@ namespace IT13FINALPROJ
 
 
 
-        // Handle the Accept button click event
-        private void guna2DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Ensure the click is from the button column
-            if (e.ColumnIndex == guna2DataGridView1.Columns["Accept"].Index && e.RowIndex >= 0)
-            {
-                int studentId = Convert.ToInt32(guna2DataGridView1.Rows[e.RowIndex].Cells["id"].Value);
-                AcceptEnrollment(studentId);
-
-                // Change status after acceptance
-                guna2DataGridView1.Rows[e.RowIndex].Cells["Status"].Value = "Accepted";
-                guna2DataGridView1.Rows[e.RowIndex].Cells["Status"].Style.BackColor = Color.Green;
-            }
-        }
-
-        // Move the student to accepted_students and delete from student_enrollees
-        private void AcceptEnrollment(int studentId)
-        {
-            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-            string insertQuery = @"INSERT INTO accepted_students (Firstname, Middlename, Lastname, Phonenumber, Address, Email, Sex, Program, Enrollment_date)
-                           SELECT Firstname, Middlename, Lastname, Phonenumber, Address, Email, Sex, Program, Enrollment_date
-                           FROM student_enrollees WHERE id = @id;
-                           DELETE FROM student_enrollees WHERE id = @id;";
-
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                conn.Open();
-                using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@id", studentId);
-                    cmd.ExecuteNonQuery();
-                }
-            }
-
-            MessageBox.Show("Student ID " + studentId + " enrollment accepted and moved to accepted_students.");
-        }
-
-        private void LoadAcceptedEnrollmentData()
-        {
-            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
-            string query = "SELECT * FROM accepted_students";
-
-            using (MySqlConnection conn = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(query, conn);
-                    DataTable dataTable = new DataTable();
-
-                    adapter.Fill(dataTable);
 
 
-                    if (dataTable.Rows.Count > 0)
-                    {
-
-                        guna2DataGridView1.DataSource = dataTable;
-
-
-                        guna2DataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                    }
-                    else
-                    {
-                        MessageBox.Show("No professors found in the database.");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred while loading professors: " + ex.Message);
-                }
-            }
-        }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -297,7 +223,8 @@ namespace IT13FINALPROJ
 
         private void DashboardForm_Load(object sender, EventArgs e)
         {
-
+            guna2DataGridView1.AutoGenerateColumns = true;
+            guna2DataGridView1.CellContentClick += guna2DataGridView1_CellContentClick;
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -425,7 +352,7 @@ namespace IT13FINALPROJ
 
         private void label6_Click(object sender, EventArgs e)
         {
-            CountTotalEnrolledStudents();
+
         }
 
 
@@ -491,10 +418,6 @@ namespace IT13FINALPROJ
 
         }
 
-        private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
 
         private void guna2Button8_Click(object sender, EventArgs e)
         {
@@ -503,7 +426,7 @@ namespace IT13FINALPROJ
 
         private void guna2Button9_Click(object sender, EventArgs e)
         {
-            LoadAcceptedEnrollmentData();
+
         }
 
         private void totalenrolled_Click(object sender, EventArgs e)
@@ -870,5 +793,77 @@ namespace IT13FINALPROJ
                 this.Close();
             }
         }
+
+        private void guna2Button39_Click(object sender, EventArgs e)
+        {
+            LoadPendingStudents();
+            guna2DataGridView2.Visible = false;
+            guna2DataGridView1.Visible = true;
+        }
+
+        private void guna2Button38_Click(object sender, EventArgs e)
+        {
+            guna2DataGridView2.Visible = true;
+            guna2DataGridView1.Visible = false;
+
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string query = "SELECT * FROM accepted_students_enroll";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    guna2DataGridView2.DataSource = dataTable;
+                    guna2DataGridView2.CellFormatting += guna2DataGridView2_CellFormatting; // Attach event handler
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+
+        private void guna2DataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            // Check if the column is the "grade" column (adjust index if "grade" is not at column index 11)
+            if (guna2DataGridView2.Columns[e.ColumnIndex].Name == "grade" && e.Value != null)
+            {
+                string grade = e.Value.ToString();
+
+                switch (grade)
+                {
+                    case "Grade 1":
+                        e.CellStyle.BackColor = Color.LightGreen;
+                        break;
+                    case "Grade 2":
+                        e.CellStyle.BackColor = Color.Yellow;
+                        break;
+                    case "Grade 3":
+                        e.CellStyle.BackColor = Color.Pink;
+                        break;
+                    case "Grade 4":
+                        e.CellStyle.BackColor = Color.LightBlue;
+                        break;
+                    case "Grade 5":
+                        e.CellStyle.BackColor = Color.LightGreen;
+                        break;
+                    case "Grade 6":
+                        e.CellStyle.BackColor = Color.Orange;
+                        break;
+                    default:
+                        e.CellStyle.BackColor = Color.White; // Default color if grade doesn't match
+                        break;
+                }
+            }
+        }
+
     }
 }

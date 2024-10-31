@@ -230,22 +230,25 @@ namespace IT13FINALPROJ
                 using (MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=it13proj"))
                 {
                     con.Open();
+
+                    // Create the table with an additional 'role' column
                     string createTableQuery = $"CREATE TABLE IF NOT EXISTS `{tableName}` (" +
                                                "id INT AUTO_INCREMENT PRIMARY KEY, " +
-                                               $"grade_level VARCHAR(255) NOT NULL, " +
-                                               $"section_name VARCHAR(255) NOT NULL, " +
-                                               $"assigned_teacher VARCHAR(255), " +
-                                               $"academic_year VARCHAR(255), " +
-                                               $"room_number VARCHAR(255), " +
-                                               $"student_capacity INT, " +
-                                               $"description TEXT)";
+                                               "grade_level VARCHAR(255) NOT NULL, " +
+                                               "section_name VARCHAR(255) NOT NULL, " +
+                                               "Fullname VARCHAR(255), " +
+                                               "academic_year VARCHAR(255), " +
+                                               "room_number VARCHAR(255), " +
+                                               "student_capacity INT, " +
+                                               "description TEXT, " +
+                                               "role VARCHAR(255) DEFAULT 'Teacher')"; // Adds the role column with default 'Teacher'
 
                     MySqlCommand cmd = new MySqlCommand(createTableQuery, con);
                     cmd.ExecuteNonQuery();
 
-                    // Optionally insert the data into the new table
-                    string insertDataQuery = $"INSERT INTO `{tableName}` (grade_level, section_name, assigned_teacher, academic_year, room_number, student_capacity, description) " +
-                                              $"VALUES (@gradeLevel, @sectionName, @assignedTeacher, @academicYear, @roomNumber, @studentCapacity, @description)";
+                    // Insert data with the role automatically set to 'Teacher'
+                    string insertDataQuery = $"INSERT INTO `{tableName}` (grade_level, section_name, Fullname, academic_year, room_number, student_capacity, description, role) " +
+                                              $"VALUES (@gradeLevel, @sectionName, @assignedTeacher, @academicYear, @roomNumber, @studentCapacity, @description, 'Teacher')";
 
                     MySqlCommand insertCmd = new MySqlCommand(insertDataQuery, con);
                     insertCmd.Parameters.AddWithValue("@gradeLevel", gradeLevel);
@@ -254,10 +257,10 @@ namespace IT13FINALPROJ
                     insertCmd.Parameters.AddWithValue("@academicYear", academicYear);
                     insertCmd.Parameters.AddWithValue("@roomNumber", roomNumber);
                     insertCmd.Parameters.AddWithValue("@studentCapacity", studentCapacity);
-                    insertCmd.Parameters.AddWithValue("@description", description); // Fixed parameter name
+                    insertCmd.Parameters.AddWithValue("@description", description);
                     insertCmd.ExecuteNonQuery();
 
-                    MessageBox.Show("New table created and data inserted successfully!");
+                    MessageBox.Show("New table created and data with role 'Teacher' inserted successfully!");
                 }
             }
             catch (MySqlException ex)
@@ -265,9 +268,6 @@ namespace IT13FINALPROJ
                 MessageBox.Show($"Error: {ex.Message}");
             }
         }
-
-
-
 
 
         //END OF FUNCTION AREA
@@ -315,17 +315,16 @@ namespace IT13FINALPROJ
 
         private void guna2Button2_Click(object sender, EventArgs e)
         {
-            string tableName = nameoftable.Text; // Assuming you have a textbox for the table name
+            string tableName = nameoftable.Text;
             string gradeLevel = gradelevel.SelectedItem.ToString();
-            string sectionName = sectionname.Text; // Assuming you have a textbox for the section name
-            string assignedTeacher = assignteacher.SelectedItem?.ToString(); // Use the null conditional 
-            string academicYear = academicyear.Text; // Assuming you have a textbox for academic year
-            string roomNumber = roomnumber.Text; // Assuming you have a textbox for room number
-            int studentCapacity = Convert.ToInt32(studentcapacity.Text); // Assuming you have a textbox for student capacity
-            string descriptionn = description.Text; // Assuming you have a textbox for description
+            string sectionName = sectionname.Text;
+            string assignedTeacher = assignteacher.SelectedItem?.ToString();
+            string academicYear = academicyear.Text;
+            string roomNumber = roomnumber.Text;
+            int studentCapacity = Convert.ToInt32(studentcapacity.Text);
+            string descriptionn = description.Text;
 
             CreateNewTable(tableName, gradeLevel, sectionName, assignedTeacher, academicYear, roomNumber, studentCapacity, descriptionn);
-
         }
 
         private void tabPage3_Click(object sender, EventArgs e)
@@ -350,45 +349,123 @@ namespace IT13FINALPROJ
 
         private void guna2Button3_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void gradelevel2_SelectedIndexChanged(object sender, EventArgs e)
+            // Make sure grade and section are selected
+            if (gradelevel2.SelectedItem == null || availablesection2.SelectedItem == null || studentname2.SelectedItem == null)
             {
+                MessageBox.Show("Please select a grade level, section, and student.");
+                return;
+            }
+
             string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
-            string selectedGrade = gradelevel2.SelectedItem.ToString(); // Get the selected grade
+            string selectedSection = availablesection2.SelectedItem.ToString();
+            string selectedStudent = studentname2.SelectedItem.ToString();
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                connection.Open(); // Open the connection
+                connection.Open();
 
-                // Prepare the SQL query to fetch students in the selected grade
-                string query = "SELECT firstname, lastname FROM accepted_students_enroll WHERE TRIM(grade) = @grade"; // Selecting only names for simplicity
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@grade", selectedGrade); // Use the selected grade as a parameter
+                // Insert the selected student into the chosen section table with role as "Student"
+                string insertQuery = "INSERT INTO " + selectedSection + " (Fullname, grade_level, section_name, role) " +
+                                     "VALUES (@Fullname, @GradeLevel, @SectionName, 'Student')";
 
-                MySqlDataReader reader = cmd.ExecuteReader(); // Execute the query
+                MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection);
+                insertCmd.Parameters.AddWithValue("@Fullname", selectedStudent);
+                insertCmd.Parameters.AddWithValue("@GradeLevel", gradelevel2.SelectedItem.ToString());
+                insertCmd.Parameters.AddWithValue("@SectionName", selectedSection);
 
-                // Clear the ComboBox before adding new items
-                studentname2.Items.Clear(); // Assume you have a ComboBox named studentNamesComboBox
-
-                // Check if any students were found
-                if (!reader.HasRows)
+                try
                 {
-                    MessageBox.Show("No students found in this grade level.");
+                    insertCmd.ExecuteNonQuery();
+                    MessageBox.Show("Student assigned successfully!");
                 }
-                else
+                catch (Exception ex)
                 {
-                    // Loop through the results and add each student to the ComboBox
-                    while (reader.Read())
-                    {
-                        string studentName = $"{reader["firstname"]} {reader["lastname"]}"; // Combine first and last names
-                        studentname2.Items.Add(studentName); // Add the full name to the ComboBox
-                    }
+                    MessageBox.Show("Error assigning student: " + ex.Message);
+                }
+            }
+        }
+
+
+        private void gradelevel2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            string selectedGrade = gradelevel2.SelectedItem.ToString();
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Step 1: Retrieve tables starting with "Grade"
+                string tableQuery = "SHOW TABLES LIKE 'Grade%'";
+                MySqlCommand tableCmd = new MySqlCommand(tableQuery, connection);
+                MySqlDataReader tableReader = tableCmd.ExecuteReader();
+
+                availablesection2.Items.Clear();
+
+                while (tableReader.Read())
+                {
+                    availablesection2.Items.Add(tableReader[0].ToString());
                 }
 
-                reader.Close(); // Close the reader
-            } // The connection is automatically closed here
+                tableReader.Close();
+
+                // Step 2: Automatically input teacher name for the grade level
+                string teacherQuery = "SELECT CONCAT(Firstname, ' ', IFNULL(Middlename, ''), ' ', Lastname) AS teacher_name " +
+                                      "FROM teacher_account " +
+                                      "WHERE PreferredGradeLevel = @gradeLevel";
+
+                MySqlCommand teacherCmd = new MySqlCommand(teacherQuery, connection);
+                teacherCmd.Parameters.AddWithValue("@gradeLevel", selectedGrade);
+
+                object teacherName = teacherCmd.ExecuteScalar();
+                assignedteacher2.Text = teacherName != null ? teacherName.ToString() : "No teacher assigned";
+
+                // Step 3: Display all students in the selected grade level in studentname2
+                string studentQuery = "SELECT CONCAT(firstname, ' ', IFNULL(middlename, ''), ' ', lastname) AS student_name " +
+                                      "FROM accepted_students_enroll " +
+                                      "WHERE grade = @grade";
+
+                MySqlCommand studentCmd = new MySqlCommand(studentQuery, connection);
+                studentCmd.Parameters.AddWithValue("@grade", selectedGrade);
+
+                MySqlDataReader studentReader = studentCmd.ExecuteReader();
+                studentname2.Items.Clear();
+
+                while (studentReader.Read())
+                {
+                    studentname2.Items.Add(studentReader["student_name"].ToString());
+                }
+
+                studentReader.Close();
+            }
+        }
+
+
+        private void studentname2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void availablesection2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            string selectedSection = availablesection2.SelectedItem.ToString();
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // Query to get the assigned teacher for the selected section
+                string teacherQuery = "SELECT Fullname " +
+                                      "FROM " + selectedSection + " " +
+                                      "WHERE role = 'Teacher' " +
+                                      "LIMIT 1";  // Assuming only one teacher is assigned per section
+
+                MySqlCommand teacherCmd = new MySqlCommand(teacherQuery, connection);
+                object teacherName = teacherCmd.ExecuteScalar();
+
+                assignedteacher2.Text = teacherName != null ? teacherName.ToString() : "No teacher assigned";
+            }
         }
     }
-    }
+}
