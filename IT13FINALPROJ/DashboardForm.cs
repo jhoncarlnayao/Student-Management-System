@@ -22,7 +22,11 @@ namespace IT13FINALPROJ
         {
             InitializeComponent();
             LoadStudentData();
-
+            LoadGenderData();
+            CountSex();
+            CountTotalPendingStudents();
+            CountTotalStudents();
+            CountTotalTeachers();
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -32,6 +36,171 @@ namespace IT13FINALPROJ
 
 
         }
+
+        private void LoadGenderData()
+        {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    // Count male and female students
+                    string query = "SELECT sex, COUNT(*) as count FROM accepted_students_enroll GROUP BY sex";
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+                    DataTable dataTable = new DataTable();
+                    adapter.Fill(dataTable);
+
+                    int maleCount = 0;
+                    int femaleCount = 0;
+
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        string sex = row["sex"].ToString();
+                        int count = Convert.ToInt32(row["count"]);
+
+                        if (sex == "M")
+                        {
+                            maleCount = count;
+                        }
+                        else if (sex == "F")
+                        {
+                            femaleCount = count;
+                        }
+                    }
+
+                    // Calculate total and percentages
+                    int total = maleCount + femaleCount;
+                    if (total > 0)
+                    {
+                        float malePercentage = (maleCount / (float)total) * 100;
+                        float femalePercentage = (femaleCount / (float)total) * 100;
+
+                        // Set male progress bar
+                        guna2CircleProgressBar1.Value = (int)malePercentage; // Male percentage
+                        guna2CircleProgressBar1.ProgressColor = System.Drawing.Color.Blue; // Solid color for males
+                        guna2CircleProgressBar1.ProgressColor2 = System.Drawing.Color.Blue; // Same color to avoid gradient
+
+                        // Set female progress bar
+                        guna2CircleProgressBar2.Value = (int)femalePercentage; // Female percentage
+                        guna2CircleProgressBar2.ProgressColor = System.Drawing.Color.Pink; // Solid color for females
+                        guna2CircleProgressBar2.ProgressColor2 = System.Drawing.Color.Pink; // Same color to avoid gradient
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
+
+        public void CountSex()
+        {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            int maleCount = 0;
+            int femaleCount = 0;
+
+            string query = @"
+        SELECT 
+            SUM(CASE WHEN sex = 'M' THEN 1 ELSE 0 END) AS MaleCount,
+            SUM(CASE WHEN sex = 'F' THEN 1 ELSE 0 END) AS FemaleCount
+        FROM accepted_students_enroll";
+
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                // Retrieve the counts
+                                maleCount = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
+                                femaleCount = reader.IsDBNull(1) ? 0 : reader.GetInt32(1);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            // Update labels with counts, make sure labels are initialized
+            boysnumber.Text = maleCount.ToString();
+            girlsnumber.Text = femaleCount.ToString();
+        }
+
+        //TOTAL STUDENTS
+        public void CountTotalStudents()
+        {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            int totalCount = 0;
+
+            string query = "SELECT COUNT(*) FROM accepted_students_enroll";
+
+                using (MySqlConnection con = new MySqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        totalCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+                }
+        
+            totalstudents.Text = totalCount.ToString();
+        }
+
+
+        //TOTAL TEACHERS
+        public void CountTotalTeachers()
+        {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            int totalCount = 0;
+
+            string query = "SELECT COUNT(*) FROM teacher_account";
+
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    totalCount = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+
+            totalteachers.Text = totalCount.ToString();
+        }
+
+
+        //TOTAL PENDING STUDENTS
+        public void CountTotalPendingStudents()
+        {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            int totalCount = 0;
+
+            string query = "SELECT COUNT(*) FROM students_enroll";
+
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    totalCount = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+
+            totalpendingstudents.Text = totalCount.ToString();
+        }
+
+
+
+
 
 
         private void LoadPendingStudents()
@@ -225,6 +394,10 @@ namespace IT13FINALPROJ
         {
             guna2DataGridView1.AutoGenerateColumns = true;
             guna2DataGridView1.CellContentClick += guna2DataGridView1_CellContentClick;
+            CountSex();
+            CountTotalPendingStudents();
+            CountTotalStudents();
+            CountTotalTeachers();
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
@@ -710,7 +883,7 @@ namespace IT13FINALPROJ
 
         private void guna2Button23_Click(object sender, EventArgs e)
         {
-            //ACCEPTED STUDENTS
+            //ACCEPTED STUDENTS LIST
             string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
             string query = "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname FROM accepted_students_enroll";
 
@@ -725,6 +898,8 @@ namespace IT13FINALPROJ
 
 
                     recordlistingstable.DataSource = dataTable;
+
+                    recordlistingstable.CellFormatting += recordlistingstable_CellFormatting;
                 }
                 catch (Exception ex)
                 {
@@ -822,7 +997,7 @@ namespace IT13FINALPROJ
                     adapter.Fill(dataTable);
 
                     guna2DataGridView2.DataSource = dataTable;
-                    guna2DataGridView2.CellFormatting += guna2DataGridView2_CellFormatting; // Attach event handler
+                    guna2DataGridView2.CellFormatting += guna2DataGridView2_CellFormatting;
                 }
                 catch (Exception ex)
                 {
@@ -833,7 +1008,6 @@ namespace IT13FINALPROJ
 
         private void guna2DataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            // Check if the column is the "grade" column (adjust index if "grade" is not at column index 11)
             if (guna2DataGridView2.Columns[e.ColumnIndex].Name == "grade" && e.Value != null)
             {
                 string grade = e.Value.ToString();
@@ -853,17 +1027,68 @@ namespace IT13FINALPROJ
                         e.CellStyle.BackColor = Color.LightBlue;
                         break;
                     case "Grade 5":
-                        e.CellStyle.BackColor = Color.LightGreen;
+                        e.CellStyle.BackColor = Color.LightYellow;
                         break;
                     case "Grade 6":
                         e.CellStyle.BackColor = Color.Orange;
                         break;
                     default:
-                        e.CellStyle.BackColor = Color.White; // Default color if grade doesn't match
+                        e.CellStyle.BackColor = Color.White;
+                        break;
+                }
+            }
+        }
+        private void recordlistingstable_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (recordlistingstable.Columns[e.ColumnIndex].Name == "grade" && e.Value != null)
+            {
+                string grade = e.Value.ToString();
+
+                switch (grade)
+                {
+                    case "Grade 1":
+                        e.CellStyle.BackColor = Color.LightGreen;
+                        break;
+                    case "Grade 2":
+                        e.CellStyle.BackColor = Color.Yellow;
+                        break;
+                    case "Grade 3":
+                        e.CellStyle.BackColor = Color.Pink;
+                        break;
+                    case "Grade 4":
+                        e.CellStyle.BackColor = Color.LightBlue;
+                        break;
+                    case "Grade 5":
+                        e.CellStyle.BackColor = Color.LightYellow;
+                        break;
+                    case "Grade 6":
+                        e.CellStyle.BackColor = Color.Orange;
+                        break;
+                    default:
+                        e.CellStyle.BackColor = Color.White;
                         break;
                 }
             }
         }
 
+        private void recordlistingstable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void guna2CircleProgressBar1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2CircleProgressBar2_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2CirclePictureBox12_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
