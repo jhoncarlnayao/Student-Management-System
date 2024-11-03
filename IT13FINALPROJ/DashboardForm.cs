@@ -30,10 +30,25 @@ namespace IT13FINALPROJ
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            //   this.ControlBox = false;
-            this.StartPosition = FormStartPosition.CenterScreen;
-            createStudentAccountButton.Click += (s, e) => CreateStudentAccount();
 
+            this.StartPosition = FormStartPosition.CenterScreen;
+            //createStudentAccountButton.Click += (s, e) => CreateStudentAccount();
+
+            //FOR AUTOMATIC TIMER
+            timer1.Interval = 1000;
+            timer1.Tick += Timer1_Tick;
+            timer1.Start();
+
+            createdby.Enabled = false;
+
+
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+
+            automatictime.Text = DateTime.Now.ToString("hh:mm:ss tt").ToUpper();
+            automaticdate.Text = DateTime.Now.ToString("MMMM dd, yyyy");
 
         }
 
@@ -144,15 +159,15 @@ namespace IT13FINALPROJ
 
             string query = "SELECT COUNT(*) FROM accepted_students_enroll";
 
-                using (MySqlConnection con = new MySqlConnection(connectionString))
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
                 {
-                    con.Open();
-                    using (MySqlCommand cmd = new MySqlCommand(query, con))
-                    {
-                        totalCount = Convert.ToInt32(cmd.ExecuteScalar());
-                    }
+                    totalCount = Convert.ToInt32(cmd.ExecuteScalar());
                 }
-        
+            }
+
             totalstudents.Text = totalCount.ToString();
         }
 
@@ -196,6 +211,44 @@ namespace IT13FINALPROJ
             }
 
             totalpendingstudents.Text = totalCount.ToString();
+        }
+
+        public void InsertAnnouncement(string title, string description)
+        {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            string query = "INSERT INTO Announcements (Title, Description, CreatedBy) VALUES (@Title, @Description, @CreatedBy)";
+            string createdBy = "Admin";
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Title", title);
+                        command.Parameters.AddWithValue("@Description", description);
+                        command.Parameters.AddWithValue("@CreatedBy", createdBy);
+
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Announcement sent successfully!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to send announcement.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
         }
 
 
@@ -1089,6 +1142,25 @@ namespace IT13FINALPROJ
         private void guna2CirclePictureBox12_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void automatictime_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void totalteachers_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2Button5_Click(object sender, EventArgs e)
+        {
+            string titlee = title.Text;
+            string descriptionn = description.Text;
+
+
+            InsertAnnouncement(titlee, descriptionn);
         }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace IT13FINALPROJ
         public GuidanceDashboard()
         {
             InitializeComponent();
+            CountSex();
             gradelevel.Items.Add("1");
             gradelevel.Items.Add("2");
             gradelevel.Items.Add("3");
@@ -24,6 +26,7 @@ namespace IT13FINALPROJ
             gradelevel.Items.Add("5");
             gradelevel.Items.Add("6");
             this.gradelevel.SelectedIndexChanged += new System.EventHandler(this.gradeLevelComboBox_SelectedIndexChanged);
+            createdby.Enabled = false;
 
 
         }
@@ -63,6 +66,104 @@ namespace IT13FINALPROJ
 
 
                 guna2DataGridView1.ColumnHeadersVisible = true;
+            }
+        }
+
+        public void CountTotalStudents()
+        {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            int totalCount = 0;
+
+            string query = "SELECT COUNT(*) FROM accepted_students_enroll";
+
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    totalCount = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+
+            totalstudents.Text = totalCount.ToString();
+        }
+
+        //TOTAL TEACHERS
+        public void CountTotalTeachers()
+        {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            int totalCount = 0;
+
+            string query = "SELECT COUNT(*) FROM teacher_account";
+
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    totalCount = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+
+            totalteachers.Text = totalCount.ToString();
+        }
+
+
+        //TOTAL PENDING STUDENTS
+        public void CountTotalPendingStudents()
+        {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            int totalCount = 0;
+
+            string query = "SELECT COUNT(*) FROM students_enroll";
+
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                con.Open();
+                using (MySqlCommand cmd = new MySqlCommand(query, con))
+                {
+                    totalCount = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+            }
+
+            totalpendingstudents.Text = totalCount.ToString();
+        }
+
+        public void InsertAnnouncement(string title, string description)
+        {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            string query = "INSERT INTO Announcements (Title, Description, CreatedBy) VALUES (@Title, @Description, @CreatedBy)";
+            string createdBy = "Guidance Staff";
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Title", title);
+                        command.Parameters.AddWithValue("@Description", description);
+                        command.Parameters.AddWithValue("@CreatedBy", createdBy);
+
+
+                        int rowsAffected = command.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Announcement sent successfully!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to send announcement.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
             }
         }
 
@@ -112,21 +213,21 @@ namespace IT13FINALPROJ
                                    "WHERE PreferredGradeLevel = @gradeLevel";
 
                     MySqlCommand cmd = new MySqlCommand(query, con);
-                    cmd.Parameters.AddWithValue("@gradeLevel", gradeLevel.ToString()); // Ensure gradeLevel is passed as a string
+                    cmd.Parameters.AddWithValue("@gradeLevel", gradeLevel.ToString());
 
                     MySqlDataReader reader = cmd.ExecuteReader();
-                    assignteacher.Items.Clear(); // Clear previous items
+                    assignteacher.Items.Clear();
 
                     if (!reader.HasRows)
                     {
-                        MessageBox.Show("No teachers found for the selected grade level."); // Log message
+                        MessageBox.Show("No teachers found for the selected grade level.");
                     }
                     else
                     {
                         // Populate the assignteacher ComboBox with teacher names
                         while (reader.Read())
                         {
-                            assignteacher.Items.Add(reader["teacher_name"].ToString().Trim()); // Trim whitespace
+                            assignteacher.Items.Add(reader["teacher_name"].ToString().Trim());
                         }
                     }
                 }
@@ -149,7 +250,7 @@ namespace IT13FINALPROJ
                     cmd.Parameters.AddWithValue("@gradeLevel", gradeLevel);
 
                     MySqlDataReader reader = cmd.ExecuteReader();
-                    studentname2.Items.Clear(); // Clear previous items
+                    studentname2.Items.Clear();
 
                     while (reader.Read())
                     {
@@ -176,12 +277,12 @@ namespace IT13FINALPROJ
                 using (MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=it13proj"))
                 {
                     con.Open();
-                    string query = "SELECT DISTINCT section_name FROM sections WHERE grade_level = @gradeLevel"; // Adjust your query as needed
+                    string query = "SELECT DISTINCT section_name FROM sections WHERE grade_level = @gradeLevel";
                     MySqlCommand cmd = new MySqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@gradeLevel", gradeLevel);
 
                     MySqlDataReader reader = cmd.ExecuteReader();
-                    availablesection2.Items.Clear(); // Clear previous items
+                    availablesection2.Items.Clear();
 
                     while (reader.Read())
                     {
@@ -231,7 +332,7 @@ namespace IT13FINALPROJ
                 {
                     con.Open();
 
-                    // Create the table with an additional 'role' column
+
                     string createTableQuery = $"CREATE TABLE IF NOT EXISTS `{tableName}` (" +
                                                "id INT AUTO_INCREMENT PRIMARY KEY, " +
                                                "grade_level VARCHAR(255) NOT NULL, " +
@@ -241,12 +342,12 @@ namespace IT13FINALPROJ
                                                "room_number VARCHAR(255), " +
                                                "student_capacity INT, " +
                                                "description TEXT, " +
-                                               "role VARCHAR(255) DEFAULT 'Teacher')"; // Adds the role column with default 'Teacher'
+                                               "role VARCHAR(255) DEFAULT 'Teacher')";
 
                     MySqlCommand cmd = new MySqlCommand(createTableQuery, con);
                     cmd.ExecuteNonQuery();
 
-                    // Insert data with the role automatically set to 'Teacher'
+
                     string insertDataQuery = $"INSERT INTO `{tableName}` (grade_level, section_name, Fullname, academic_year, room_number, student_capacity, description, role) " +
                                               $"VALUES (@gradeLevel, @sectionName, @assignedTeacher, @academicYear, @roomNumber, @studentCapacity, @description, 'Teacher')";
 
@@ -269,6 +370,46 @@ namespace IT13FINALPROJ
             }
         }
 
+        public void CountSex()
+        {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            int maleCount = 0;
+            int femaleCount = 0;
+
+            string query = @"
+        SELECT 
+            SUM(CASE WHEN sex = 'M' THEN 1 ELSE 0 END) AS MaleCount,
+            SUM(CASE WHEN sex = 'F' THEN 1 ELSE 0 END) AS FemaleCount
+        FROM accepted_students_enroll";
+
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                // Retrieve the counts
+                                maleCount = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
+                                femaleCount = reader.IsDBNull(1) ? 0 : reader.GetInt32(1);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            // Update labels with counts, make sure labels are initialized
+            boysnumber.Text = maleCount.ToString();
+            girlsnumber.Text = femaleCount.ToString();
+        }
+
 
         //END OF FUNCTION AREA
 
@@ -277,12 +418,12 @@ namespace IT13FINALPROJ
 
             guna2DataGridView1.AutoGenerateColumns = true;
             guna2DataGridView1.CellContentClick += guna2DataGridView1_CellContentClick;
+            CountTotalPendingStudents();
+            CountTotalStudents();
+            CountTotalTeachers();
+            CountSex();
         }
 
-        private void pendingBTN_Click(object sender, EventArgs e)
-        {
-            LoadPendingStudents();
-        }
 
         private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -466,6 +607,40 @@ namespace IT13FINALPROJ
 
                 assignedteacher2.Text = teacherName != null ? teacherName.ToString() : "No teacher assigned";
             }
+        }
+
+        private void pendingenrollment_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2Button39_Click(object sender, EventArgs e)
+        {
+            LoadPendingStudents();
+        }
+
+        private void guna2Panel10_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void guna2Button5_Click(object sender, EventArgs e)
+        {
+            string titlee = title.Text;
+            string description = descriptionannounce.Text;
+
+
+            InsertAnnouncement(titlee, description);
+        }
+
+        private void createdby_TextChanged(object sender, EventArgs e)
+        {
+            createdby.Enabled = false;
+        }
+
+        private void guna2NumericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
