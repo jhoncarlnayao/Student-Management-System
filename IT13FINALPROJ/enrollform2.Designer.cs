@@ -55,7 +55,6 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges24 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges25 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges26 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            panel1 = new Panel();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             Firstname = new Guna.UI2.WinForms.Guna2TextBox();
             Middlename = new Guna.UI2.WinForms.Guna2TextBox();
@@ -84,14 +83,6 @@
             guna2HtmlLabel13 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2CustomGradientPanel1.SuspendLayout();
             SuspendLayout();
-            // 
-            // panel1
-            // 
-            panel1.Dock = DockStyle.Left;
-            panel1.Location = new Point(3, 64);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(85, 711);
-            panel1.TabIndex = 0;
             // 
             // guna2HtmlLabel1
             // 
@@ -574,7 +565,6 @@
             ClientSize = new Size(1458, 778);
             Controls.Add(guna2CustomGradientPanel1);
             Controls.Add(guna2HtmlLabel1);
-            Controls.Add(panel1);
             Name = "enrollform2";
             Text = "Student Enroll ";
             Load += enrollform2_Load;
@@ -584,8 +574,6 @@
         }
 
         #endregion
-
-        private Panel panel1;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         private Guna.UI2.WinForms.Guna2TextBox Firstname;
         private Guna.UI2.WinForms.Guna2TextBox Middlename;

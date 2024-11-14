@@ -1,6 +1,7 @@
 using MaterialSkin;
 using MaterialSkin.Controls;
 using MySql.Data.MySqlClient;
+using System.Drawing.Drawing2D;
 
 namespace IT13FINALPROJ
 {
@@ -16,6 +17,26 @@ namespace IT13FINALPROJ
             this.Text = "";
 
             this.StartPosition = FormStartPosition.CenterScreen;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            // Define the border radius
+            int borderRadius = 30;  // Change this value for more/less rounding
+
+            // Set the form's region (rounded corners)
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddArc(0, 0, borderRadius, borderRadius, 180, 90); // Top-left corner
+                path.AddArc(this.Width - borderRadius - 1, 0, borderRadius, borderRadius, 270, 90); // Top-right corner
+                path.AddArc(this.Width - borderRadius - 1, this.Height - borderRadius - 1, borderRadius, borderRadius, 0, 90); // Bottom-right corner
+                path.AddArc(0, this.Height - borderRadius - 1, borderRadius, borderRadius, 90, 90); // Bottom-left corner
+                path.CloseAllFigures();
+
+                this.Region = new Region(path);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -148,7 +169,6 @@ namespace IT13FINALPROJ
                     return;
                 }
 
-                // Check for Student login
                 string studentQuery = "SELECT COUNT(1) FROM student_accounts WHERE schoolemail=@username AND password=@password";
                 MySqlCommand studentCmd = new MySqlCommand(studentQuery, con);
                 studentCmd.Parameters.AddWithValue("@username", username);
@@ -159,14 +179,33 @@ namespace IT13FINALPROJ
                 if (studentResult == 1)
                 {
                     MessageBox.Show("Student logged in successfully!", "Login Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    StudentDashboard studentDashboard = new StudentDashboard();
-                    studentDashboard.Show();
-                    this.Hide();
+
+                    // Retrieve the student's details
+                    string detailsQuery = "SELECT firstname, middlename, lastname, schoolemail FROM student_accounts WHERE schoolemail=@username";
+                    MySqlCommand detailsCmd = new MySqlCommand(detailsQuery, con);
+                    detailsCmd.Parameters.AddWithValue("@username", username);
+
+                    using (MySqlDataReader reader = detailsCmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            // Retrieve name and email
+                            string fullName = $"{reader["firstname"]} {reader["middlename"]} {reader["lastname"]}";
+                            string schoolEmail = reader["schoolemail"].ToString();
+
+                            // Open the StudentDashboard and pass the retrieved data
+                            StudentDashboard studentDashboard = new StudentDashboard();
+                            studentDashboard.StudentName = fullName;
+                            studentDashboard.StudentEmail = schoolEmail;
+                            studentDashboard.Show();
+                            this.Hide();
+                        }
+                    }
                     return;
                 }
 
-                // Check for Teacher login
-                string teacherQuery = "SELECT COUNT(1) FROM teacher_account WHERE Username=@username AND Password_Hash=@password";
+                    // Check for Teacher login
+                    string teacherQuery = "SELECT COUNT(1) FROM teacher_account WHERE Username=@username AND Password_Hash=@password";
                 MySqlCommand teacherCmd = new MySqlCommand(teacherQuery, con);
                 teacherCmd.Parameters.AddWithValue("@username", username);
                 teacherCmd.Parameters.AddWithValue("@password", password);
@@ -176,8 +215,8 @@ namespace IT13FINALPROJ
                 if (teacherResult == 1)
                 {
                     MessageBox.Show("Teacher logged in successfully!", "Login Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                 //   TeacherDashboard teacherDashboard = new TeacherDashboard();
-                  //  teacherDashboard.Show();
+                    TeacherDashboard teacherDashboard = new TeacherDashboard(username); // Pass the username
+                    teacherDashboard.Show();
                     this.Hide();
                     return;
                 }

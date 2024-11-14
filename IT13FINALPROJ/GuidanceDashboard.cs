@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics.Metrics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,40 +32,52 @@ namespace IT13FINALPROJ
 
         }
 
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            // Define the border radius
+            int borderRadius = 30;  // Change this value for more/less rounding
+
+            // Set the form's region (rounded corners)
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddArc(0, 0, borderRadius, borderRadius, 180, 90); // Top-left corner
+                path.AddArc(this.Width - borderRadius - 1, 0, borderRadius, borderRadius, 270, 90); // Top-right corner
+                path.AddArc(this.Width - borderRadius - 1, this.Height - borderRadius - 1, borderRadius, borderRadius, 0, 90); // Bottom-right corner
+                path.AddArc(0, this.Height - borderRadius - 1, borderRadius, borderRadius, 90, 90); // Bottom-left corner
+                path.CloseAllFigures();
+
+                this.Region = new Region(path);
+            }
+        }
+
         //FUNCTION AREA:
         private void LoadPendingStudents()
         {
             using (MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=it13proj"))
             {
                 con.Open();
-                string query = "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade FROM students_enroll";
+
+                // Ensure 'id' is the alias for the primary identifier in the DataGridView
+                string query = "SELECT id AS student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade " +
+                               "FROM students_enroll " +
+                               "WHERE id NOT IN (SELECT student_id FROM accepted_students_enroll);";
+
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
 
-                // Add Status and Action columns
-                dt.Columns.Add("Status", typeof(string));
-                dt.Columns.Add("Action", typeof(string));
-
-                foreach (DataRow row in dt.Rows)
-                {
-                    row["Status"] = "Pending";
-                    row["Action"] = "Accept";
-                }
-
+                // Bind the data to the DataGridView
                 guna2DataGridView1.DataSource = dt;
-
 
                 foreach (DataGridViewColumn column in guna2DataGridView1.Columns)
                 {
                     column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
 
-
                 guna2DataGridView1.ColumnHeadersHeight = 30;
                 guna2DataGridView1.RowTemplate.Height = 25;
-
-
                 guna2DataGridView1.ColumnHeadersVisible = true;
             }
         }
@@ -170,35 +183,68 @@ namespace IT13FINALPROJ
 
 
 
-        private void AcceptStudent(int studentId)
+        private bool AcceptStudent(int id)
         {
             using (MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=it13proj"))
             {
                 con.Open();
+                MySqlTransaction transaction = con.BeginTransaction();
 
-                string moveQuery = "INSERT INTO accepted_students_enroll (student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade) " +
-                                   "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade " +
-                                   "FROM students_enroll WHERE student_id = @studentId;";
+                try
+                {
+                    // Disable foreign key checks
+                    MySqlCommand disableFKCheck = new MySqlCommand("SET FOREIGN_KEY_CHECKS=0;", con, transaction);
+                    disableFKCheck.ExecuteNonQuery();
 
-                MySqlCommand cmd = new MySqlCommand(moveQuery, con);
-                cmd.Parameters.AddWithValue("@studentId", studentId);
-                cmd.ExecuteNonQuery();
+                    // Move student data to accepted_students_enroll
+                    string moveQuery = "INSERT INTO accepted_students_enroll (student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname) " +
+                                       "SELECT id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname " +
+                                       "FROM students_enroll WHERE id = @id;";
 
+                    MySqlCommand cmdMove = new MySqlCommand(moveQuery, con, transaction);
+                    cmdMove.Parameters.AddWithValue("@id", id);
+                    int rowsInserted = cmdMove.ExecuteNonQuery();
 
-                string deleteParentsQuery = "DELETE FROM parents WHERE student_id = @studentId;";
-                MySqlCommand deleteParentsCmd = new MySqlCommand(deleteParentsQuery, con);
-                deleteParentsCmd.Parameters.AddWithValue("@studentId", studentId);
-                deleteParentsCmd.ExecuteNonQuery();
+                    // Delete from parents table
+                    string deleteParentsQuery = "DELETE FROM parents WHERE student_id = @id;";
+                    MySqlCommand cmdDeleteParents = new MySqlCommand(deleteParentsQuery, con, transaction);
+                    cmdDeleteParents.Parameters.AddWithValue("@id", id);
+                    cmdDeleteParents.ExecuteNonQuery();
 
+                    // Delete student from students_enroll
+                    string deleteQuery = "DELETE FROM students_enroll WHERE id = @id;";
+                    MySqlCommand cmdDelete = new MySqlCommand(deleteQuery, con, transaction);
+                    cmdDelete.Parameters.AddWithValue("@id", id);
+                    int rowsDeleted = cmdDelete.ExecuteNonQuery();
 
-                string deleteQuery = "DELETE FROM students_enroll WHERE student_id = @studentId;";
-                MySqlCommand deleteCmd = new MySqlCommand(deleteQuery, con);
-                deleteCmd.Parameters.AddWithValue("@studentId", studentId);
-                deleteCmd.ExecuteNonQuery();
+                    // Re-enable foreign key checks
+                    MySqlCommand enableFKCheck = new MySqlCommand("SET FOREIGN_KEY_CHECKS=1;", con, transaction);
+                    enableFKCheck.ExecuteNonQuery();
 
-                MessageBox.Show("Student accepted successfully!");
+                    // Check if insert and delete affected the expected rows
+                    if (rowsInserted == 1 && rowsDeleted == 1)
+                    {
+                        transaction.Commit();
+                        MessageBox.Show("Student accepted successfully!");
+                        return true;
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("Failed to accept student. Transaction rolled back.");
+                        return false;
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show("Database error: " + ex.Message);
+                    return false;
+                }
             }
         }
+
+
 
         private void LoadTeachersByGrade(int gradeLevel)
         {
@@ -238,7 +284,7 @@ namespace IT13FINALPROJ
             }
         }
 
-        private void LoadStudentsByGrade(string gradeLevel)
+        private void LoadStudentsByGrade(int gradeLevel)
         {
             try
             {
@@ -270,7 +316,8 @@ namespace IT13FINALPROJ
             }
         }
 
-        private void LoadSectionsByGrade(string gradeLevel)
+
+        private void LoadSectionsByGrade(int gradeLevel)
         {
             try
             {
@@ -305,6 +352,7 @@ namespace IT13FINALPROJ
 
 
 
+
         private void gradeLevelComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (gradelevel.SelectedItem != null)
@@ -324,7 +372,8 @@ namespace IT13FINALPROJ
 
 
 
-        private void CreateNewTable(string tableName, string gradeLevel, string sectionName, string assignedTeacher, string academicYear, string roomNumber, int studentCapacity, string description)
+
+        private void CreateNewTable(string tableName, string gradeLevel, string sectionName, string assignedTeacher, string teacherUsername, string academicYear, string roomNumber, int studentCapacity, string description)
         {
             try
             {
@@ -332,25 +381,30 @@ namespace IT13FINALPROJ
                 {
                     con.Open();
 
-
+                    // Create the grade/section table
                     string createTableQuery = $"CREATE TABLE IF NOT EXISTS `{tableName}` (" +
-                                               "id INT AUTO_INCREMENT PRIMARY KEY, " +
-                                               "grade_level VARCHAR(255) NOT NULL, " +
-                                               "section_name VARCHAR(255) NOT NULL, " +
-                                               "Fullname VARCHAR(255), " +
-                                               "academic_year VARCHAR(255), " +
-                                               "room_number VARCHAR(255), " +
-                                               "student_capacity INT, " +
-                                               "description TEXT, " +
-                                               "role VARCHAR(255) DEFAULT 'Teacher')";
-
+                                      "id INT AUTO_INCREMENT PRIMARY KEY, " +
+                                      "grade_level VARCHAR(255) NOT NULL, " +
+                                      "section_name VARCHAR(255) NOT NULL, " +
+                                      "Fullname VARCHAR(255), " +
+                                      "academic_year VARCHAR(255), " +
+                                      "room_number VARCHAR(255), " +
+                                      "student_capacity INT, " +
+                                      "description TEXT, " +
+                                      "role VARCHAR(255) DEFAULT 'Teacher', " +
+                                      "Mathematics FLOAT NULL, " +
+                                      "Science FLOAT NULL, " +
+                                      "English FLOAT NULL, " +
+                                      "Filipino FLOAT NULL, " +
+                                      "Araling_Panlipunan FLOAT NULL, " +
+                                      "Edukasyon_sa_Pagpapakatao FLOAT NULL, " +
+                                      "MAPEH FLOAT NULL)";
                     MySqlCommand cmd = new MySqlCommand(createTableQuery, con);
                     cmd.ExecuteNonQuery();
 
-
+                    // Insert the teacher into the grade/section table
                     string insertDataQuery = $"INSERT INTO `{tableName}` (grade_level, section_name, Fullname, academic_year, room_number, student_capacity, description, role) " +
-                                              $"VALUES (@gradeLevel, @sectionName, @assignedTeacher, @academicYear, @roomNumber, @studentCapacity, @description, 'Teacher')";
-
+                                             $"VALUES (@gradeLevel, @sectionName, @assignedTeacher, @academicYear, @roomNumber, @studentCapacity, @description, 'Teacher')";
                     MySqlCommand insertCmd = new MySqlCommand(insertDataQuery, con);
                     insertCmd.Parameters.AddWithValue("@gradeLevel", gradeLevel);
                     insertCmd.Parameters.AddWithValue("@sectionName", sectionName);
@@ -361,7 +415,16 @@ namespace IT13FINALPROJ
                     insertCmd.Parameters.AddWithValue("@description", description);
                     insertCmd.ExecuteNonQuery();
 
-                    MessageBox.Show("New table created and data with role 'Teacher' inserted successfully!");
+                    // Insert the teacher assignment into teacher_assignments table with username
+                    string insertAssignmentQuery = "INSERT INTO teacher_assignments (teacher_username, grade_level, section_name) " +
+                                                  "VALUES (@teacherUsername, @gradeLevel, @sectionName)";
+                    MySqlCommand insertAssignmentCmd = new MySqlCommand(insertAssignmentQuery, con);
+                    insertAssignmentCmd.Parameters.AddWithValue("@teacherUsername", teacherUsername); // Use the username
+                    insertAssignmentCmd.Parameters.AddWithValue("@gradeLevel", gradeLevel);
+                    insertAssignmentCmd.Parameters.AddWithValue("@sectionName", tableName);  // Table name as section name
+                    insertAssignmentCmd.ExecuteNonQuery();
+
+                    MessageBox.Show("New table created, data with role 'Teacher' inserted successfully, and teacher assigned!");
                 }
             }
             catch (MySqlException ex)
@@ -369,6 +432,68 @@ namespace IT13FINALPROJ
                 MessageBox.Show($"Error: {ex.Message}");
             }
         }
+
+        private string GetTeacherUsername(string fullName)
+        {
+            string teacherUsername = string.Empty;
+
+            try
+            {
+                MessageBox.Show($"Fetching username for: {fullName}");
+
+
+                string[] nameParts = fullName.Split(' ');
+
+                if (nameParts.Length >= 2) // Ensure there's at least a Firstname and Lastname
+                {
+                    string firstName = nameParts[0];
+                    string lastName = nameParts[nameParts.Length - 1];
+
+                    // Check for middle name/initial if present
+                    string middleName = nameParts.Length == 3 ? nameParts[1] : string.Empty;
+
+                    using (MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=it13proj"))
+                    {
+                        con.Open();
+                        // Query to fetch the username based on the Firstname and Lastname
+                        string query = "SELECT Username FROM teacher_account WHERE Firstname = @firstName AND Lastname = @lastName LIMIT 1";
+
+                        // Pass the split name parts for better accuracy
+                        MySqlCommand cmd = new MySqlCommand(query, con);
+                        cmd.Parameters.AddWithValue("@firstName", firstName);
+                        cmd.Parameters.AddWithValue("@lastName", lastName);
+
+                        MySqlDataReader reader = cmd.ExecuteReader();
+
+                        if (reader.Read())
+                        {
+                            teacherUsername = reader["Username"].ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show("No matching username found!"); // If no matching username is found
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Full Name format is invalid!"); // If name doesn't have enough parts
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show($"Error retrieving teacher's username: {ex.Message}");
+            }
+
+            return teacherUsername;
+        }
+
+
+
+
+
+
+
 
         public void CountSex()
         {
@@ -422,27 +547,33 @@ namespace IT13FINALPROJ
             CountTotalStudents();
             CountTotalTeachers();
             CountSex();
+
         }
 
 
         private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            // Ensure that the click happened in a valid row and column
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Action")
                 {
+                    // Check if the value in the student_id cell is DBNull
+                    if (guna2DataGridView1.Rows[e.RowIndex].Cells["student_id"].Value != DBNull.Value)
+                    {
+                        int studentId = Convert.ToInt32(guna2DataGridView1.Rows[e.RowIndex].Cells["id"].Value);
 
-                    int studentId = Convert.ToInt32(guna2DataGridView1.Rows[e.RowIndex].Cells["student_id"].Value);
-
-
-                    AcceptStudent(studentId);
-
-
-                    LoadPendingStudents();
+                        AcceptStudent(studentId);
+                        LoadPendingStudents();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Student ID is missing or invalid.");
+                    }
                 }
             }
         }
+
 
         private void label2_Click(object sender, EventArgs e)
         {
@@ -459,14 +590,20 @@ namespace IT13FINALPROJ
             string tableName = nameoftable.Text;
             string gradeLevel = gradelevel.SelectedItem.ToString();
             string sectionName = sectionname.Text;
-            string assignedTeacher = assignteacher.SelectedItem?.ToString();
+            string assignedTeacherFullName = assignteacher.SelectedItem?.ToString(); // Assuming this is the full name
             string academicYear = academicyear.Text;
             string roomNumber = roomnumber.Text;
             int studentCapacity = Convert.ToInt32(studentcapacity.Text);
-            string descriptionn = description.Text;
+            string descriptionn = description.Text;  // Make sure description is correctly captured
 
-            CreateNewTable(tableName, gradeLevel, sectionName, assignedTeacher, academicYear, roomNumber, studentCapacity, descriptionn);
+            // Retrieve the username of the assigned teacher
+            string teacherUsername = GetTeacherUsername(assignedTeacherFullName);
+
+            // Pass the username to CreateNewTable
+            CreateNewTable(tableName, gradeLevel, sectionName, assignedTeacherFullName, teacherUsername, academicYear, roomNumber, studentCapacity, descriptionn);
         }
+
+
 
         private void tabPage3_Click(object sender, EventArgs e)
         {
@@ -532,6 +669,17 @@ namespace IT13FINALPROJ
             string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
             string selectedGrade = gradelevel2.SelectedItem.ToString();
 
+            // Extract the numeric part of the grade level (e.g., "Grade 1" -> "1")
+            string gradeText = selectedGrade.Replace("Grade", "").Trim();
+
+            // Attempt to parse the grade number
+            int gradeLevel;
+            if (!int.TryParse(gradeText, out gradeLevel))
+            {
+                MessageBox.Show("Invalid grade level selected.");
+                return;
+            }
+
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -556,7 +704,7 @@ namespace IT13FINALPROJ
                                       "WHERE PreferredGradeLevel = @gradeLevel";
 
                 MySqlCommand teacherCmd = new MySqlCommand(teacherQuery, connection);
-                teacherCmd.Parameters.AddWithValue("@gradeLevel", selectedGrade);
+                teacherCmd.Parameters.AddWithValue("@gradeLevel", gradeLevel);  // Pass as an integer
 
                 object teacherName = teacherCmd.ExecuteScalar();
                 assignedteacher2.Text = teacherName != null ? teacherName.ToString() : "No teacher assigned";
@@ -564,10 +712,10 @@ namespace IT13FINALPROJ
                 // Step 3: Display all students in the selected grade level in studentname2
                 string studentQuery = "SELECT CONCAT(firstname, ' ', IFNULL(middlename, ''), ' ', lastname) AS student_name " +
                                       "FROM accepted_students_enroll " +
-                                      "WHERE grade = @grade";
+                                      "WHERE grade = @grade";  // Assuming 'grade' is an integer column
 
                 MySqlCommand studentCmd = new MySqlCommand(studentQuery, connection);
-                studentCmd.Parameters.AddWithValue("@grade", selectedGrade);
+                studentCmd.Parameters.AddWithValue("@grade", gradeLevel);  // Pass as an integer
 
                 MySqlDataReader studentReader = studentCmd.ExecuteReader();
                 studentname2.Items.Clear();
@@ -580,6 +728,7 @@ namespace IT13FINALPROJ
                 studentReader.Close();
             }
         }
+
 
 
         private void studentname2_SelectedIndexChanged(object sender, EventArgs e)
@@ -639,6 +788,39 @@ namespace IT13FINALPROJ
         }
 
         private void guna2NumericUpDown2_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2Button38_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2Button6_Click(object sender, EventArgs e)
+        {
+            if (guna2DataGridView1.SelectedRows.Count > 0)
+            {
+                // Use the correct column name as per LoadPendingStudents() (e.g., student_id)
+                int studentId = Convert.ToInt32(guna2DataGridView1.SelectedRows[0].Cells["student_id"].Value);
+
+                // Attempt to accept the student
+                if (AcceptStudent(studentId))
+                {
+                    LoadPendingStudents();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to accept student. Please try again.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a student to accept.");
+            }
+        }
+
+        private void guna2Panel7_Paint(object sender, PaintEventArgs e)
         {
 
         }

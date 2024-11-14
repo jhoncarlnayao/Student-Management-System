@@ -13,6 +13,7 @@ using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using System.Buffers;
 using Guna.UI2.WinForms;
+using System.Drawing.Drawing2D;
 
 namespace IT13FINALPROJ
 {
@@ -20,8 +21,11 @@ namespace IT13FINALPROJ
     {
         public DashboardForm()
         {
+
+
             InitializeComponent();
             LoadStudentData();
+            LoadPendingStudents();
             LoadGenderData();
             CountSex();
             CountTotalPendingStudents();
@@ -32,7 +36,7 @@ namespace IT13FINALPROJ
             this.MinimizeBox = false;
 
             this.StartPosition = FormStartPosition.CenterScreen;
-            //createStudentAccountButton.Click += (s, e) => CreateStudentAccount();
+            createStudentAccountButton.Click += (s, e) => CreateStudentAccount();
 
             //FOR AUTOMATIC TIMER
             timer1.Interval = 1000;
@@ -42,6 +46,26 @@ namespace IT13FINALPROJ
             createdby.Enabled = false;
 
 
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            // Define the border radius
+            int borderRadius = 30;  // Change this value for more/less rounding
+
+            // Set the form's region (rounded corners)
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddArc(0, 0, borderRadius, borderRadius, 180, 90); // Top-left corner
+                path.AddArc(this.Width - borderRadius - 1, 0, borderRadius, borderRadius, 270, 90); // Top-right corner
+                path.AddArc(this.Width - borderRadius - 1, this.Height - borderRadius - 1, borderRadius, borderRadius, 0, 90); // Bottom-right corner
+                path.AddArc(0, this.Height - borderRadius - 1, borderRadius, borderRadius, 90, 90); // Bottom-left corner
+                path.CloseAllFigures();
+
+                this.Region = new Region(path);
+            }
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -252,97 +276,126 @@ namespace IT13FINALPROJ
         }
 
 
-
-
-
-
-        private void LoadPendingStudents()
+        private void LoadPendingStudents()  //!! HERE KAY MAG LOAD SA PENDING STUDENTS ENROLLEESS
+           
         {
             using (MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=it13proj"))
             {
                 con.Open();
-                string query = "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade FROM students_enroll";
+
+             
+                string query = "SELECT id AS student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade " +
+                               "FROM students_enroll " +
+                               "WHERE id NOT IN (SELECT student_id FROM accepted_students_enroll);";
+
                 MySqlDataAdapter adapter = new MySqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
 
-                // Add Status and Action columns
-                dt.Columns.Add("Status", typeof(string));
-                dt.Columns.Add("Action", typeof(string));
-
-                foreach (DataRow row in dt.Rows)
-                {
-                    row["Status"] = "Pending";
-                    row["Action"] = "Accept";
-                }
-
+   
                 guna2DataGridView1.DataSource = dt;
-
 
                 foreach (DataGridViewColumn column in guna2DataGridView1.Columns)
                 {
                     column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
 
-
                 guna2DataGridView1.ColumnHeadersHeight = 30;
                 guna2DataGridView1.RowTemplate.Height = 25;
-
-
                 guna2DataGridView1.ColumnHeadersVisible = true;
             }
         }
 
-        private void AcceptStudent(int studentId)
+
+        private bool AcceptStudent(int id) // DINHIA MAO NI FUNCTION PARA MAG ACCEPT OG STUDENT AND IBALHIN SA ACCEPTED_STUDENTS_ENROLL
         {
             using (MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=it13proj"))
             {
                 con.Open();
+                MySqlTransaction transaction = con.BeginTransaction();
 
-                string moveQuery = "INSERT INTO accepted_students_enroll (student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade) " +
-                                   "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade " +
-                                   "FROM students_enroll WHERE student_id = @studentId;";
-
-                MySqlCommand cmd = new MySqlCommand(moveQuery, con);
-                cmd.Parameters.AddWithValue("@studentId", studentId);
-                cmd.ExecuteNonQuery();
-
-
-                string deleteParentsQuery = "DELETE FROM parents WHERE student_id = @studentId;";
-                MySqlCommand deleteParentsCmd = new MySqlCommand(deleteParentsQuery, con);
-                deleteParentsCmd.Parameters.AddWithValue("@studentId", studentId);
-                deleteParentsCmd.ExecuteNonQuery();
-
-
-                string deleteQuery = "DELETE FROM students_enroll WHERE student_id = @studentId;";
-                MySqlCommand deleteCmd = new MySqlCommand(deleteQuery, con);
-                deleteCmd.Parameters.AddWithValue("@studentId", studentId);
-                deleteCmd.ExecuteNonQuery();
-
-                MessageBox.Show("Student accepted successfully!");
-            }
-        }
-        private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
-            {
-                if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Action")
+                try
                 {
+                    // Disable foreign key checks
+                    MySqlCommand disableFKCheck = new MySqlCommand("SET FOREIGN_KEY_CHECKS=0;", con, transaction);
+                    disableFKCheck.ExecuteNonQuery();
 
-                    int studentId = Convert.ToInt32(guna2DataGridView1.Rows[e.RowIndex].Cells["student_id"].Value);
+                 
+                    string moveQuery = "INSERT INTO accepted_students_enroll (student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname) " +
+                                       "SELECT id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname " +
+                                       "FROM students_enroll WHERE id = @id;";
 
+                    MySqlCommand cmdMove = new MySqlCommand(moveQuery, con, transaction);
+                    cmdMove.Parameters.AddWithValue("@id", id);
+                    int rowsInserted = cmdMove.ExecuteNonQuery();
 
-                    AcceptStudent(studentId);
+                    string deleteParentsQuery = "DELETE FROM parents WHERE student_id = @id;";
+                    MySqlCommand cmdDeleteParents = new MySqlCommand(deleteParentsQuery, con, transaction);
+                    cmdDeleteParents.Parameters.AddWithValue("@id", id);
+                    cmdDeleteParents.ExecuteNonQuery();
 
+                  
+                    string deleteQuery = "DELETE FROM students_enroll WHERE id = @id;";
+                    MySqlCommand cmdDelete = new MySqlCommand(deleteQuery, con, transaction);
+                    cmdDelete.Parameters.AddWithValue("@id", id);
+                    int rowsDeleted = cmdDelete.ExecuteNonQuery();
 
-                    LoadPendingStudents();
+                    // Re-enable foreign key checks
+                    MySqlCommand enableFKCheck = new MySqlCommand("SET FOREIGN_KEY_CHECKS=1;", con, transaction);
+                    enableFKCheck.ExecuteNonQuery();
+
+                 
+                    if (rowsInserted == 1 && rowsDeleted == 1)
+                    {
+                        transaction.Commit();
+                        MessageBox.Show("Student accepted successfully!");
+                        return true;
+                    }
+                    else
+                    {
+                        transaction.Rollback();
+                        MessageBox.Show("Failed to accept student. Transaction rolled back.");
+                        return false;
+                    }
+                }
+                catch (MySqlException ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show("Database error: " + ex.Message);
+                    return false;
                 }
             }
         }
 
 
-        private void LoadStudentData()
+
+
+        private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) //!! KAUBAN SAD NI SAMAG ACCEPT OG STUDENT PENDING
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Action")
+                {
+                  
+                    if (guna2DataGridView1.Rows[e.RowIndex].Cells["student_id"].Value != DBNull.Value)
+                    {
+                        int studentId = Convert.ToInt32(guna2DataGridView1.Rows[e.RowIndex].Cells["id"].Value);
+
+                        AcceptStudent(studentId);
+                        LoadPendingStudents();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Student ID is missing or invalid.");
+                    }
+                }
+            }
+        }
+    
+
+
+
+    private void LoadStudentData()
         {
             string query = "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname FROM accepted_students_enroll";
             string connectionString = "server=localhost;database=it13proj;user=root;password=;";
@@ -357,7 +410,6 @@ namespace IT13FINALPROJ
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
 
-                    // Bind data to the DataGridView
                     studenttable.DataSource = dataTable;
                     studenttable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                     studenttable.MultiSelect = false; // Only one row can be selected
@@ -402,11 +454,11 @@ namespace IT13FINALPROJ
                         using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
                         {
                             cmd.Parameters.AddWithValue("@firstname", firstname);
-                            cmd.Parameters.AddWithValue("@middlename", middlename ?? (object)DBNull.Value); // Handle null value
+                            cmd.Parameters.AddWithValue("@middlename", middlename ?? (object)DBNull.Value); 
                             cmd.Parameters.AddWithValue("@lastname", lastname);
                             cmd.Parameters.AddWithValue("@sex", sex);
                             cmd.Parameters.AddWithValue("@schoolemail", adminSchoolEmail);
-                            cmd.Parameters.AddWithValue("@password", adminPassword); // Ensure hashing in production
+                            cmd.Parameters.AddWithValue("@password", adminPassword); 
 
                             int rows = cmd.ExecuteNonQuery();
                             if (rows > 0)
@@ -430,13 +482,6 @@ namespace IT13FINALPROJ
                 MessageBox.Show("Please select a student.");
             }
         }
-
-
-
-
-
-
-
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -726,10 +771,10 @@ namespace IT13FINALPROJ
             string phonenumber = Tphonenumber.Text;
             string schoolemail = Tschoolemail.Text;
             string address = Taddress.Text;
-            string password = Tpassword.Text; // Make sure to hash the password in a real implementation
+            string password = Tpassword.Text;
             string sex = Tsex.SelectedItem?.ToString() ?? string.Empty;
             string gradelevel = Tgradelevel.SelectedItem?.ToString() ?? string.Empty;
-            string subjectID = "1";  // Assuming a value, this should be from the input
+            string subjectID = "1";  
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -743,15 +788,15 @@ namespace IT13FINALPROJ
                     {
                         cmd.Parameters.AddWithValue("@firstname", firstname);
                         cmd.Parameters.AddWithValue("@lastname", lastname);
-                        cmd.Parameters.AddWithValue("@middlename", middlename); // Corrected
-                        cmd.Parameters.AddWithValue("@phonenumber", phonenumber); // Corrected
+                        cmd.Parameters.AddWithValue("@middlename", middlename); 
+                        cmd.Parameters.AddWithValue("@phonenumber", phonenumber); 
                         cmd.Parameters.AddWithValue("@address", address);
-                        cmd.Parameters.AddWithValue("@email", email); // Added email field to match the table
+                        cmd.Parameters.AddWithValue("@email", email);
                         cmd.Parameters.AddWithValue("@username", schoolemail);
-                        cmd.Parameters.AddWithValue("@password_hash", password); // Ensure this is hashed
+                        cmd.Parameters.AddWithValue("@password_hash", password); 
                         cmd.Parameters.AddWithValue("@sex", sex);
                         cmd.Parameters.AddWithValue("@gradelevel", gradelevel);
-                        cmd.Parameters.AddWithValue("@subjectID", subjectID); // Added SubjectID
+                        cmd.Parameters.AddWithValue("@subjectID", subjectID); 
 
                         int rows = cmd.ExecuteNonQuery();
 
@@ -818,7 +863,7 @@ namespace IT13FINALPROJ
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
 
-                    // Bind the data to the recordedlistingstable DataGridView
+                  
                     recordlistingstable.DataSource = dataTable;
                 }
                 catch (Exception ex)
@@ -834,8 +879,8 @@ namespace IT13FINALPROJ
 
             string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
 
-            // Query to retrieve guidance staff records
-            string query = "SELECT TeacherID, SubjectID, Firstname, Lastname, Middlename, Phonenumber, Address, Email, Username, Sex, PreferredGradeLevel FROM teacher_account";
+          
+            string query = "SELECT id, SubjectID, Firstname, Lastname, Middlename, Phonenumber, Address, Email, Username, Password_Hash, Sex, PreferredGradeLevel FROM teacher_account";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -846,6 +891,7 @@ namespace IT13FINALPROJ
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
 
+                    // Set the data source for the DataGridView (or other control)
                     recordlistingstable.DataSource = dataTable;
                 }
                 catch (Exception ex)
@@ -854,14 +900,15 @@ namespace IT13FINALPROJ
                 }
             }
         }
+
 
         private void guna2Button20_Click(object sender, EventArgs e)
         {
-            //GUIDANCE ACCOUNT
+            // GUIDANCE ACCOUNT
             string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
 
-            // Query to retrieve guidance staff records
-            string query = "SELECT staff_id, username, firstname, middlename, lastname, email, phone_number FROM guidance_staff";
+          
+            string query = "SELECT id, username,password_hash, firstname, middlename, lastname, email, phone_number FROM guidance_staff";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -872,7 +919,6 @@ namespace IT13FINALPROJ
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
 
-
                     recordlistingstable.DataSource = dataTable;
                 }
                 catch (Exception ex)
@@ -880,8 +926,8 @@ namespace IT13FINALPROJ
                     MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
-
         }
+
 
         private void guna2Button21_Click(object sender, EventArgs e)
         {
@@ -910,9 +956,11 @@ namespace IT13FINALPROJ
 
         private void guna2Button22_Click(object sender, EventArgs e)
         {
-            //PENDING STUDENTS
+            // PENDING STUDENTS
             string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
-            string query = "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade FROM students_enroll";
+
+            // Update the query to select 'id' instead of 'student_id'
+            string query = "SELECT id AS student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade FROM students_enroll";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -923,7 +971,6 @@ namespace IT13FINALPROJ
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
 
-
                     recordlistingstable.DataSource = dataTable;
                 }
                 catch (Exception ex)
@@ -931,8 +978,8 @@ namespace IT13FINALPROJ
                     MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
-
         }
+
 
         private void guna2Button23_Click(object sender, EventArgs e)
         {
@@ -1162,5 +1209,37 @@ namespace IT13FINALPROJ
 
             InsertAnnouncement(titlee, descriptionn);
         }
+
+        private void guna2Button3_Click(object sender, EventArgs e)
+        {
+            createaccount_studentpanel.Visible = !createaccount_studentpanel.Visible;
+        }
+
+        private void guna2Button6_Click(object sender, EventArgs e)
+        {
+
+            if (guna2DataGridView1.SelectedRows.Count > 0)
+            {
+           //! DIRIA KAY MAO NI ANG BUTTON FOR ACCEPTING PENDING ENROLLMENT FOR STUDENTS
+                int studentId = Convert.ToInt32(guna2DataGridView1.SelectedRows[0].Cells["student_id"].Value);
+
+                // Attempt to accept the student
+                if (AcceptStudent(studentId))
+                {
+                    LoadPendingStudents();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to accept student. Please try again.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a student to accept.");
+            }
+        }
+
+
+
     }
 }
