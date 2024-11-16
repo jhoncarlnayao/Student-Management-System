@@ -73,7 +73,7 @@
             label3.BackColor = Color.White;
             label3.Font = new Font("Segoe UI", 11.25F);
             label3.ForeColor = SystemColors.GrayText;
-            label3.Location = new Point(569, 415);
+            label3.Location = new Point(569, 430);
             label3.Name = "label3";
             label3.Size = new Size(159, 20);
             label3.TabIndex = 18;
@@ -135,11 +135,11 @@
             guna2Button1.FillColor = Color.White;
             guna2Button1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             guna2Button1.ForeColor = Color.Gray;
-            guna2Button1.Location = new Point(660, 553);
+            guna2Button1.Location = new Point(569, 553);
             guna2Button1.Name = "guna2Button1";
             guna2Button1.PressedColor = Color.White;
             guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Button1.Size = new Size(220, 45);
+            guna2Button1.Size = new Size(400, 45);
             guna2Button1.TabIndex = 42;
             guna2Button1.Text = "Enroll";
             guna2Button1.Click += guna2Button1_Click;
@@ -150,7 +150,7 @@
             label4.BackColor = Color.White;
             label4.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.Black;
-            label4.Location = new Point(734, 415);
+            label4.Location = new Point(734, 430);
             label4.Name = "label4";
             label4.Size = new Size(114, 20);
             label4.TabIndex = 38;
@@ -202,13 +202,14 @@
             PasswordText.IconRightOffset = new Point(15, 0);
             PasswordText.Location = new Point(569, 351);
             PasswordText.Name = "PasswordText";
-            PasswordText.PasswordChar = '\0';
+            PasswordText.PasswordChar = '●';
             PasswordText.PlaceholderForeColor = Color.Gray;
             PasswordText.PlaceholderText = "Password";
             PasswordText.SelectedText = "";
             PasswordText.ShadowDecoration.CustomizableEdges = customizableEdges6;
             PasswordText.Size = new Size(400, 50);
             PasswordText.TabIndex = 34;
+            PasswordText.UseSystemPasswordChar = true;
             // 
             // UsernameText
             // 

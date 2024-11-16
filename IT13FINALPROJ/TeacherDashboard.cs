@@ -9,18 +9,64 @@ namespace IT13FINALPROJ
 {
     public partial class TeacherDashboard : MaterialForm
     {
-        private string teacherUsername;
 
-        public TeacherDashboard(string username)
+        private string teacherFullName;
+        private string teacherAddress;
+        private string teacherEmail;
+        private string teacherPhoneNumber;
+        private string teacherSex;
+        private string teacherUsername;
+        private string teacherPassword;
+        private string preferredGradeLevel;
+        private string subjectID;
+
+      //  private string teacherUsername;
+
+        public TeacherDashboard(string username,
+        string firstname,
+        string middlename,
+        string lastname,
+        string address,
+        string email,
+        string phonenumber,
+        string sex,
+        string password,
+        string preferredGradeLevel,
+        string subjectID)
         {
             InitializeComponent();
+
+            teacherFullName = $"{firstname} {middlename} {lastname}";
+            teacherAddress = address;
+            teacherEmail = email;
+            teacherPhoneNumber = phonenumber;
+            teacherSex = sex;
             teacherUsername = username;
+            teacherPassword = password;
+            this.preferredGradeLevel = $"Grade{preferredGradeLevel}";
+            this.subjectID = subjectID;
+
+            teacherUsername = username;
+
+
         }
 
 
         private void TeacherDashboard_Load(object sender, EventArgs e)
         {
             LoadStudents();
+
+
+            //! LOAD THE TEACHER ACCOUNT INFORMATIOH TO ABLE TO VIEW IN PROFILE
+            teacher_fullname.Text = teacherFullName;
+            teacher_address.Text = teacherAddress;
+            teacher_email.Text = teacherEmail;
+            teacher_phonenumber.Text = teacherPhoneNumber;
+            teacher_sex.Text = teacherSex == "M" ? "Male" : "Female";
+            teacher_username.Text = teacherUsername;
+            teacher_password.Text = teacherPassword;
+            teacher_gradelevel.Text = preferredGradeLevel;
+          //  lblSubjectID.Text = subjectID;
         }
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -49,13 +95,13 @@ namespace IT13FINALPROJ
             {
                 con.Open();
 
-              
+
                 string cleanedTeacherUsername = teacherUsername.Trim();
 
-             
+
                 Console.WriteLine($"Cleaned Teacher Username: '{cleanedTeacherUsername}'");
 
-           
+
                 string sectionQuery = "SELECT grade_level, section_name FROM teacher_assignments " +
                                       "WHERE TRIM(LOWER(teacher_username)) = TRIM(LOWER(@teacherName))";
 
@@ -135,6 +181,16 @@ namespace IT13FINALPROJ
         private void guna2DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             // Handle cell content click events in the DataGridView if needed
+        }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void guna2HtmlLabel43_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

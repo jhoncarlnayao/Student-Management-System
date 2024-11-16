@@ -204,25 +204,39 @@ namespace IT13FINALPROJ
                     return;
                 }
 
-                    // Check for Teacher login
-                    string teacherQuery = "SELECT COUNT(1) FROM teacher_account WHERE Username=@username AND Password_Hash=@password";
+                // Check for Teacher login
+                // Check for Teacher login
+                string teacherQuery = "SELECT * FROM teacher_account WHERE Username=@username AND Password_Hash=@password";
                 MySqlCommand teacherCmd = new MySqlCommand(teacherQuery, con);
                 teacherCmd.Parameters.AddWithValue("@username", username);
                 teacherCmd.Parameters.AddWithValue("@password", password);
 
-                int teacherResult = Convert.ToInt32(teacherCmd.ExecuteScalar());
-
-                if (teacherResult == 1)
+                using (MySqlDataReader reader = teacherCmd.ExecuteReader())
                 {
-                    MessageBox.Show("Teacher logged in successfully!", "Login Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    TeacherDashboard teacherDashboard = new TeacherDashboard(username); // Pass the username
-                    teacherDashboard.Show();
-                    this.Hide();
-                    return;
+                    if (reader.Read())
+                    {
+                        TeacherDashboard teacherDashboard = new TeacherDashboard(
+                            reader["firstname"].ToString(),
+                            reader["middlename"].ToString(),
+                            reader["lastname"].ToString(),
+                            reader["address"].ToString(),
+                            reader["email"].ToString(),
+                            reader["phonenumber"].ToString(),
+                            reader["sex"].ToString(),
+                            username,
+                            password,
+                            reader["PreferredGradeLevel"].ToString(),
+                            reader["SubjectID"].ToString()
+                        );
+                        teacherDashboard.Show();
+                        this.Hide();
+                        return;
+                    }
                 }
 
-                // If none of the account checks passed, show error message
+                // If no role matched, show invalid login message
                 MessageBox.Show("Invalid Username or Password.", "Login Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
             }
         }
 
