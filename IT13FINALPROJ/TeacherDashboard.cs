@@ -9,7 +9,6 @@ namespace IT13FINALPROJ
 {
     public partial class TeacherDashboard : MaterialForm
     {
-
         private string teacherFullName;
         private string teacherAddress;
         private string teacherEmail;
@@ -19,23 +18,23 @@ namespace IT13FINALPROJ
         private string teacherPassword;
         private string preferredGradeLevel;
         private string subjectID;
+        private string id;
 
-      //  private string teacherUsername;
-
-        public TeacherDashboard(string username,
-        string firstname,
-        string middlename,
-        string lastname,
-        string address,
-        string email,
-        string phonenumber,
-        string sex,
-        string password,
-        string preferredGradeLevel,
-        string subjectID)
-        {
+        public TeacherDashboard(
+            string username,
+            string firstname,
+            string middlename,
+            string lastname,
+            string address,
+            string email,
+            string phonenumber,
+            string sex,
+            string id,  // id is passed from the database
+            string password,
+            string preferredGradeLevel,
+            string subjectID)
+        { 
             InitializeComponent();
-
             teacherFullName = $"{firstname} {middlename} {lastname}";
             teacherAddress = address;
             teacherEmail = email;
@@ -45,19 +44,15 @@ namespace IT13FINALPROJ
             teacherPassword = password;
             this.preferredGradeLevel = $"Grade{preferredGradeLevel}";
             this.subjectID = subjectID;
-
-            teacherUsername = username;
-
-
+            this.id = id;  
+                           
         }
-
 
         private void TeacherDashboard_Load(object sender, EventArgs e)
         {
             LoadStudents();
 
-
-            //! LOAD THE TEACHER ACCOUNT INFORMATIOH TO ABLE TO VIEW IN PROFILE
+            //! LOAD THE TEACHER ACCOUNT INFORMATION TO BE VIEWED IN PROFILE
             teacher_fullname.Text = teacherFullName;
             teacher_address.Text = teacherAddress;
             teacher_email.Text = teacherEmail;
@@ -66,8 +61,9 @@ namespace IT13FINALPROJ
             teacher_username.Text = teacherUsername;
             teacher_password.Text = teacherPassword;
             teacher_gradelevel.Text = preferredGradeLevel;
-          //  lblSubjectID.Text = subjectID;
+            // lblSubjectID.Text = subjectID;
         }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -95,12 +91,8 @@ namespace IT13FINALPROJ
             {
                 con.Open();
 
-
                 string cleanedTeacherUsername = teacherUsername.Trim();
-
-
                 Console.WriteLine($"Cleaned Teacher Username: '{cleanedTeacherUsername}'");
-
 
                 string sectionQuery = "SELECT grade_level, section_name FROM teacher_assignments " +
                                       "WHERE TRIM(LOWER(teacher_username)) = TRIM(LOWER(@teacherName))";
@@ -166,13 +158,6 @@ namespace IT13FINALPROJ
             }
         }
 
-
-
-
-
-
-
-
         private void label2_Click(object sender, EventArgs e)
         {
             // Handle any additional label click event here if needed
@@ -185,12 +170,55 @@ namespace IT13FINALPROJ
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-
         }
 
         private void guna2HtmlLabel43_Click(object sender, EventArgs e)
         {
+        }
 
+        private void teacher_updatebutton_Click(object sender, EventArgs e) //! UPDATE NEW USERNAME AND PASSWORD FOR TEACHER PROFILE
+        {
+            string newUsername = teacher_username.Text;
+            string newPassword = teacher_password.Text;
+
+            if (string.IsNullOrEmpty(newUsername) || string.IsNullOrEmpty(newPassword))
+            {
+                MessageBox.Show("Username and Password cannot be empty!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
+            string updateQuery = "UPDATE teacher_account SET Username=@username, Password_Hash=@password WHERE id=@id";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    using (MySqlCommand cmd = new MySqlCommand(updateQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@username", newUsername);
+                        cmd.Parameters.AddWithValue("@password", newPassword);
+                        cmd.Parameters.AddWithValue("@id", id);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Username and Password updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to update. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

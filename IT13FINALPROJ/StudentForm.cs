@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace IT13FINALPROJ
@@ -9,6 +10,32 @@ namespace IT13FINALPROJ
         public StudentForm()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.ControlBox = false;
+            this.Text = "";
+
+            this.StartPosition = FormStartPosition.CenterScreen;
+        }
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            // Define the border radius
+            int borderRadius = 30;  // Change this value for more/less rounding
+
+            // Set the form's region (rounded corners)
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddArc(0, 0, borderRadius, borderRadius, 180, 90); // Top-left corner
+                path.AddArc(this.Width - borderRadius - 1, 0, borderRadius, borderRadius, 270, 90); // Top-right corner
+                path.AddArc(this.Width - borderRadius - 1, this.Height - borderRadius - 1, borderRadius, borderRadius, 0, 90); // Bottom-right corner
+                path.AddArc(0, this.Height - borderRadius - 1, borderRadius, borderRadius, 90, 90); // Bottom-left corner
+                path.CloseAllFigures();
+
+                this.Region = new Region(path);
+            }
         }
 
 
@@ -89,20 +116,20 @@ namespace IT13FINALPROJ
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-         
+
             string studentFirstName = STfirstname.Text;
             string studentMiddleName = STmiddlename.Text;
             string studentLastName = STlastname.Text;
 
-            string sex = stsex.SelectedItem?.ToString() ?? string.Empty; 
-            DateTime birthdate = STbirthdate.Value; 
+            string sex = stsex.SelectedItem?.ToString() ?? string.Empty;
+            DateTime birthdate = STbirthdate.Value;
             string birthplace = STbirthplace.Text;
             string region = STregion.Text;
             string province = STprovince.Text;
             string city = STcity.Text;
             string address = STaddress.Text;
             string grade = stgrade.SelectedItem?.ToString() ?? string.Empty;
-          
+
             string parentFirstName = PRfirstname.Text;
             string parentMiddleName = PRmiddlename.Text;
             string parentLastName = PRlastname.Text;
@@ -115,16 +142,40 @@ namespace IT13FINALPROJ
                 MessageBox.Show("Please select both sex and grade.");
                 return;
             }
-            else if  (string.IsNullOrEmpty(studentFirstName) || string.IsNullOrEmpty(studentLastName)) 
+            else if (string.IsNullOrEmpty(studentFirstName) || string.IsNullOrEmpty(studentLastName))
             {
                 MessageBox.Show("Please Fill this in");
                 return;
             }
 
-     
+
             EnrollStudentAndParent(studentFirstName, studentMiddleName, studentLastName, sex, birthdate, birthplace, region, province, city, address, grade,
                                    parentFirstName, parentMiddleName, parentLastName, phoneNumber, email);
         }
 
+        private void guna2Button4_Click(object sender, EventArgs e)
+        {
+            Form1 form1 = new Form1();
+            form1.Show();
+            this.Hide();
+        }
+
+        private void parentinfo_backbutton_Click(object sender, EventArgs e)
+        {
+            panel_parentinfo.Visible = false;
+        }
+
+        private void guna2Button3_Click(object sender, EventArgs e)
+        {
+            panel_parentinfo.Visible = true;
+            guna2HtmlLabel1.Text = "Parent Information";
+        }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+            Form1 form1 = new Form1();
+            form1.Show();
+            this.Hide();
+        }
     }
 }

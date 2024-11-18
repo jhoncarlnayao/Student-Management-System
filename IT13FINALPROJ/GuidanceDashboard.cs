@@ -19,7 +19,7 @@ namespace IT13FINALPROJ
         public GuidanceDashboard()
         {
             InitializeComponent();
-            CountSex();
+            //CountSex();
             gradelevel.Items.Add("1");
             gradelevel.Items.Add("2");
             gradelevel.Items.Add("3");
@@ -357,7 +357,7 @@ namespace IT13FINALPROJ
         {
             if (gradelevel.SelectedItem != null)
             {
-                // Ensure the selected item is not null and can be parsed to an integer
+           
                 if (int.TryParse(gradelevel.SelectedItem.ToString(), out int selectedGrade))
                 {
                     LoadTeachersByGrade(selectedGrade);
@@ -373,7 +373,17 @@ namespace IT13FINALPROJ
 
 
 
-        private void CreateNewTable(string tableName, string gradeLevel, string sectionName, string assignedTeacher, string teacherUsername, string academicYear, string roomNumber, int studentCapacity, string description)
+        private void CreateNewTable(
+     string tableName,
+     string gradeLevel,
+     string sectionName,
+     string assignedTeacher,
+     string teacherUsername,
+     string academicYear,
+     string roomNumber,
+     int studentCapacity,
+     string description,
+     string teacherSex) // Add teacher's sex as a parameter
         {
             try
             {
@@ -383,32 +393,34 @@ namespace IT13FINALPROJ
 
                     // Create the grade/section table
                     string createTableQuery = $"CREATE TABLE IF NOT EXISTS `{tableName}` (" +
-                                      "id INT AUTO_INCREMENT PRIMARY KEY, " +
-                                      "grade_level VARCHAR(255) NOT NULL, " +
-                                      "section_name VARCHAR(255) NOT NULL, " +
-                                      "Fullname VARCHAR(255), " +
-                                      "academic_year VARCHAR(255), " +
-                                      "room_number VARCHAR(255), " +
-                                      "student_capacity INT, " +
-                                      "description TEXT, " +
-                                      "role VARCHAR(255) DEFAULT 'Teacher', " +
-                                      "Mathematics FLOAT NULL, " +
-                                      "Science FLOAT NULL, " +
-                                      "English FLOAT NULL, " +
-                                      "Filipino FLOAT NULL, " +
-                                      "Araling_Panlipunan FLOAT NULL, " +
-                                      "Edukasyon_sa_Pagpapakatao FLOAT NULL, " +
-                                      "MAPEH FLOAT NULL)";
+                                               "id INT AUTO_INCREMENT PRIMARY KEY, " +
+                                               "grade_level VARCHAR(255) NOT NULL, " +
+                                               "section_name VARCHAR(255) NOT NULL, " +
+                                               "Fullname VARCHAR(255), " +
+                                               "sex CHAR(1), " + // Add the sex column
+                                               "academic_year VARCHAR(255), " +
+                                               "room_number VARCHAR(255), " +
+                                               "student_capacity INT, " +
+                                               "description TEXT, " +
+                                               "role VARCHAR(255) DEFAULT 'Teacher', " +
+                                               "Mathematics FLOAT NULL, " +
+                                               "Science FLOAT NULL, " +
+                                               "English FLOAT NULL, " +
+                                               "Filipino FLOAT NULL, " +
+                                               "Araling_Panlipunan FLOAT NULL, " +
+                                               "Edukasyon_sa_Pagpapakatao FLOAT NULL, " +
+                                               "MAPEH FLOAT NULL)";
                     MySqlCommand cmd = new MySqlCommand(createTableQuery, con);
                     cmd.ExecuteNonQuery();
 
                     // Insert the teacher into the grade/section table
-                    string insertDataQuery = $"INSERT INTO `{tableName}` (grade_level, section_name, Fullname, academic_year, room_number, student_capacity, description, role) " +
-                                             $"VALUES (@gradeLevel, @sectionName, @assignedTeacher, @academicYear, @roomNumber, @studentCapacity, @description, 'Teacher')";
+                    string insertDataQuery = $"INSERT INTO `{tableName}` (grade_level, section_name, Fullname, sex, academic_year, room_number, student_capacity, description, role) " +
+                                              $"VALUES (@gradeLevel, @sectionName, @assignedTeacher, @teacherSex, @academicYear, @roomNumber, @studentCapacity, @description, 'Teacher')";
                     MySqlCommand insertCmd = new MySqlCommand(insertDataQuery, con);
                     insertCmd.Parameters.AddWithValue("@gradeLevel", gradeLevel);
                     insertCmd.Parameters.AddWithValue("@sectionName", sectionName);
                     insertCmd.Parameters.AddWithValue("@assignedTeacher", assignedTeacher);
+                    insertCmd.Parameters.AddWithValue("@teacherSex", teacherSex); // Add teacher's sex here
                     insertCmd.Parameters.AddWithValue("@academicYear", academicYear);
                     insertCmd.Parameters.AddWithValue("@roomNumber", roomNumber);
                     insertCmd.Parameters.AddWithValue("@studentCapacity", studentCapacity);
@@ -417,11 +429,11 @@ namespace IT13FINALPROJ
 
                     // Insert the teacher assignment into teacher_assignments table with username
                     string insertAssignmentQuery = "INSERT INTO teacher_assignments (teacher_username, grade_level, section_name) " +
-                                                  "VALUES (@teacherUsername, @gradeLevel, @sectionName)";
+                                                   "VALUES (@teacherUsername, @gradeLevel, @sectionName)";
                     MySqlCommand insertAssignmentCmd = new MySqlCommand(insertAssignmentQuery, con);
-                    insertAssignmentCmd.Parameters.AddWithValue("@teacherUsername", teacherUsername); // Use the username
+                    insertAssignmentCmd.Parameters.AddWithValue("@teacherUsername", teacherUsername);
                     insertAssignmentCmd.Parameters.AddWithValue("@gradeLevel", gradeLevel);
-                    insertAssignmentCmd.Parameters.AddWithValue("@sectionName", tableName);  // Table name as section name
+                    insertAssignmentCmd.Parameters.AddWithValue("@sectionName", tableName);
                     insertAssignmentCmd.ExecuteNonQuery();
 
                     MessageBox.Show("New table created, data with role 'Teacher' inserted successfully, and teacher assigned!");
@@ -432,6 +444,7 @@ namespace IT13FINALPROJ
                 MessageBox.Show($"Error: {ex.Message}");
             }
         }
+
 
         private string GetTeacherUsername(string fullName)
         {
@@ -488,24 +501,98 @@ namespace IT13FINALPROJ
             return teacherUsername;
         }
 
+        private string GetTeacherSex(string teacherFullName)
+        {
+            string sex = "";
+
+            // Split the full name into parts
+            string[] nameParts = teacherFullName.Split(' ');
+
+            if (nameParts.Length < 2)
+            {
+                MessageBox.Show("Full name format is invalid. Please ensure it includes at least a first name and a last name.");
+                return sex;
+            }
+
+            string firstName = nameParts[0];
+            string lastName = nameParts[nameParts.Length - 1];
+
+            string query = "SELECT sex FROM teacher_account WHERE firstname = @firstName AND lastname = @lastName LIMIT 1";
+
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=it13proj"))
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@firstName", firstName);
+                        cmd.Parameters.AddWithValue("@lastName", lastName);
+
+                        object result = cmd.ExecuteScalar();
+                        sex = result?.ToString() ?? "";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error fetching teacher's sex: {ex.Message}");
+            }
+
+            return sex;
+        }
 
 
 
 
 
+        public void PopulateGradeTables()
+        {
+            string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
+            string query = @"
+        SELECT table_name 
+        FROM information_schema.tables 
+        WHERE table_schema = 'it13proj' 
+        AND table_name LIKE 'grade%'";
+
+            try
+            {
+                using (MySqlConnection con = new MySqlConnection(connectionString))
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
+                    {
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                string tableName = reader.GetString(0);
+                                SexCountCombobox.Items.Add(tableName);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
 
 
-        public void CountSex()
+
+
+        public void CountSex(string tableName)
         {
             string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
             int maleCount = 0;
             int femaleCount = 0;
 
-            string query = @"
-        SELECT 
-            SUM(CASE WHEN sex = 'M' THEN 1 ELSE 0 END) AS MaleCount,
-            SUM(CASE WHEN sex = 'F' THEN 1 ELSE 0 END) AS FemaleCount
-        FROM accepted_students_enroll";
+            string query = $@"
+    SELECT 
+        SUM(CASE WHEN sex = 'M' THEN 1 ELSE 0 END) AS MaleCount,
+        SUM(CASE WHEN sex = 'F' THEN 1 ELSE 0 END) AS FemaleCount
+    FROM {tableName}";
 
             try
             {
@@ -518,7 +605,6 @@ namespace IT13FINALPROJ
                         {
                             if (reader.Read())
                             {
-                                // Retrieve the counts
                                 maleCount = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
                                 femaleCount = reader.IsDBNull(1) ? 0 : reader.GetInt32(1);
                             }
@@ -530,10 +616,39 @@ namespace IT13FINALPROJ
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-            // Update labels with counts, make sure labels are initialized
+
+            // Update labels
             boysnumber.Text = maleCount.ToString();
             girlsnumber.Text = femaleCount.ToString();
+
+            // Refresh graphical elements
+            guna2CircleProgressBar1.Value = maleCount;
+            guna2CircleProgressBar1.Refresh();
+
+            guna2CircleProgressBar2.Value = femaleCount;
+            guna2CircleProgressBar2.Refresh();
+
+            guna2CircleProgressBar1.Maximum = 50;
+            guna2CircleProgressBar2.Maximum = 50;
+
+            guna2CircleProgressBar1.ProgressColor = Color.Blue;  
+            guna2CircleProgressBar1.ProgressColor2 = Color.LightBlue;  
+
+            guna2CircleProgressBar2.ProgressColor = Color.Pink;  
+            guna2CircleProgressBar2.ProgressColor2 = Color.LightPink; 
+
         }
+
+
+        private void SexCountComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedTable = SexCountCombobox.SelectedItem.ToString();
+            if (!string.IsNullOrEmpty(selectedTable))
+            {
+                CountSex(selectedTable);
+            }
+        }
+
 
 
         //END OF FUNCTION AREA
@@ -546,7 +661,8 @@ namespace IT13FINALPROJ
             CountTotalPendingStudents();
             CountTotalStudents();
             CountTotalTeachers();
-            CountSex();
+            PopulateGradeTables();
+            SexCountCombobox.SelectedIndexChanged += SexCountComboBox_SelectedIndexChanged;
 
         }
 
@@ -594,14 +710,13 @@ namespace IT13FINALPROJ
             string academicYear = academicyear.Text;
             string roomNumber = roomnumber.Text;
             int studentCapacity = Convert.ToInt32(studentcapacity.Text);
-            string descriptionn = description.Text;  // Make sure description is correctly captured
-
-            // Retrieve the username of the assigned teacher
+            string descriptionn = description.Text;
             string teacherUsername = GetTeacherUsername(assignedTeacherFullName);
+            string teacherSex = GetTeacherSex(assignedTeacherFullName); // Fetch teacher's sex
 
-            // Pass the username to CreateNewTable
-            CreateNewTable(tableName, gradeLevel, sectionName, assignedTeacherFullName, teacherUsername, academicYear, roomNumber, studentCapacity, descriptionn);
+            CreateNewTable(tableName, gradeLevel, sectionName, assignedTeacherFullName, teacherUsername, academicYear, roomNumber, studentCapacity, descriptionn, teacherSex);
         }
+
 
 
 
@@ -821,6 +936,16 @@ namespace IT13FINALPROJ
         }
 
         private void guna2Panel7_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void guna2CircleProgressBar1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void guna2ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

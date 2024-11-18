@@ -216,6 +216,7 @@ namespace IT13FINALPROJ
                     if (reader.Read())
                     {
                         TeacherDashboard teacherDashboard = new TeacherDashboard(
+                            username,  // Pass the correct username from the query
                             reader["firstname"].ToString(),
                             reader["middlename"].ToString(),
                             reader["lastname"].ToString(),
@@ -223,8 +224,8 @@ namespace IT13FINALPROJ
                             reader["email"].ToString(),
                             reader["phonenumber"].ToString(),
                             reader["sex"].ToString(),
-                            username,
-                            password,
+                            reader["id"].ToString(),  // Use the teacher's id for the teacherDashboard initialization
+                            reader["Password_Hash"].ToString(),  // Change to Password_Hash
                             reader["PreferredGradeLevel"].ToString(),
                             reader["SubjectID"].ToString()
                         );
@@ -233,6 +234,7 @@ namespace IT13FINALPROJ
                         return;
                     }
                 }
+
 
                 // If no role matched, show invalid login message
                 MessageBox.Show("Invalid Username or Password.", "Login Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
