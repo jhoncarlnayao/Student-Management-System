@@ -397,7 +397,7 @@ namespace IT13FINALPROJ
                                                "grade_level VARCHAR(255) NOT NULL, " +
                                                "section_name VARCHAR(255) NOT NULL, " +
                                                "Fullname VARCHAR(255), " +
-                                               "sex CHAR(1), " + // Add the sex column
+                                               "sex CHAR(1), " + 
                                                "academic_year VARCHAR(255), " +
                                                "room_number VARCHAR(255), " +
                                                "student_capacity INT, " +
@@ -742,7 +742,7 @@ namespace IT13FINALPROJ
 
         private void guna2Button3_Click(object sender, EventArgs e)
         {
-            // Make sure grade and section are selected
+            // Ensure all fields are selected
             if (gradelevel2.SelectedItem == null || availablesection2.SelectedItem == null || studentname2.SelectedItem == null)
             {
                 MessageBox.Show("Please select a grade level, section, and student.");
@@ -757,14 +757,38 @@ namespace IT13FINALPROJ
             {
                 connection.Open();
 
-                // Insert the selected student into the chosen section table with role as "Student"
-                string insertQuery = "INSERT INTO " + selectedSection + " (Fullname, grade_level, section_name, role) " +
-                                     "VALUES (@Fullname, @GradeLevel, @SectionName, 'Student')";
+                // Fetch the sex of the selected student
+                string fetchSexQuery = "SELECT sex FROM accepted_students_enroll WHERE CONCAT(firstname, ' ', middlename, ' ', lastname) = @FullName";
+                MySqlCommand fetchSexCmd = new MySqlCommand(fetchSexQuery, connection);
+                fetchSexCmd.Parameters.AddWithValue("@FullName", selectedStudent);
+
+                string studentSex = string.Empty;
+
+                try
+                {
+                    studentSex = fetchSexCmd.ExecuteScalar()?.ToString();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error fetching student details: " + ex.Message);
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(studentSex))
+                {
+                    MessageBox.Show("Student sex not found.");
+                    return;
+                }
+
+                // Insert the student into the chosen section table
+                string insertQuery = $"INSERT INTO `{selectedSection}` (Fullname, grade_level, section_name, sex, role) " +
+                                     "VALUES (@FullName, @GradeLevel, @SectionName, @Sex, 'Student')";
 
                 MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection);
-                insertCmd.Parameters.AddWithValue("@Fullname", selectedStudent);
+                insertCmd.Parameters.AddWithValue("@FullName", selectedStudent);
                 insertCmd.Parameters.AddWithValue("@GradeLevel", gradelevel2.SelectedItem.ToString());
                 insertCmd.Parameters.AddWithValue("@SectionName", selectedSection);
+                insertCmd.Parameters.AddWithValue("@Sex", studentSex);
 
                 try
                 {
@@ -777,6 +801,7 @@ namespace IT13FINALPROJ
                 }
             }
         }
+
 
 
         private void gradelevel2_SelectedIndexChanged(object sender, EventArgs e)
