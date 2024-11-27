@@ -46,11 +46,11 @@ namespace IT13FINALPROJ
 
             string connectionString = "server=localhost;user=root;password=;database=it13proj";
 
-            // Query for inserting student details
+         
             string studentQuery = "INSERT INTO students_enroll (firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname) " +
                                   "VALUES (@studentFirstName, @studentMiddleName, @studentLastName, @sex, @birthdate, @birthplace, @region, @province, @city, @address, @grade, @parentFullName)";
 
-            // Query for inserting parent details
+
             string parentQuery = "INSERT INTO parents (student_id, firstname, middlename, lastname, phonenumber, email) " +
                                  "VALUES (@studentId, @parentFirstName, @parentMiddleName, @parentLastName, @phoneNumber, @parentEmail)";
 
@@ -102,6 +102,9 @@ namespace IT13FINALPROJ
                         }
 
                         MessageBox.Show("Student and Parent enrolled successfully!");
+                        Form1 loginpage = new Form1();
+                        loginpage.Show();
+                        this.Hide();
                     }
                 }
             }

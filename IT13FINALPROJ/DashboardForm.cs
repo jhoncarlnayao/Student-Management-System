@@ -277,13 +277,13 @@ namespace IT13FINALPROJ
 
 
         private void LoadPendingStudents()  //!! HERE KAY MAG LOAD SA PENDING STUDENTS ENROLLEESS
-           
+
         {
             using (MySqlConnection con = new MySqlConnection("server=localhost;user=root;password=;database=it13proj"))
             {
                 con.Open();
 
-             
+
                 string query = "SELECT id AS student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade " +
                                "FROM students_enroll " +
                                "WHERE id NOT IN (SELECT student_id FROM accepted_students_enroll);";
@@ -292,7 +292,7 @@ namespace IT13FINALPROJ
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
 
-   
+
                 guna2DataGridView1.DataSource = dt;
 
                 foreach (DataGridViewColumn column in guna2DataGridView1.Columns)
@@ -320,7 +320,7 @@ namespace IT13FINALPROJ
                     MySqlCommand disableFKCheck = new MySqlCommand("SET FOREIGN_KEY_CHECKS=0;", con, transaction);
                     disableFKCheck.ExecuteNonQuery();
 
-                 
+
                     string moveQuery = "INSERT INTO accepted_students_enroll (student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname) " +
                                        "SELECT id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname " +
                                        "FROM students_enroll WHERE id = @id;";
@@ -334,7 +334,7 @@ namespace IT13FINALPROJ
                     cmdDeleteParents.Parameters.AddWithValue("@id", id);
                     cmdDeleteParents.ExecuteNonQuery();
 
-                  
+
                     string deleteQuery = "DELETE FROM students_enroll WHERE id = @id;";
                     MySqlCommand cmdDelete = new MySqlCommand(deleteQuery, con, transaction);
                     cmdDelete.Parameters.AddWithValue("@id", id);
@@ -344,7 +344,7 @@ namespace IT13FINALPROJ
                     MySqlCommand enableFKCheck = new MySqlCommand("SET FOREIGN_KEY_CHECKS=1;", con, transaction);
                     enableFKCheck.ExecuteNonQuery();
 
-                 
+
                     if (rowsInserted == 1 && rowsDeleted == 1)
                     {
                         transaction.Commit();
@@ -376,7 +376,7 @@ namespace IT13FINALPROJ
             {
                 if (guna2DataGridView1.Columns[e.ColumnIndex].Name == "Action")
                 {
-                  
+
                     if (guna2DataGridView1.Rows[e.RowIndex].Cells["student_id"].Value != DBNull.Value)
                     {
                         int studentId = Convert.ToInt32(guna2DataGridView1.Rows[e.RowIndex].Cells["id"].Value);
@@ -391,11 +391,11 @@ namespace IT13FINALPROJ
                 }
             }
         }
-    
 
 
 
-    private void LoadStudentData()
+
+        private void LoadStudentData()
         {
             string query = "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname FROM accepted_students_enroll";
             string connectionString = "server=localhost;database=it13proj;user=root;password=;";
@@ -454,11 +454,11 @@ namespace IT13FINALPROJ
                         using (MySqlCommand cmd = new MySqlCommand(insertQuery, conn))
                         {
                             cmd.Parameters.AddWithValue("@firstname", firstname);
-                            cmd.Parameters.AddWithValue("@middlename", middlename ?? (object)DBNull.Value); 
+                            cmd.Parameters.AddWithValue("@middlename", middlename ?? (object)DBNull.Value);
                             cmd.Parameters.AddWithValue("@lastname", lastname);
                             cmd.Parameters.AddWithValue("@sex", sex);
                             cmd.Parameters.AddWithValue("@schoolemail", adminSchoolEmail);
-                            cmd.Parameters.AddWithValue("@password", adminPassword); 
+                            cmd.Parameters.AddWithValue("@password", adminPassword);
 
                             int rows = cmd.ExecuteNonQuery();
                             if (rows > 0)
@@ -774,7 +774,7 @@ namespace IT13FINALPROJ
             string password = Tpassword.Text;
             string sex = Tsex.SelectedItem?.ToString() ?? string.Empty;
             string gradelevel = Tgradelevel.SelectedItem?.ToString() ?? string.Empty;
-            string subjectID = "1";  
+            string subjectID = "1";
 
             using (MySqlConnection conn = new MySqlConnection(connectionString))
             {
@@ -788,15 +788,15 @@ namespace IT13FINALPROJ
                     {
                         cmd.Parameters.AddWithValue("@firstname", firstname);
                         cmd.Parameters.AddWithValue("@lastname", lastname);
-                        cmd.Parameters.AddWithValue("@middlename", middlename); 
-                        cmd.Parameters.AddWithValue("@phonenumber", phonenumber); 
+                        cmd.Parameters.AddWithValue("@middlename", middlename);
+                        cmd.Parameters.AddWithValue("@phonenumber", phonenumber);
                         cmd.Parameters.AddWithValue("@address", address);
                         cmd.Parameters.AddWithValue("@email", email);
                         cmd.Parameters.AddWithValue("@username", schoolemail);
-                        cmd.Parameters.AddWithValue("@password_hash", password); 
+                        cmd.Parameters.AddWithValue("@password_hash", password);
                         cmd.Parameters.AddWithValue("@sex", sex);
                         cmd.Parameters.AddWithValue("@gradelevel", gradelevel);
-                        cmd.Parameters.AddWithValue("@subjectID", subjectID); 
+                        cmd.Parameters.AddWithValue("@subjectID", subjectID);
 
                         int rows = cmd.ExecuteNonQuery();
 
@@ -863,7 +863,7 @@ namespace IT13FINALPROJ
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
 
-                  
+
                     recordlistingstable.DataSource = dataTable;
                 }
                 catch (Exception ex)
@@ -879,7 +879,7 @@ namespace IT13FINALPROJ
 
             string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
 
-          
+
             string query = "SELECT id, SubjectID, Firstname, Lastname, Middlename, Phonenumber, Address, Email, Username, Password_Hash, Sex, PreferredGradeLevel FROM teacher_account";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -907,7 +907,7 @@ namespace IT13FINALPROJ
             // GUIDANCE ACCOUNT
             string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
 
-          
+
             string query = "SELECT id, username,password_hash, firstname, middlename, lastname, email, phone_number FROM guidance_staff";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
@@ -1220,7 +1220,7 @@ namespace IT13FINALPROJ
 
             if (guna2DataGridView1.SelectedRows.Count > 0)
             {
-           //! DIRIA KAY MAO NI ANG BUTTON FOR ACCEPTING PENDING ENROLLMENT FOR STUDENTS
+                //! DIRIA KAY MAO NI ANG BUTTON FOR ACCEPTING PENDING ENROLLMENT FOR STUDENTS
                 int studentId = Convert.ToInt32(guna2DataGridView1.SelectedRows[0].Cells["student_id"].Value);
 
                 // Attempt to accept the student
@@ -1239,7 +1239,77 @@ namespace IT13FINALPROJ
             }
         }
 
+        private void guna2Panel12_Paint(object sender, PaintEventArgs e)
+        {
 
+        }
 
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+            create_teacheraccount.Visible = !create_teacheraccount.Visible;
+        }
+
+        private void guna2TextBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TeacherAccountBTN2_Click(object sender, EventArgs e)
+        {
+            //CREATE TEACHER ACCOUNT
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
+
+            string firstname = Tfirstname2.Text;
+            string middlename = Tmiddlaname2.Text;
+            string lastname = Tlastname2.Text;
+            string email = Temail2.Text;
+            string phonenumber = Tphonenumber2.Text;
+            string schoolemail = Tschoolemail2.Text;
+            string address = Taddress2.Text;
+            string password = Tpassword2.Text;
+            string sex = Tsex2.SelectedItem?.ToString() ?? string.Empty;
+            string gradelevel = Tgradelevel2.SelectedItem?.ToString() ?? string.Empty;
+            string subjectID = "1";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "INSERT INTO `teacher_account` (Firstname, Lastname, Middlename, Phonenumber, Address, Email, Username, Password_Hash, Sex, PreferredGradeLevel, SubjectID) " +
+                                   "VALUES (@firstname, @lastname, @middlename, @phonenumber, @address, @email, @username, @password_hash, @sex, @gradelevel, @subjectID)";
+
+                    using (MySqlCommand cmd = new MySqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@firstname", firstname);
+                        cmd.Parameters.AddWithValue("@lastname", lastname);
+                        cmd.Parameters.AddWithValue("@middlename", middlename);
+                        cmd.Parameters.AddWithValue("@phonenumber", phonenumber);
+                        cmd.Parameters.AddWithValue("@address", address);
+                        cmd.Parameters.AddWithValue("@email", email);
+                        cmd.Parameters.AddWithValue("@username", schoolemail);
+                        cmd.Parameters.AddWithValue("@password_hash", password);
+                        cmd.Parameters.AddWithValue("@sex", sex);
+                        cmd.Parameters.AddWithValue("@gradelevel", gradelevel);
+                        cmd.Parameters.AddWithValue("@subjectID", subjectID);
+
+                        int rows = cmd.ExecuteNonQuery();
+
+                        if (rows > 0)
+                        {
+                            MessageBox.Show("Teacher account created successfully!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to create teacher account.");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred: " + ex.Message);
+                }
+            }
+        }
     }
 }

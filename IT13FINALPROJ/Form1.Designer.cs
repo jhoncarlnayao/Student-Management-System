@@ -39,13 +39,11 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges9 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges10 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            checkBox1 = new CheckBox();
-            label3 = new Label();
             label2 = new Label();
             label1 = new Label();
             panel1 = new Panel();
+            guna2CheckBox1 = new Guna.UI2.WinForms.Guna2CheckBox();
             guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
-            label4 = new Label();
             button1 = new Guna.UI2.WinForms.Guna2Button();
             PasswordText = new Guna.UI2.WinForms.Guna2TextBox();
             UsernameText = new Guna.UI2.WinForms.Guna2TextBox();
@@ -53,31 +51,6 @@
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).BeginInit();
             SuspendLayout();
-            // 
-            // checkBox1
-            // 
-            checkBox1.AutoSize = true;
-            checkBox1.BackColor = Color.White;
-            checkBox1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox1.ForeColor = Color.Gray;
-            checkBox1.Location = new Point(625, 632);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(296, 24);
-            checkBox1.TabIndex = 31;
-            checkBox1.Text = "i agree to our Terms of Service and Term";
-            checkBox1.UseVisualStyleBackColor = false;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.White;
-            label3.Font = new Font("Segoe UI", 11.25F);
-            label3.ForeColor = SystemColors.GrayText;
-            label3.Location = new Point(569, 430);
-            label3.Name = "label3";
-            label3.Size = new Size(159, 20);
-            label3.TabIndex = 18;
-            label3.Text = "Can't access account ? ";
             // 
             // label2
             // 
@@ -105,13 +78,11 @@
             // panel1
             // 
             panel1.BackColor = Color.WhiteSmoke;
+            panel1.Controls.Add(guna2CheckBox1);
             panel1.Controls.Add(guna2Button1);
-            panel1.Controls.Add(label4);
             panel1.Controls.Add(button1);
             panel1.Controls.Add(PasswordText);
             panel1.Controls.Add(UsernameText);
-            panel1.Controls.Add(label3);
-            panel1.Controls.Add(checkBox1);
             panel1.Controls.Add(label1);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(guna2PictureBox1);
@@ -121,6 +92,28 @@
             panel1.Size = new Size(1548, 737);
             panel1.TabIndex = 33;
             panel1.Paint += panel1_Paint_2;
+            // 
+            // guna2CheckBox1
+            // 
+            guna2CheckBox1.AutoSize = true;
+            guna2CheckBox1.BackColor = Color.White;
+            guna2CheckBox1.CheckedState.BorderColor = Color.FromArgb(94, 148, 255);
+            guna2CheckBox1.CheckedState.BorderRadius = 0;
+            guna2CheckBox1.CheckedState.BorderThickness = 0;
+            guna2CheckBox1.CheckedState.FillColor = Color.FromArgb(94, 148, 255);
+            guna2CheckBox1.CheckMarkColor = Color.DarkGray;
+            guna2CheckBox1.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2CheckBox1.Location = new Point(765, 457);
+            guna2CheckBox1.Name = "guna2CheckBox1";
+            guna2CheckBox1.Size = new Size(204, 24);
+            guna2CheckBox1.TabIndex = 46;
+            guna2CheckBox1.Text = "Toggle Password Visibility";
+            guna2CheckBox1.UncheckedState.BorderColor = Color.Black;
+            guna2CheckBox1.UncheckedState.BorderRadius = 4;
+            guna2CheckBox1.UncheckedState.BorderThickness = 1;
+            guna2CheckBox1.UncheckedState.FillColor = Color.White;
+            guna2CheckBox1.UseVisualStyleBackColor = false;
+            guna2CheckBox1.CheckedChanged += guna2CheckBox1_CheckedChanged;
             // 
             // guna2Button1
             // 
@@ -135,7 +128,7 @@
             guna2Button1.FillColor = Color.White;
             guna2Button1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             guna2Button1.ForeColor = Color.Gray;
-            guna2Button1.Location = new Point(569, 553);
+            guna2Button1.Location = new Point(569, 580);
             guna2Button1.Name = "guna2Button1";
             guna2Button1.PressedColor = Color.White;
             guna2Button1.ShadowDecoration.CustomizableEdges = customizableEdges2;
@@ -143,18 +136,6 @@
             guna2Button1.TabIndex = 42;
             guna2Button1.Text = "Enroll";
             guna2Button1.Click += guna2Button1_Click;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.BackColor = Color.White;
-            label4.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.ForeColor = Color.Black;
-            label4.Location = new Point(734, 430);
-            label4.Name = "label4";
-            label4.Size = new Size(114, 20);
-            label4.TabIndex = 38;
-            label4.Text = "Contact Admin";
             // 
             // button1
             // 
@@ -175,7 +156,7 @@
             button1.HoverState.BorderColor = Color.Lime;
             button1.HoverState.FillColor = Color.White;
             button1.HoverState.ForeColor = Color.Black;
-            button1.Location = new Point(569, 486);
+            button1.Location = new Point(569, 509);
             button1.Name = "button1";
             button1.ShadowDecoration.CustomizableEdges = customizableEdges4;
             button1.Size = new Size(400, 48);
@@ -200,7 +181,7 @@
             PasswordText.HoverState.BorderColor = Color.FromArgb(94, 148, 255);
             PasswordText.IconRight = (Image)resources.GetObject("PasswordText.IconRight");
             PasswordText.IconRightOffset = new Point(15, 0);
-            PasswordText.Location = new Point(569, 351);
+            PasswordText.Location = new Point(569, 387);
             PasswordText.Name = "PasswordText";
             PasswordText.PasswordChar = '●';
             PasswordText.PlaceholderForeColor = Color.Gray;
@@ -209,7 +190,6 @@
             PasswordText.ShadowDecoration.CustomizableEdges = customizableEdges6;
             PasswordText.Size = new Size(400, 50);
             PasswordText.TabIndex = 34;
-            PasswordText.UseSystemPasswordChar = true;
             // 
             // UsernameText
             // 
@@ -228,7 +208,7 @@
             UsernameText.HoverState.BorderColor = Color.LightGray;
             UsernameText.IconRight = (Image)resources.GetObject("UsernameText.IconRight");
             UsernameText.IconRightOffset = new Point(15, 0);
-            UsernameText.Location = new Point(569, 278);
+            UsernameText.Location = new Point(569, 301);
             UsernameText.Name = "UsernameText";
             UsernameText.PasswordChar = '\0';
             UsernameText.PlaceholderForeColor = Color.Gray;
@@ -272,14 +252,12 @@
         #endregion
         private Label label2;
         private Label label1;
-        private Label label3;
-        private CheckBox checkBox1;
         private Panel panel1;
         private Guna.UI2.WinForms.Guna2TextBox UsernameText;
         private Guna.UI2.WinForms.Guna2TextBox PasswordText;
         private Guna.UI2.WinForms.Guna2Button button1;
-        private Label label4;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;
         private Guna.UI2.WinForms.Guna2PictureBox guna2PictureBox1;
+        private Guna.UI2.WinForms.Guna2CheckBox guna2CheckBox1;
     }
 }
