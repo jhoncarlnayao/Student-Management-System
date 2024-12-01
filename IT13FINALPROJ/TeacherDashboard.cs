@@ -33,7 +33,7 @@ namespace IT13FINALPROJ
             string password,
             string preferredGradeLevel,
             string subjectID)
-        { 
+        {
             InitializeComponent();
             teacherFullName = $"{firstname} {middlename} {lastname}";
             teacherAddress = address;
@@ -44,8 +44,8 @@ namespace IT13FINALPROJ
             teacherPassword = password;
             this.preferredGradeLevel = $"Grade{preferredGradeLevel}";
             this.subjectID = subjectID;
-            this.id = id;  
-                           
+            this.id = id;
+
         }
 
         private void TeacherDashboard_Load(object sender, EventArgs e)
@@ -84,6 +84,8 @@ namespace IT13FINALPROJ
             }
         }
 
+
+
         private void LoadStudents()
         {
             string connectionString = "server=localhost;user=root;password=;database=it13proj";
@@ -92,7 +94,6 @@ namespace IT13FINALPROJ
                 con.Open();
 
                 string cleanedTeacherUsername = teacherUsername.Trim();
-                Console.WriteLine($"Cleaned Teacher Username: '{cleanedTeacherUsername}'");
 
                 string sectionQuery = "SELECT grade_level, section_name FROM teacher_assignments " +
                                       "WHERE TRIM(LOWER(teacher_username)) = TRIM(LOWER(@teacherName))";
@@ -101,47 +102,34 @@ namespace IT13FINALPROJ
                 {
                     sectionCmd.Parameters.AddWithValue("@teacherName", cleanedTeacherUsername);
 
-                    // Log the actual query being executed for debugging
-                    Console.WriteLine($"Executing query: {sectionQuery} with parameter: {cleanedTeacherUsername}");
-
                     using (var reader = sectionCmd.ExecuteReader())
                     {
-                        if (reader.Read()) // If data is returned for the teacher
+                        if (reader.Read())
                         {
                             string gradeLevel = reader["grade_level"].ToString();
                             string sectionName = reader["section_name"].ToString();
+                            string tableName = $"{sectionName}";
 
-                            // Log the grade level and section name
-                            Console.WriteLine($"Grade Level: {gradeLevel}, Section: {sectionName}");
+                            string loadStudentsQuery = $"SELECT id, Fullname, Mathematics, Science, English, Filipino, " +
+                                                       $"Araling_Panlipunan, Edukasyon_sa_Pagpapakatao AS ESP, MAPEH " +
+                                                       $"FROM `{tableName}` " +
+                                                       $"WHERE role != 'Teacher'";
 
-                            // Use the section name directly as the table name
-                            string tableName = $"{sectionName}";  // Just use the section name as the table name
-
-                            // Query to load students and subjects for this dynamically constructed section (using the section name)
-                            string loadStudentsQuery = $"SELECT Fullname, Mathematics, Science, English, Filipino, Araling_Panlipunan, Edukasyon_sa_Pagpapakatao AS ESP, MAPEH " +
-                                                       $"FROM `{tableName}`"; // Dynamically load students based on the section name
-
-                            // Log the query being executed to load students
-                            Console.WriteLine($"Executing student query for section: {tableName}");
-
-                            // Use a new connection to prevent conflict with the DataReader
                             using (MySqlConnection studentConnection = new MySqlConnection(connectionString))
                             {
                                 studentConnection.Open();
                                 using (MySqlDataAdapter adapter = new MySqlDataAdapter(loadStudentsQuery, studentConnection))
                                 {
                                     DataTable dataTable = new DataTable();
-                                    adapter.Fill(dataTable); // Fill the DataTable with student data
-
+                                    adapter.Fill(dataTable);
                                     if (dataTable.Rows.Count > 0)
                                     {
-                                        // Bind DataTable to DataGridView
                                         guna2DataGridView1.DataSource = dataTable;
-                                        Console.WriteLine($"Loaded {dataTable.Rows.Count} students.");
+                                        // Optionally, you can hide the 'id' column in the DataGridView
+                                        guna2DataGridView1.Columns["id"].Visible = false;
                                     }
                                     else
                                     {
-                                        Console.WriteLine("No students found in the section.");
                                         MessageBox.Show("No students found in this section.", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     }
                                 }
@@ -149,14 +137,18 @@ namespace IT13FINALPROJ
                         }
                         else
                         {
-                            // Show a message if no section is assigned to the teacher
-                            Console.WriteLine("No section assigned to this teacher.");
                             MessageBox.Show("No section assigned to this teacher.", "Load Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                     }
                 }
             }
         }
+
+
+
+
+
+
 
         private void label2_Click(object sender, EventArgs e)
         {
@@ -220,5 +212,109 @@ namespace IT13FINALPROJ
                 }
             }
         }
+
+        private void guna2Button3_Click(object sender, EventArgs e)
+        {
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
+
+            using (MySqlConnection conn = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    foreach (DataGridViewRow row in guna2DataGridView1.Rows)
+                    {
+                        if (row.IsNewRow) continue;
+
+                        // Access the 'id' column, which should be hidden but is still accessible
+                        string studentId = row.Cells["id"].Value.ToString();
+
+                        // Get the updated grades for each subject
+                        string newMathematicsGrade = row.Cells["Mathematics"].Value.ToString();
+                        string newScienceGrade = row.Cells["Science"].Value.ToString();
+                        string newEnglishGrade = row.Cells["English"].Value.ToString();
+                        string newFilipinoGrade = row.Cells["Filipino"].Value.ToString();
+                        string newAralingPanlipunanGrade = row.Cells["Araling_Panlipunan"].Value.ToString();
+                        string newEspGrade = row.Cells["ESP"].Value.ToString();
+                        string newMapehGrade = row.Cells["MAPEH"].Value.ToString();
+
+                        // Ensure to get the correct table name for the students' data
+                        string tableName = GetStudentTableName(); // This function should get the correct table based on teacher's section
+
+                        // Update query for student grades
+                        string updateQuery = $"UPDATE `{tableName}` SET Mathematics=@mathematics, Science=@science, English=@english, " +
+                                             "Filipino=@filipino, Araling_Panlipunan=@aralingpanlipunan, Edukasyon_sa_Pagpapakatao=@esp, MAPEH=@mapeh " +
+                                             "WHERE id=@studentId";
+
+                        using (MySqlCommand cmd = new MySqlCommand(updateQuery, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@mathematics", newMathematicsGrade);
+                            cmd.Parameters.AddWithValue("@science", newScienceGrade);
+                            cmd.Parameters.AddWithValue("@english", newEnglishGrade);
+                            cmd.Parameters.AddWithValue("@filipino", newFilipinoGrade);
+                            cmd.Parameters.AddWithValue("@aralingpanlipunan", newAralingPanlipunanGrade);
+                            cmd.Parameters.AddWithValue("@esp", newEspGrade);
+                            cmd.Parameters.AddWithValue("@mapeh", newMapehGrade);
+                            cmd.Parameters.AddWithValue("@studentId", studentId);
+
+                            int rowsAffected = cmd.ExecuteNonQuery();
+
+                            if (rowsAffected > 0)
+                            {
+                                MessageBox.Show("Grades updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("No changes were made. Please check your data.", "No Changes", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error updating grades: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private string GetStudentTableName()
+        {
+            // This function should return the correct student table name based on the teacher's section or subject
+            string sectionName = GetSectionNameForTeacher();  // Replace this with your logic to get the section name
+            return $"{sectionName}"; // Assuming the student table is named after the section
+        }
+
+        private string GetSectionNameForTeacher()
+        {
+            // You need to return the actual section name assigned to the teacher
+            // This should be fetched based on the teacher's username, just like in the LoadStudents method
+            string sectionName = ""; // Default or empty string
+            string connectionString = "server=localhost;user=root;password=;database=it13proj";
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                con.Open();
+                string cleanedTeacherUsername = teacherUsername.Trim();
+                string sectionQuery = "SELECT section_name FROM teacher_assignments WHERE TRIM(LOWER(teacher_username)) = TRIM(LOWER(@teacherName))";
+
+                using (MySqlCommand sectionCmd = new MySqlCommand(sectionQuery, con))
+                {
+                    sectionCmd.Parameters.AddWithValue("@teacherName", cleanedTeacherUsername);
+                    using (var reader = sectionCmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            sectionName = reader["section_name"].ToString();
+                        }
+                    }
+                }
+            }
+            return sectionName;
+        }
+
+
+
+
+
     }
 }

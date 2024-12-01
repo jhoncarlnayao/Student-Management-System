@@ -374,16 +374,16 @@ namespace IT13FINALPROJ
 
 
         private void CreateNewTable(
-     string tableName,
-     string gradeLevel,
-     string sectionName,
-     string assignedTeacher,
-     string teacherUsername,
-     string academicYear,
-     string roomNumber,
-     int studentCapacity,
-     string description,
-     string teacherSex) // Add teacher's sex as a parameter
+        string tableName,
+        string gradeLevel,
+        string sectionName,
+        string assignedTeacher,
+        string teacherUsername,
+        string academicYear,
+        string roomNumber,
+        int studentCapacity,
+        string description,
+        string teacherSex) 
         {
             try
             {
@@ -391,31 +391,35 @@ namespace IT13FINALPROJ
                 {
                     con.Open();
 
-                    // Create the grade/section table
+
                     string createTableQuery = $"CREATE TABLE IF NOT EXISTS `{tableName}` (" +
-                                               "id INT AUTO_INCREMENT PRIMARY KEY, " +
-                                               "grade_level VARCHAR(255) NOT NULL, " +
-                                               "section_name VARCHAR(255) NOT NULL, " +
-                                               "Fullname VARCHAR(255), " +
-                                               "sex CHAR(1), " + 
-                                               "academic_year VARCHAR(255), " +
-                                               "room_number VARCHAR(255), " +
-                                               "student_capacity INT, " +
-                                               "description TEXT, " +
-                                               "role VARCHAR(255) DEFAULT 'Teacher', " +
-                                               "Mathematics FLOAT NULL, " +
-                                               "Science FLOAT NULL, " +
-                                               "English FLOAT NULL, " +
-                                               "Filipino FLOAT NULL, " +
-                                               "Araling_Panlipunan FLOAT NULL, " +
-                                               "Edukasyon_sa_Pagpapakatao FLOAT NULL, " +
-                                               "MAPEH FLOAT NULL)";
+                          "id INT AUTO_INCREMENT PRIMARY KEY, " +
+                          "grade_level VARCHAR(255) NOT NULL, " +
+                          "section_name VARCHAR(255) NOT NULL, " +
+                          "Fullname VARCHAR(255), " +
+                          "sex CHAR(1), " +
+                          "academic_year VARCHAR(255), " +
+                          "room_number VARCHAR(255), " +
+                          "student_capacity INT, " +
+                          "description TEXT, " +
+                          "role VARCHAR(255) DEFAULT 'Teacher', " +
+                          "Mathematics FLOAT NULL, " +
+                          "Science FLOAT NULL, " +
+                          "English FLOAT NULL, " +
+                          "Filipino FLOAT NULL, " +
+                          "Araling_Panlipunan FLOAT NULL, " +
+                          "Edukasyon_sa_Pagpapakatao FLOAT NULL, " +
+                          "MAPEH FLOAT NULL, " +
+                          "Grade_Average FLOAT NULL)";
+
+
+
                     MySqlCommand cmd = new MySqlCommand(createTableQuery, con);
                     cmd.ExecuteNonQuery();
 
-                    // Insert the teacher into the grade/section table
+                 
                     string insertDataQuery = $"INSERT INTO `{tableName}` (grade_level, section_name, Fullname, sex, academic_year, room_number, student_capacity, description, role) " +
-                                              $"VALUES (@gradeLevel, @sectionName, @assignedTeacher, @teacherSex, @academicYear, @roomNumber, @studentCapacity, @description, 'Teacher')";
+                                             $"VALUES (@gradeLevel, @sectionName, @assignedTeacher, @teacherSex, @academicYear, @roomNumber, @studentCapacity, @description, 'Teacher')";
                     MySqlCommand insertCmd = new MySqlCommand(insertDataQuery, con);
                     insertCmd.Parameters.AddWithValue("@gradeLevel", gradeLevel);
                     insertCmd.Parameters.AddWithValue("@sectionName", sectionName);
@@ -444,6 +448,7 @@ namespace IT13FINALPROJ
                 MessageBox.Show($"Error: {ex.Message}");
             }
         }
+
 
 
         private string GetTeacherUsername(string fullName)
@@ -742,10 +747,9 @@ namespace IT13FINALPROJ
 
         private void guna2Button3_Click(object sender, EventArgs e)
         {
-            // Ensure all fields are selected
-            if (gradelevel2.SelectedItem == null || availablesection2.SelectedItem == null || studentname2.SelectedItem == null)
+            if (availablesection2.SelectedItem == null || studentname2.SelectedItem == null)
             {
-                MessageBox.Show("Please select a grade level, section, and student.");
+                MessageBox.Show("Please select a section and student.");
                 return;
             }
 
@@ -758,7 +762,7 @@ namespace IT13FINALPROJ
                 connection.Open();
 
                 // Fetch the sex of the selected student
-                string fetchSexQuery = "SELECT sex FROM accepted_students_enroll WHERE CONCAT(firstname, ' ', middlename, ' ', lastname) = @FullName";
+                string fetchSexQuery = "SELECT sex FROM accepted_students_enroll WHERE CONCAT(firstname, ' ', COALESCE(middlename, ''), ' ', lastname) = @FullName";
                 MySqlCommand fetchSexCmd = new MySqlCommand(fetchSexQuery, connection);
                 fetchSexCmd.Parameters.AddWithValue("@FullName", selectedStudent);
 
@@ -780,13 +784,12 @@ namespace IT13FINALPROJ
                     return;
                 }
 
-                // Insert the student into the chosen section table
-                string insertQuery = $"INSERT INTO `{selectedSection}` (Fullname, grade_level, section_name, sex, role) " +
-                                     "VALUES (@FullName, @GradeLevel, @SectionName, @Sex, 'Student')";
+                // Insert student into the selected section
+                string insertQuery = $"INSERT INTO `{selectedSection}` (Fullname, section_name, sex, role) " +
+                                     "VALUES (@FullName, @SectionName, @Sex, 'Student')";
 
                 MySqlCommand insertCmd = new MySqlCommand(insertQuery, connection);
                 insertCmd.Parameters.AddWithValue("@FullName", selectedStudent);
-                insertCmd.Parameters.AddWithValue("@GradeLevel", gradelevel2.SelectedItem.ToString());
                 insertCmd.Parameters.AddWithValue("@SectionName", selectedSection);
                 insertCmd.Parameters.AddWithValue("@Sex", studentSex);
 
@@ -794,6 +797,17 @@ namespace IT13FINALPROJ
                 {
                     insertCmd.ExecuteNonQuery();
                     MessageBox.Show("Student assigned successfully!");
+
+                    // Log the student assignment
+                    string studentAssignmentQuery = "INSERT INTO student_assignments (student_name, section_name, assigned_at) " +
+                                                    "VALUES (@StudentName, @SectionName, @AssignedAt)";
+
+                    MySqlCommand studentAssignmentCmd = new MySqlCommand(studentAssignmentQuery, connection);
+                    studentAssignmentCmd.Parameters.AddWithValue("@StudentName", selectedStudent);
+                    studentAssignmentCmd.Parameters.AddWithValue("@SectionName", selectedSection);
+                    studentAssignmentCmd.Parameters.AddWithValue("@AssignedAt", DateTime.Now);
+
+                    studentAssignmentCmd.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -801,6 +815,9 @@ namespace IT13FINALPROJ
                 }
             }
         }
+
+
+
 
 
 
@@ -889,7 +906,7 @@ namespace IT13FINALPROJ
                 string teacherQuery = "SELECT Fullname " +
                                       "FROM " + selectedSection + " " +
                                       "WHERE role = 'Teacher' " +
-                                      "LIMIT 1";  // Assuming only one teacher is assigned per section
+                                      "LIMIT 1";
 
                 MySqlCommand teacherCmd = new MySqlCommand(teacherQuery, connection);
                 object teacherName = teacherCmd.ExecuteScalar();

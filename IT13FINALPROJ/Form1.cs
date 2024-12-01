@@ -224,7 +224,8 @@ WHERE
                             // Extract data from the reader
                             string fullName = $"{reader["account_firstname"]} {reader["account_middlename"] ?? ""} {reader["account_lastname"]}".Trim();
                             string schoolEmail = reader["schoolemail"].ToString();
-                            int studentId = Convert.ToInt32(reader["student_id"]);
+                            int studentId = reader["student_id"] != DBNull.Value ? Convert.ToInt32(reader["student_id"]) : 0;
+
                             string grade = reader["grade"]?.ToString() ?? "N/A";
                             string sex = reader["sex"]?.ToString() ?? "N/A";
 
@@ -262,6 +263,10 @@ WHERE
                         }
                     }
                 }
+
+
+
+
 
                 // Check for Teacher login
                 string teacherQuery = "SELECT * FROM teacher_account WHERE Username=@username AND Password_Hash=@password";

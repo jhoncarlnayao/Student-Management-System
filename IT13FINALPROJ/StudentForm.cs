@@ -40,16 +40,26 @@ namespace IT13FINALPROJ
 
 
         public void EnrollStudentAndParent(string studentFirstName, string studentMiddleName, string studentLastName, string sex, DateTime birthdate, string birthplace, string region, string province, string city, string address, string grade,
-                                        string parentFirstName, string parentMiddleName, string parentLastName, string phoneNumber, string email)
+                                   string parentFirstName, string parentMiddleName, string parentLastName, string phoneNumber, string email)
         {
             string mappedSex = sex == "Male" ? "M" : (sex == "Female" ? "F" : null);
 
             string connectionString = "server=localhost;user=root;password=;database=it13proj";
 
-         
+            string checkQuery = @"SELECT COUNT(*) FROM (
+                            SELECT id FROM students_enroll 
+                            WHERE firstname = @studentFirstName 
+                              AND (middlename = @studentMiddleName OR (middlename IS NULL AND @studentMiddleName IS NULL)) 
+                              AND lastname = @studentLastName
+                            UNION
+                            SELECT id FROM accepted_students_enroll
+                            WHERE firstname = @studentFirstName 
+                              AND (middlename = @studentMiddleName OR (middlename IS NULL AND @studentMiddleName IS NULL)) 
+                              AND lastname = @studentLastName
+                          ) AS combined";
+
             string studentQuery = "INSERT INTO students_enroll (firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname) " +
                                   "VALUES (@studentFirstName, @studentMiddleName, @studentLastName, @sex, @birthdate, @birthplace, @region, @province, @city, @address, @grade, @parentFullName)";
-
 
             string parentQuery = "INSERT INTO parents (student_id, firstname, middlename, lastname, phonenumber, email) " +
                                  "VALUES (@studentId, @parentFirstName, @parentMiddleName, @parentLastName, @phoneNumber, @parentEmail)";
@@ -59,6 +69,22 @@ namespace IT13FINALPROJ
                 using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
                     con.Open();
+
+                    // Check for duplicates
+                    using (MySqlCommand checkCmd = new MySqlCommand(checkQuery, con))
+                    {
+                        checkCmd.Parameters.AddWithValue("@studentFirstName", studentFirstName);
+                        checkCmd.Parameters.AddWithValue("@studentMiddleName", string.IsNullOrEmpty(studentMiddleName) ? (object)DBNull.Value : studentMiddleName);
+                        checkCmd.Parameters.AddWithValue("@studentLastName", studentLastName);
+
+                        int duplicateCount = Convert.ToInt32(checkCmd.ExecuteScalar());
+
+                        if (duplicateCount > 0)
+                        {
+                            MessageBox.Show("A student with the same name already exists. Please check the records.", "Duplicate Entry", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
 
                     // Insert student details
                     using (MySqlCommand studentCmd = new MySqlCommand(studentQuery, con))

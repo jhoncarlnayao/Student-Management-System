@@ -26,8 +26,7 @@ namespace IT13FINALPROJ
             InitializeComponent();
             LoadStudentData();
             LoadPendingStudents();
-            LoadGenderData();
-            CountSex();
+           
             CountTotalPendingStudents();
             CountTotalStudents();
             CountTotalTeachers();
@@ -76,76 +75,53 @@ namespace IT13FINALPROJ
 
         }
 
-        private void LoadGenderData()
+        public void PopulateGradeTables()
         {
             string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            string query = @"
+        SELECT table_name 
+        FROM information_schema.tables 
+        WHERE table_schema = 'it13proj' 
+        AND table_name LIKE 'grade%'";
+
+            try
             {
-                try
+                using (MySqlConnection con = new MySqlConnection(connectionString))
                 {
-                    connection.Open();
-
-                    // Count male and female students
-                    string query = "SELECT sex, COUNT(*) as count FROM accepted_students_enroll GROUP BY sex";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-                    DataTable dataTable = new DataTable();
-                    adapter.Fill(dataTable);
-
-                    int maleCount = 0;
-                    int femaleCount = 0;
-
-                    foreach (DataRow row in dataTable.Rows)
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(query, con))
                     {
-                        string sex = row["sex"].ToString();
-                        int count = Convert.ToInt32(row["count"]);
-
-                        if (sex == "M")
+                        using (MySqlDataReader reader = cmd.ExecuteReader())
                         {
-                            maleCount = count;
-                        }
-                        else if (sex == "F")
-                        {
-                            femaleCount = count;
+                            while (reader.Read())
+                            {
+                                string tableName = reader.GetString(0);
+                                SexCountCombobox.Items.Add(tableName);
+                            }
                         }
                     }
-
-                    // Calculate total and percentages
-                    int total = maleCount + femaleCount;
-                    if (total > 0)
-                    {
-                        float malePercentage = (maleCount / (float)total) * 100;
-                        float femalePercentage = (femaleCount / (float)total) * 100;
-
-                        // Set male progress bar
-                        guna2CircleProgressBar1.Value = (int)malePercentage; // Male percentage
-                        guna2CircleProgressBar1.ProgressColor = System.Drawing.Color.Blue; // Solid color for males
-                        guna2CircleProgressBar1.ProgressColor2 = System.Drawing.Color.Blue; // Same color to avoid gradient
-
-                        // Set female progress bar
-                        guna2CircleProgressBar2.Value = (int)femalePercentage; // Female percentage
-                        guna2CircleProgressBar2.ProgressColor = System.Drawing.Color.Pink; // Solid color for females
-                        guna2CircleProgressBar2.ProgressColor2 = System.Drawing.Color.Pink; // Same color to avoid gradient
-                    }
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred: " + ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
-        public void CountSex()
+
+
+
+        public void CountSex(string tableName)
         {
             string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
             int maleCount = 0;
             int femaleCount = 0;
 
-            string query = @"
-        SELECT 
-            SUM(CASE WHEN sex = 'M' THEN 1 ELSE 0 END) AS MaleCount,
-            SUM(CASE WHEN sex = 'F' THEN 1 ELSE 0 END) AS FemaleCount
-        FROM accepted_students_enroll";
+            string query = $@"
+    SELECT 
+        SUM(CASE WHEN sex = 'M' THEN 1 ELSE 0 END) AS MaleCount,
+        SUM(CASE WHEN sex = 'F' THEN 1 ELSE 0 END) AS FemaleCount
+    FROM {tableName}";
 
             try
             {
@@ -158,7 +134,6 @@ namespace IT13FINALPROJ
                         {
                             if (reader.Read())
                             {
-                                // Retrieve the counts
                                 maleCount = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
                                 femaleCount = reader.IsDBNull(1) ? 0 : reader.GetInt32(1);
                             }
@@ -170,9 +145,37 @@ namespace IT13FINALPROJ
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-            // Update labels with counts, make sure labels are initialized
+
+            // Update labels
             boysnumber.Text = maleCount.ToString();
             girlsnumber.Text = femaleCount.ToString();
+
+            // Refresh graphical elements
+            guna2CircleProgressBar1.Value = maleCount;
+            guna2CircleProgressBar1.Refresh();
+
+            guna2CircleProgressBar2.Value = femaleCount;
+            guna2CircleProgressBar2.Refresh();
+
+            guna2CircleProgressBar1.Maximum = 50;
+            guna2CircleProgressBar2.Maximum = 50;
+
+            guna2CircleProgressBar1.ProgressColor = Color.Blue;
+            guna2CircleProgressBar1.ProgressColor2 = Color.LightBlue;
+
+            guna2CircleProgressBar2.ProgressColor = Color.Pink;
+            guna2CircleProgressBar2.ProgressColor2 = Color.LightPink;
+
+        }
+
+
+        private void SexCountComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedTable = SexCountCombobox.SelectedItem.ToString();
+            if (!string.IsNullOrEmpty(selectedTable))
+            {
+                CountSex(selectedTable);
+            }
         }
 
         //TOTAL STUDENTS
@@ -441,9 +444,14 @@ namespace IT13FINALPROJ
                     return;
                 }
 
+                // Append @deped.ph if the email doesn't contain '@'
+                if (!adminSchoolEmail.Contains("@"))
+                {
+                    adminSchoolEmail += "@deped.ph";
+                }
+
                 string connectionString = "server=localhost;database=it13proj;user=root;password=;";
                 string insertQuery = "INSERT INTO student_accounts (firstname, middlename, lastname, sex, schoolemail, password) VALUES (@firstname, @middlename, @lastname, @sex, @schoolemail, @password)";
-
 
                 using (MySqlConnection conn = new MySqlConnection(connectionString))
                 {
@@ -483,6 +491,7 @@ namespace IT13FINALPROJ
             }
         }
 
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -492,10 +501,12 @@ namespace IT13FINALPROJ
         {
             guna2DataGridView1.AutoGenerateColumns = true;
             guna2DataGridView1.CellContentClick += guna2DataGridView1_CellContentClick;
-            CountSex();
+        ///    CountSex();
             CountTotalPendingStudents();
             CountTotalStudents();
             CountTotalTeachers();
+            PopulateGradeTables();
+            SexCountCombobox.SelectedIndexChanged += SexCountComboBox_SelectedIndexChanged;
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
