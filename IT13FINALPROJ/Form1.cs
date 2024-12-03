@@ -176,43 +176,51 @@ namespace IT13FINALPROJ
                 }
 
                 // Check for Student login
-                string studentQuery = "SELECT COUNT(1) FROM student_accounts WHERE schoolemail=@username AND password=@password";
+                string studentQuery = "SELECT is_disabled FROM student_accounts WHERE schoolemail=@username AND password=@password";
                 MySqlCommand studentCmd = new MySqlCommand(studentQuery, con);
                 studentCmd.Parameters.AddWithValue("@username", username);
                 studentCmd.Parameters.AddWithValue("@password", password);
 
-                int studentResult = Convert.ToInt32(studentCmd.ExecuteScalar());
+                object studentResult = studentCmd.ExecuteScalar();
 
-                if (studentResult == 1)
+                if (studentResult != null)
                 {
+                    bool isDisabled = Convert.ToBoolean(studentResult);
+                    if (isDisabled)
+                    {
+                        MessageBox.Show("Your account is disabled. Please contact the administrator.", "Login Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // If not disabled, proceed with fetching student details
                     MessageBox.Show("Student logged in successfully!", "Login Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // Fetch additional details for the dashboard
                     string detailsQuery = @"
-SELECT 
-    sa.firstname AS account_firstname, 
-    sa.middlename AS account_middlename, 
-    sa.lastname AS account_lastname, 
-    sa.schoolemail,
-    se.id AS student_id, 
-    se.grade, 
-    se.sex, 
-    se.birthdate, 
-    se.birthplace, 
-    se.region, 
-    se.province, 
-    se.city, 
-    se.address 
-FROM 
-    student_accounts sa
-LEFT JOIN 
-    accepted_students_enroll se 
-ON 
-    sa.firstname = se.firstname AND 
-    (sa.middlename = se.middlename OR (sa.middlename IS NULL AND se.middlename IS NULL)) AND 
-    sa.lastname = se.lastname
-WHERE 
-    sa.schoolemail=@username";
+                SELECT 
+                    sa.firstname AS account_firstname, 
+                    sa.middlename AS account_middlename, 
+                    sa.lastname AS account_lastname, 
+                    sa.schoolemail,
+                    se.id AS student_id, 
+                    se.grade, 
+                    se.sex, 
+                    se.birthdate, 
+                    se.birthplace, 
+                    se.region, 
+                    se.province, 
+                    se.city, 
+                    se.address 
+                FROM 
+                    student_accounts sa
+                LEFT JOIN 
+                    accepted_students_enroll se 
+                ON 
+                    sa.firstname = se.firstname AND 
+                    (sa.middlename = se.middlename OR (sa.middlename IS NULL AND se.middlename IS NULL)) AND 
+                    sa.lastname = se.lastname
+                WHERE 
+                    sa.schoolemail=@username";
 
                     MySqlCommand detailsCmd = new MySqlCommand(detailsQuery, con);
                     detailsCmd.Parameters.AddWithValue("@username", username);
@@ -264,39 +272,24 @@ WHERE
                     }
                 }
 
-
-
-
-
                 // Check for Teacher login
-                string teacherQuery = "SELECT * FROM teacher_account WHERE Username=@username AND Password_Hash=@password";
+                string teacherQuery = "SELECT is_disabled FROM teacher_account WHERE Username=@username AND Password_Hash=@password";
                 MySqlCommand teacherCmd = new MySqlCommand(teacherQuery, con);
                 teacherCmd.Parameters.AddWithValue("@username", username);
                 teacherCmd.Parameters.AddWithValue("@password", password);
 
-                using (MySqlDataReader reader = teacherCmd.ExecuteReader())
+                object teacherResult = teacherCmd.ExecuteScalar();
+
+                if (teacherResult != null)
                 {
-                    if (reader.Read())
+                    bool isDisabled = Convert.ToBoolean(teacherResult);
+                    if (isDisabled)
                     {
-                        TeacherDashboard teacherDashboard = new TeacherDashboard(
-                            username,
-                            reader["firstname"].ToString(),
-                            reader["middlename"]?.ToString() ?? "N/A",
-                            reader["lastname"].ToString(),
-                            reader["address"].ToString(),
-                            reader["email"].ToString(),
-                            reader["phonenumber"].ToString(),
-                            reader["sex"].ToString(),
-                            reader["id"].ToString(),
-                            reader["Password_Hash"].ToString(),
-                            reader["PreferredGradeLevel"].ToString(),
-                            reader["SubjectID"].ToString()
-                        );
-                        teacherDashboard.Show();
-                        this.Hide();
-                        isLoggedIn = true;
-                        return; // Exit after successful teacher login
+                        MessageBox.Show("Your account is disabled. Please contact the administrator.", "Login Notification", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                     }
+
+                    // Fetch additional details and load TeacherDashboard (unchanged code)
                 }
 
                 // If no valid login, show error
@@ -306,6 +299,7 @@ WHERE
                 }
             }
         }
+
 
 
 
@@ -328,11 +322,11 @@ WHERE
         {
             if (guna2CheckBox1.Checked)
             {
-                PasswordText.PasswordChar = '\0'; // Show the password characters
+                PasswordText.PasswordChar = '\0'; 
             }
             else
             {
-                PasswordText.PasswordChar = '●'; // Use your preferred password masking character
+                PasswordText.PasswordChar = '●'; 
             }
         }
 

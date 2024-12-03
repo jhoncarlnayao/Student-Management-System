@@ -19,6 +19,8 @@ namespace IT13FINALPROJ
 {
     public partial class DashboardForm : MaterialForm
     {
+
+        private string currentAccountType = "";
         public DashboardForm()
         {
 
@@ -26,7 +28,7 @@ namespace IT13FINALPROJ
             InitializeComponent();
             LoadStudentData();
             LoadPendingStudents();
-           
+
             CountTotalPendingStudents();
             CountTotalStudents();
             CountTotalTeachers();
@@ -501,7 +503,7 @@ namespace IT13FINALPROJ
         {
             guna2DataGridView1.AutoGenerateColumns = true;
             guna2DataGridView1.CellContentClick += guna2DataGridView1_CellContentClick;
-        ///    CountSex();
+            ///    CountSex();
             CountTotalPendingStudents();
             CountTotalStudents();
             CountTotalTeachers();
@@ -859,6 +861,16 @@ namespace IT13FINALPROJ
 
         private void guna2Button18_Click(object sender, EventArgs e)
         {
+            guna2Button26.Enabled = true;
+            guna2Button26.FillColor = Color.FromArgb(255, 220, 94);
+
+            guna2Button27.Enabled = true;
+            guna2Button27.FillColor = Color.LightGreen;
+
+            currentAccountType = "Student Account";
+
+
+
             //STUDENT ACCOUNTS LIST
             string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
 
@@ -886,6 +898,13 @@ namespace IT13FINALPROJ
 
         private void guna2Button19_Click(object sender, EventArgs e)
         {
+            guna2Button26.Enabled = true;
+            guna2Button26.FillColor = Color.FromArgb(255, 220, 94);
+
+            guna2Button27.Enabled = true;
+            guna2Button27.FillColor = Color.LightGreen;
+
+            currentAccountType = "Teacher Account";
             //TEACHER ACCOUNT
 
             string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
@@ -994,6 +1013,16 @@ namespace IT13FINALPROJ
 
         private void guna2Button23_Click(object sender, EventArgs e)
         {
+
+            guna2Button26.Enabled = false;
+            guna2Button26.FillColor = Color.Gray;
+
+            guna2Button27.Enabled = false;
+            guna2Button27.FillColor = Color.Gray;
+
+
+            currentAccountType = "Student Account";
+
             //ACCEPTED STUDENTS LIST
             string connectionString = "Server=localhost;Database=it13proj;User=root;Password=;";
             string query = "SELECT student_id, firstname, middlename, lastname, sex, birthdate, birthplace, region, province, city, address, grade, parent_fullname FROM accepted_students_enroll";
@@ -1322,5 +1351,193 @@ namespace IT13FINALPROJ
                 }
             }
         }
+
+        private void guna2Button26_Click(object sender, EventArgs e)
+        {
+            // Ensure a row is selected in the DataTable
+            if (recordlistingstable.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select an account to disable.", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Get the selected row
+            DataGridViewRow selectedRow = recordlistingstable.SelectedRows[0];
+            string accountId = selectedRow.Cells["id"].Value.ToString();
+
+            if (string.IsNullOrEmpty(currentAccountType))
+            {
+                MessageBox.Show("No account type selected. Please select either Student or Teacher Account first.", "Invalid Action", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
+            string disableQuery = "";
+
+            if (currentAccountType == "Student Account")
+            {
+                disableQuery = "UPDATE student_accounts SET is_disabled = 1 WHERE id = @accountId";
+            }
+            else if (currentAccountType == "Teacher Account")
+            {
+                disableQuery = "UPDATE teacher_account SET is_disabled = 1 WHERE id = @accountId";
+            }
+
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(disableQuery, con))
+                    {
+                        cmd.Parameters.AddWithValue("@accountId", accountId);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Account disabled successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //LoadAccounts(); // Refresh data here
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to disable the account. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void guna2Button27_Click(object sender, EventArgs e)
+        {
+            // Ensure a row is selected in the DataGridView
+            if (recordlistingstable.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select an account to undisable.", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Get the selected row
+            DataGridViewRow selectedRow = recordlistingstable.SelectedRows[0];
+            string accountId = selectedRow.Cells["id"].Value.ToString();
+
+            if (string.IsNullOrEmpty(currentAccountType))
+            {
+                MessageBox.Show("No account type selected. Please select either Student or Teacher Account first.", "Invalid Action", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
+            string undisableQuery = "";
+
+            if (currentAccountType == "Student Account")
+            {
+                undisableQuery = "UPDATE student_accounts SET is_disabled = 0 WHERE id = @accountId";
+            }
+            else if (currentAccountType == "Teacher Account")
+            {
+                undisableQuery = "UPDATE teacher_account SET is_disabled = 0 WHERE id = @accountId";
+            }
+
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(undisableQuery, con))
+                    {
+                        cmd.Parameters.AddWithValue("@accountId", accountId);
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Account undisabled successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            // Refresh the DataGridView to show updated data
+                            //LoadAccounts(); // Refresh data here
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to undisable the account. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void guna2Button28_Click(object sender, EventArgs e)
+        {
+            if (recordlistingstable.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a record to update.", "Selection Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            DataGridViewRow selectedRow = recordlistingstable.SelectedRows[0];
+            string accountId = selectedRow.Cells["id"].Value.ToString();
+            string firstname = selectedRow.Cells["firstname"].Value.ToString();
+            string middlename = selectedRow.Cells["middlename"].Value.ToString();
+            string lastname = selectedRow.Cells["lastname"].Value.ToString();
+            string sex = selectedRow.Cells["sex"].Value.ToString();
+
+            string connectionString = "server=localhost;database=it13proj;user=root;password=;";
+            string updateQuery = "";
+
+            if (currentAccountType == "Student Account")
+            {
+                updateQuery = "UPDATE student_accounts SET firstname = @firstname, middlename = @middlename, lastname = @lastname, sex = @sex WHERE id = @accountId";
+            }
+            else if (currentAccountType == "Teacher Account")
+            {
+                updateQuery = "UPDATE teacher_account SET firstname = @firstname, middlename = @middlename, lastname = @lastname, sex = @sex WHERE id = @accountId";
+            }
+            else if (currentAccountType == "Accepted Students")
+            {
+                updateQuery = "UPDATE accepted_students_enroll SET firstname = @firstname, middlename = @middlename, lastname = @lastname, sex = @sex WHERE id = @accountId";
+            }
+            else
+            {
+                MessageBox.Show("No valid account type selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            using (MySqlConnection con = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    con.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(updateQuery, con))
+                    {
+                        cmd.Parameters.AddWithValue("@accountId", accountId);
+                        cmd.Parameters.AddWithValue("@firstname", firstname);
+                        cmd.Parameters.AddWithValue("@middlename", middlename);
+                        cmd.Parameters.AddWithValue("@lastname", lastname);
+                        cmd.Parameters.AddWithValue("@sex", sex);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed to update the record. Please try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
     }
 }
